@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_043",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "From the following VCF record, what is the total site-level read depth (from the INFO field) and the sample-level read depth for IRIS_155 (from the FORMAT field)? Are these the same thing?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_155\tIRIS_156\nchr03\t28401928\t.\tT\tG\t6420\tPASS\tAF=0.33;AN=6020;DP=89240\tGT:DP:GQ\t0/1:31:88\t0/0:27:95",
+  "correct_answer": "Site-level DP (INFO) = 89240, which is the total read depth summed across all samples in the cohort. Sample-level DP (FORMAT) for IRIS_155 = 31, which is the read depth for that individual sample only. They are not the same -- INFO/DP is the cohort total, FORMAT/DP is per-sample.",
+  "rubric": "Must distinguish INFO/DP=89240 from FORMAT/DP=31 and explain the difference (cohort vs per-sample).",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*89240)(?=.*31)(?=.*(?:not.*same|different|cohort|total))",
+  "notes": "Tests the critical distinction between site-level (INFO) and sample-level (FORMAT) DP fields."
+}

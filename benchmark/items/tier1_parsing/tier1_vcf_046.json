@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_046",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "The following VCF record has FILTER=PASS for one sample's site. Does FILTER apply to individual samples or to the entire site? Explain.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_125\tIRIS_126\nchr02\t38291048\t.\tA\tG\t4280\tPASS\tAF=0.22;AN=6020\tGT:DP:GQ\t0/1:28:82\t0/0:4:8",
+  "correct_answer": "FILTER applies to the entire site, not individual samples. FILTER=PASS means the variant site as a whole passed quality filters. Individual sample quality is assessed via FORMAT fields like GQ and DP -- note IRIS_126 has very low quality (DP=4, GQ=8) even though the site passed.",
+  "rubric": "Must state FILTER is site-level, not sample-level. Must note that per-sample quality uses GQ/DP from FORMAT.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:site|entire|whole).*(?:not.*(?:sample|individual)|sample.*(?:GQ|DP|FORMAT))",
+  "notes": "Tests understanding of the scope of VCF FILTER vs FORMAT quality fields."
+}

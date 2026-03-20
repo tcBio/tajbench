@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_055",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF record has a MNP (multi-nucleotide polymorphism) where both REF and ALT are the same length but differ at multiple positions. Identify the changed bases and their positions relative to the POS field.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_F01\nchr08\t14829201\t.\tTCGA\tTAGC\t1480\tPASS\tAF=0.03;AN=6020\tGT:DP:GQ\t0/1:24:52",
+  "correct_answer": "This is a MNP where REF=TCGA and ALT=TAGC. Comparing base-by-base: position 14829201 T->T (same), position 14829202 C->A (changed), position 14829203 G->G (same), position 14829204 A->C (changed). Two bases changed: C->A at pos+1 and A->C at pos+3.",
+  "rubric": "Must identify the two changed positions (14829202 C->A and 14829204 A->C). Must note the unchanged positions. Must recognize this as a MNP (not a simple SNP or indel).",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*C.*A.*14829202|.*14829202.*C.*A)(?=.*A.*C.*14829204|.*14829204.*A.*C)",
+  "notes": "Tests MNP parsing -- a variant type often confused with indels because REF and ALT have multiple bases."
+}

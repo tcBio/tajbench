@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_044",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following imputed VCF record has a DR2 value in the INFO field. What is the DR2, and would you include this variant in a GWAS analysis that requires DR2 > 0.80?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_640\nchr08\t5829103\t.\tA\tC\t.\t.\tDR2=0.52;AF=0.04;AN=960\tGT:DS:GP\t0/0:0.09:0.92,0.07,0.01",
+  "correct_answer": "DR2=0.52. This variant would NOT be included in a GWAS requiring DR2 > 0.80. DR2=0.52 indicates moderate imputation quality -- the imputed dosages explain only 52% of the variance of the true genotypes. This is typical for rare variants (AF=0.04) which are harder to impute.",
+  "rubric": "Must state DR2=0.52, exclude from GWAS, and connect low DR2 to the rare allele frequency.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)0\\.52.*(?:not|no|exclude|fail|below)",
+  "notes": "Tests DR2 threshold application. Links imputation quality to allele frequency."
+}

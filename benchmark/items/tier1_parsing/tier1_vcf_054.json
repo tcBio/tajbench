@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_054",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following two VCF records are at adjacent positions on the same chromosome. Both have imputation quality (DR2) values. Which site was imputed with higher confidence, and what is the AF difference between them?",
+  "context": "Record 1:\nchr05\t10000142\t.\tA\tG\t.\t.\tDR2=0.94;AF=0.42\tGT:DS:GP\tIRIS_E01: 0/1:1.02:0.05,0.88,0.07\n\nRecord 2:\nchr05\t10000298\t.\tT\tC\t.\t.\tDR2=0.61;AF=0.08\tGT:DS:GP\tIRIS_E01: 0/0:0.14:0.87,0.12,0.01",
+  "correct_answer": "Record 1 has higher imputation confidence (DR2=0.94 vs DR2=0.61). AF difference = 0.42 - 0.08 = 0.34. The higher DR2 for record 1 is expected because common variants (AF=0.42) are generally imputed with higher accuracy than rare variants (AF=0.08).",
+  "rubric": "Must identify record 1 as higher DR2, calculate AF difference as 0.34, and connect DR2 difference to allele frequency difference.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*(?:record 1|first|10000142).*higher)(?=.*0\\.34)",
+  "notes": "Tests comparison across VCF records and the relationship between allele frequency and imputation accuracy."
+}

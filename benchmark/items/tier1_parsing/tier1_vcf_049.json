@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_049",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF header lines define two INFO fields. What is the Number specification for each, and what does it mean in terms of how many values to expect?",
+  "context": "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency for each ALT allele\">\n##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Total Depth across all samples\">\n\nExample record:\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr01\t5000000\t.\tG\tA,T\t4800\tPASS\tAF=0.24,0.08;DP=91240",
+  "correct_answer": "AF has Number=A, meaning one value per ALT allele. Since this site has 2 ALT alleles (A and T), AF has 2 values: 0.24 and 0.08. DP has Number=1, meaning exactly one value regardless of the number of alleles: 91240.",
+  "rubric": "Must explain Number=A means one value per ALT allele (2 values for 2 ALTs). Must explain Number=1 means exactly one value. Must give correct counts.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*Number.*A.*(?:per.*ALT|one.*per|each.*alt))(?=.*Number.*1.*(?:one|exactly|single))",
+  "notes": "Tests VCF header Number specification parsing. Number=A, Number=R, Number=G, Number=., Number=0, Number=1 are all valid."
+}

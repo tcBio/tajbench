@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_051",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "The following VCF record has a '*' allele in the ALT field. What does the * allele represent in VCF format?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_760\tIRIS_761\nchr03\t21948302\t.\tT\tA,*\t2810\tPASS\tAF=0.18,0.04;AN=6020\tGT:DP:GQ\t0/1:26:78\t0/2:18:42",
+  "correct_answer": "The * (asterisk) allele represents an upstream deletion -- it indicates that this position is covered by a deletion that was called at an upstream position. Sample IRIS_761 (genotype 0/2) carries one reference allele and one * allele, meaning one of its haplotypes has a deletion spanning this site.",
+  "rubric": "Must identify * as representing an upstream deletion (spanning deletion). Must explain that the deletion was called at a different position.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:upstream|spanning).*deletion",
+  "notes": "Tests knowledge of the * allele in VCF 4.2+ spec -- a commonly misunderstood notation."
+}

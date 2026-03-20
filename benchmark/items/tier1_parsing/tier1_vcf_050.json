@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_050",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF record has PL values for a tri-allelic site for sample IRIS_445. For a site with 2 ALT alleles, PL has 6 values ordered as: P(0/0), P(0/1), P(1/1), P(0/2), P(1/2), P(2/2). Which genotype is most likely based on the PL values?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_445\nchr06\t14829301\t.\tA\tG,T\t3840\tPASS\tAF=0.18,0.07;AN=6020\tGT:GQ:DP:AD:PL\t0/2:55:32:18,2,12:320,410,890,0,280,180",
+  "correct_answer": "The most likely genotype is 0/2 (REF/ALT2 = A/T). PL values are: P(0/0)=320, P(0/1)=410, P(1/1)=890, P(0/2)=0, P(1/2)=280, P(2/2)=180. The genotype with PL=0 is the 4th value, which corresponds to 0/2.",
+  "rubric": "Must identify 0/2 as most likely (PL=0 at position 4). Must correctly map the PL ordering for a tri-allelic site.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "0/2",
+  "notes": "Tests PL ordering at multi-allelic sites. The ordering follows the VCF spec genotype ordering: 0/0, 0/1, 1/1, 0/2, 1/2, 2/2."
+}
