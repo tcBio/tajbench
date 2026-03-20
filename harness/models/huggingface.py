@@ -9,9 +9,8 @@ import requests
 
 from .base import ModelAdapter, ModelResponse
 
-# Map friendly names to HuggingFace model IDs
+# Map friendly names to HuggingFace model IDs (generative models only)
 HF_MODEL_IDS: dict[str, str] = {
-    "biomed-llm": "microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext",
     "biomistral-7b": "BioMistral/BioMistral-7B",
 }
 

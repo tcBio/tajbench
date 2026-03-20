@@ -17,7 +17,7 @@ from typing import Literal
 
 Tier = Literal[1, 2, 3, 4]
 TaskType = Literal["parsing", "interpretation", "comparison", "decision"]
-DataLayer = Literal["wgs", "rad_gbs", "imputed", "derived"]
+DataLayer = Literal["wgs", "rad_gbs", "imputed", "derived", "methodology"]
 Difficulty = Literal[1, 2, 3]
 ScoringMethod = Literal["exact_match", "regex_match", "llm_judge"]
 
@@ -41,7 +41,7 @@ class BenchmarkItem:
 
     # Metadata
     source_method: str               # e.g. "PCAngsd", "Beagle5.4", "GLnexus"
-    population_groups: list[str]     # e.g. ["drug-type", "hemp"]
+    population_groups: list[str]     # e.g. ["indica", "tropical-japonica"]
     scoring_method: ScoringMethod    # how this item is scored
     answer_pattern: str = ""         # regex for regex_match items; empty otherwise
 

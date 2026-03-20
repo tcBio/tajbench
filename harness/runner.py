@@ -20,6 +20,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 # Load .env from repo root if present (no hard dependency on python-dotenv)
@@ -35,7 +36,6 @@ def _load_dotenv() -> None:
         os.environ.setdefault(key.strip(), val.strip())
 
 _load_dotenv()
-import time
 from datetime import datetime, timezone
 
 # Allow running as `python -m harness.runner` from repo root
@@ -46,37 +46,56 @@ from harness.models import get_adapter
 from harness.scorer import score_response, ScoreResult
 
 
+_MAX_RETRIES = 3
+_RETRY_BACKOFF = [2, 8, 30]  # seconds
+_RETRYABLE_STRINGS = ["rate", "429", "500", "502", "503", "overloaded", "timeout"]
+
+
+def _is_retryable(exc: Exception) -> bool:
+    msg = str(exc).lower()
+    return any(s in msg for s in _RETRYABLE_STRINGS)
+
+
 def _eval_single_item(
     adapter, item: BenchmarkItem, idx: int, total: int,
 ) -> tuple[dict | None, dict | None]:
-    """Evaluate one item. Returns (result_dict, error_dict)."""
+    """Evaluate one item with retry on transient errors. Returns (result_dict, error_dict)."""
     label = f"[{idx:>3}/{total}] {item.id} (tier={item.tier}, diff={item.difficulty})"
-    try:
-        system, user = adapter.build_prompt(item.prompt, item.context)
-        response = adapter.complete(system, user, item.id)
-        score = score_response(item, response)
-        pct = score.score / score.max_score
-        print(f"{label} score={score.score}/3 ({pct:.0%})", flush=True)
-        return ({
-            "item_id": item.id,
-            "tier": item.tier,
-            "task_type": item.task_type,
-            "data_layer": item.data_layer,
-            "difficulty": item.difficulty,
-            "scoring_method": item.scoring_method,
-            "score": score.score,
-            "max_score": score.max_score,
-            "pct": pct,
-            "rationale": score.rationale,
-            "judge_model": score.judge_model,
-            "response_text": response.response_text,
-            "latency_ms": round(response.latency_ms, 1),
-            "input_tokens": response.input_tokens,
-            "output_tokens": response.output_tokens,
-        }, None)
-    except Exception as exc:
-        print(f"{label} ERROR: {exc}", flush=True)
-        return (None, {"item_id": item.id, "error": str(exc)})
+    last_exc: Exception | None = None
+    for attempt in range(_MAX_RETRIES + 1):
+        try:
+            system, user = adapter.build_prompt(item.prompt, item.context)
+            response = adapter.complete(system, user, item.id)
+            score = score_response(item, response)
+            pct = score.score / score.max_score
+            print(f"{label} score={score.score}/3 ({pct:.0%})", flush=True)
+            return ({
+                "item_id": item.id,
+                "tier": item.tier,
+                "task_type": item.task_type,
+                "data_layer": item.data_layer,
+                "difficulty": item.difficulty,
+                "scoring_method": item.scoring_method,
+                "score": score.score,
+                "max_score": score.max_score,
+                "pct": pct,
+                "rationale": score.rationale,
+                "judge_model": score.judge_model,
+                "response_text": response.response_text,
+                "latency_ms": round(response.latency_ms, 1),
+                "input_tokens": response.input_tokens,
+                "output_tokens": response.output_tokens,
+            }, None)
+        except Exception as exc:
+            last_exc = exc
+            if attempt < _MAX_RETRIES and _is_retryable(exc):
+                wait = _RETRY_BACKOFF[attempt]
+                print(f"{label} RETRY {attempt+1}/{_MAX_RETRIES} in {wait}s: {exc}", flush=True)
+                time.sleep(wait)
+            else:
+                break
+    print(f"{label} ERROR: {last_exc}", flush=True)
+    return (None, {"item_id": item.id, "error": str(last_exc)})
 
 
 def run_benchmark(

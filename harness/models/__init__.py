@@ -16,7 +16,6 @@ _REGISTRY: dict[str, tuple[str, str]] = {
     "gemini-2.5-flash":   ("harness.models.gemini",      "GeminiAdapter"),
     "gemini-1.5-pro":     ("harness.models.gemini",      "GeminiAdapter"),
     # Open-source (HuggingFace Inference API)
-    "biomed-llm":         ("harness.models.huggingface", "HuggingFaceAdapter"),
     "biomistral-7b":      ("harness.models.huggingface", "HuggingFaceAdapter"),
 }
 

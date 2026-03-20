@@ -19,7 +19,7 @@ class ClaudeAdapter(ModelAdapter):
         t0 = time.monotonic()
         msg = self._client.messages.create(
             model=self.model_name,
-            max_tokens=1024,
+            max_tokens=2048,
             system=system,
             messages=[{"role": "user", "content": user}],
         )

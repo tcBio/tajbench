@@ -101,7 +101,7 @@ class TestSerialisation:
 class TestCorpusLoading:
     def test_load_seed_corpus(self):
         items = load_corpus(ITEMS_DIR)
-        assert len(items) >= 12, "Expect at least 12 seed items"
+        assert len(items) >= 200, "Expect at least 200 items for v1.0"
 
     def test_all_tiers_present(self):
         items = load_corpus(ITEMS_DIR)
@@ -123,3 +123,18 @@ class TestCorpusLoading:
         items = load_corpus(ITEMS_DIR)
         ids = [i.id for i in items]
         assert len(ids) == len(set(ids)), f"Duplicate item IDs: {[x for x in ids if ids.count(x) > 1]}"
+
+
+# ── Runner dry-run ──────────────────────────────────────────────────────────
+
+class TestRunnerDryRun:
+    def test_dry_run_completes(self):
+        """Smoke test: dry-run should complete without API calls."""
+        from harness.runner import run_benchmark
+        items = load_corpus(ITEMS_DIR)
+        # Use only 3 items to keep the test fast
+        result = run_benchmark("test-model", items[:3], dry_run=True)
+        assert result["model"] == "test-model"
+        assert result["n_items"] == 3
+        assert result["n_scored"] == 0  # dry-run produces no scores
+        assert result["n_errors"] == 0

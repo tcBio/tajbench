@@ -15,11 +15,19 @@ import json
 import os
 import re
 from dataclasses import dataclass
+from pathlib import Path
 
 import anthropic
 
 from benchmark.schema import BenchmarkItem
 from harness.models.base import ModelResponse
+
+_JUDGE_PROMPT_DIR = Path(__file__).parent / "judge_prompts"
+_TIER_PROMPT_MAP = {
+    2: _JUDGE_PROMPT_DIR / "tier2_statistics.txt",
+    3: _JUDGE_PROMPT_DIR / "tier3_structure.txt",
+    4: _JUDGE_PROMPT_DIR / "tier4_methods.txt",
+}
 
 JUDGE_MODEL = "claude-sonnet-4-6"
 
@@ -84,8 +92,17 @@ def score_response(item: BenchmarkItem, response: ModelResponse) -> ScoreResult:
     raise ValueError(f"Unknown scoring_method: {method!r}")
 
 
+def _get_judge_system(tier: int) -> str:
+    """Return tier-specific judge prompt if available, else generic."""
+    prompt_path = _TIER_PROMPT_MAP.get(tier)
+    if prompt_path and prompt_path.exists():
+        return prompt_path.read_text(encoding="utf-8")
+    return JUDGE_SYSTEM
+
+
 def _llm_judge(item: BenchmarkItem, response: ModelResponse) -> ScoreResult:
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    system = _get_judge_system(item.tier)
 
     user_prompt = f"""\
 QUESTION:
@@ -107,7 +124,7 @@ MODEL ANSWER TO EVALUATE:
     msg = client.messages.create(
         model=JUDGE_MODEL,
         max_tokens=256,
-        system=JUDGE_SYSTEM,
+        system=system,
         messages=[{"role": "user", "content": user_prompt}],
     )
 
