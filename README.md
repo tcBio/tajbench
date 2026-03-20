@@ -10,7 +10,7 @@ An open benchmark for evaluating frontier LLMs on plant population genomics reas
 
 ## Leaderboard
 
-*v0.3 -- 59 items, evaluated March 2026*
+*v0.3 -- 59 items, evaluated March 2026. Baselines pending re-run on v1.0 (202 items).*
 
 | Model | Tier 1 (Parsing) | Tier 2 (Statistics) | Tier 3 (Structure) | Tier 4 (Methods) | **Overall** |
 |-------|:---:|:---:|:---:|:---:|:---:|
@@ -21,7 +21,7 @@ An open benchmark for evaluating frontier LLMs on plant population genomics reas
 | Gemini 2.5 Pro | -- | -- | -- | -- | -- |
 | Gemini 2.5 Flash | -- | -- | -- | -- | -- |
 
-*Scores are mean fraction of maximum score (0-3 per item). Full results in [`baselines/results/`](baselines/results/).*
+*Scores are mean fraction of maximum score (0-3 per item). Full results in [`baselines/results/`](baselines/results/). v1.0 corpus: 202 items (55 T1, 57 T2, 55 T3, 35 T4).*
 
 ---
 
