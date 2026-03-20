@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_014",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "From the following multi-allelic VCF record, determine the genotype of sample IRIS_088. Express the genotype using the actual allele bases (not numeric indices). What alleles does this sample carry?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_088\tIRIS_089\nchr02\t31847562\t.\tATG\tA,ATGTG,AT\t4210\tPASS\tAF=0.08,0.03,0.01;AN=400\tGT:GQ:DP\t1/2:35:28\t0/3:42:31",
+  "correct_answer": "IRIS_088 has genotype 1/2, which corresponds to alleles A (ALT1, a 2-bp deletion) and ATGTG (ALT2, a 2-bp insertion). The sample carries no reference allele.",
+  "rubric": "Must correctly map 1->A and 2->ATGTG. Must note the sample carries no reference allele. Partial credit for identifying it as multi-allelic but getting alleles wrong.",
+  "source_method": "GATK",
+  "population_groups": ["aus"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?=.*\\bA\\b.*ATGTG|.*ATGTG.*\\bA\\b)",
+  "notes": "Tests multi-allelic indel parsing. The alleles are: REF=ATG, ALT1=A (del TG), ALT2=ATGTG (ins TG), ALT3=AT (del G)."
+}

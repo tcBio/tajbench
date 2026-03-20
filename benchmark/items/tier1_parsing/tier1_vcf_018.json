@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_018",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "From the PL (Phred-scaled genotype likelihoods) field for sample IRIS_066, determine which genotype is the most likely. The FORMAT is GT:GQ:DP:AD:PL. For a biallelic site, PL values are ordered: P(0/0), P(0/1), P(1/1). The most likely genotype has PL=0. Answer with the genotype.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_066\tIRIS_067\nchr08\t5291043\t.\tT\tA\t1890\tPASS\tAF=0.35;AN=400\tGT:GQ:DP:AD:PL\t0/1:62:35:18,17:420,0,440\t1/1:88:29:1,28:840,78,0",
+  "correct_answer": "0/1 (heterozygous). PL values are 420,0,440 -- the middle value (0/1) has PL=0, making it the most likely genotype.",
+  "rubric": "Must identify 0/1 as most likely and explain that PL=0 indicates the most likely genotype.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "0/1",
+  "notes": "Tests PL field interpretation. PL=0 marks the most likely genotype; higher values are less likely."
+}

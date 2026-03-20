@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_025",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "From the AD (allelic depth) field for sample IRIS_175, calculate the allele balance ratio (reads supporting ALT / total reads). What does this ratio suggest about the genotype call quality?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_175\nchr03\t21847392\t.\tA\tG\t2910\tPASS\tAF=0.28;AN=6020\tGT:GQ:DP:AD:PL\t0/1:55:38:32,6:120,0,890",
+  "correct_answer": "Allele balance = 6/38 = 0.158 (or 6/(32+6) = 0.158). For a true heterozygote, we expect ~0.50. The ratio of 0.158 is very skewed toward the reference allele, suggesting this heterozygous call may be a false positive -- possibly a sequencing error or mapping artifact at a low-quality site.",
+  "rubric": "Must calculate ratio as approximately 0.16 (6/38 or 6/32+6). Must note expected ~0.50 for het and interpret the skew as suggesting a questionable call.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:0\\.15[0-9]|0\\.16|6/38).*(?:skew|low|question|suspect|error|artifact|poor)",
+  "notes": "Tests AD field interpretation and allele balance as a QC metric for heterozygous calls."
+}

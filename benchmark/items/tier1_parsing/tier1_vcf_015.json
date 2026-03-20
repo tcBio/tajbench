@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_015",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "What FILTER value is assigned to the following VCF record, and what does it indicate about whether the variant passed quality control?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_055\nchr09\t4182903\t.\tG\tA\t48.2\tLowQual;StrandBias\tAF=0.02;AN=400;AC=8;SB=-3.2\tGT:DP:GQ\t0/1:8:12",
+  "correct_answer": "FILTER=LowQual;StrandBias. The variant did NOT pass QC -- it has two filter flags indicating low quality score and strand bias. A passing variant would have FILTER=PASS.",
+  "rubric": "Must identify both filter flags (LowQual and StrandBias) and state the variant failed QC. Must note PASS would indicate passing.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*LowQual)(?=.*StrandBias)(?=.*(?:fail|did not pass|not pass))",
+  "notes": "Tests FILTER field interpretation. Many models confuse FILTER values with INFO fields."
+}

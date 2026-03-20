@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_011",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "A rice WGS VCF record has the following genotype for sample IRIS_107: 0|1:99:42:22,20:0,500,520. The FORMAT field is GT:GQ:DP:AD:PL. Is this genotype phased or unphased? What is the genotype quality? What are the allelic depths for the reference and first alternate allele?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_107\nchr03\t8842156\t.\tC\tT\t2840\tPASS\tAF=0.14;AN=200;AC=28\tGT:GQ:DP:AD:PL\t0|1:99:42:22,20:0,500,520",
+  "correct_answer": "Phased (indicated by | separator); GQ=99; AD ref=22, alt=20",
+  "rubric": "Must identify phased (pipe separator), GQ=99, and AD values 22 (ref) and 20 (alt). All three required for full marks.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)phased.*GQ.*99.*(?:AD|allelic|depth).*22.*20",
+  "notes": "Tests recognition of phased genotype notation (pipe vs slash) plus FORMAT field extraction."
+}

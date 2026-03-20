@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_016",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "From the INFO field of the following VCF record, calculate the minor allele frequency (MAF). The INFO field contains AF (allele frequency of the ALT allele). Express MAF as a decimal.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_401\tIRIS_402\nchr11\t8924510\t.\tC\tG\t5420\tPASS\tAF=0.73;AN=600;AC=438;DP=12840\tGT:DP:GQ\t1/1:22:99\t0/1:19:85",
+  "correct_answer": "MAF=0.27. The AF=0.73 means the ALT allele frequency is 0.73, so the REF allele frequency is 1-0.73=0.27. Since 0.27 < 0.50, the REF allele is the minor allele and MAF=0.27.",
+  "rubric": "Must state MAF=0.27 (or 0.270). Must show understanding that MAF is the frequency of the less common allele, which in this case is the REF allele.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)MAF.*0\\.27",
+  "notes": "Tests understanding that AF in VCF is the ALT allele frequency, and MAF is the frequency of the rarer allele -- which can be REF when AF>0.5."
+}

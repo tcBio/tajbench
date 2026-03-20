@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_028",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF record has genotypes for two samples at a multi-allelic site. For sample IRIS_612, determine the zygosity (homozygous reference, heterozygous, or homozygous alternate) and identify which specific alleles the sample carries.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_612\tIRIS_613\nchr04\t9128473\t.\tCGA\tC,CA,CGAGA\t3820\tPASS\tAF=0.14,0.06,0.02;AN=6020\tGT:DP:GQ\t2/2:21:78\t0/3:29:55",
+  "correct_answer": "IRIS_612 is homozygous alternate (genotype 2/2). Both alleles are ALT2=CA, which is a 1-bp deletion (GA deleted from CGA, leaving CA). The sample carries two copies of the CA allele and no reference or other alternate alleles.",
+  "rubric": "Must identify 2/2 as homozygous alternate. Must correctly map allele 2 to CA. Must note it is a deletion.",
+  "source_method": "GATK",
+  "population_groups": ["aus"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:homozygous.*alt|hom.*alt).*(?:CA|2/2)",
+  "notes": "Tests zygosity classification at a multi-allelic indel site with homozygous non-reference genotype."
+}

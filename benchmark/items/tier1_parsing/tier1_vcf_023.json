@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_023",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following record has imputed genotypes for two samples. Which sample has the higher-confidence imputation, based on the GP field? Justify your answer with the maximum genotype probability for each sample.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_440\tIRIS_441\nchr02\t18293047\t.\tA\tG\t.\t.\tDR2=0.67;AF=0.22\tGT:DS:GP\t0/0:0.31:0.72,0.25,0.03\t0/1:1.12:0.04,0.80,0.16",
+  "correct_answer": "IRIS_441 has higher confidence. Max GP for IRIS_440 is 0.72 (for 0/0), while max GP for IRIS_441 is 0.80 (for 0/1). IRIS_441's imputed genotype is more certain.",
+  "rubric": "Must identify IRIS_441 as higher confidence with max GP=0.80 vs IRIS_440 max GP=0.72. Must reference the GP values.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)IRIS_441.*(?:higher|more|better|confident)",
+  "notes": "Tests comparison of imputation confidence using GP fields across samples."
+}

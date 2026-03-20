@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_021",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "What chromosome and position does the following VCF record describe? What is the QUAL score?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_150\nchr12\t27483921\t.\tA\tC\t6842.3\tPASS\tAF=0.44;AN=6020;AC=2649\tGT:DP:GQ\t0/1:33:99",
+  "correct_answer": "Chromosome chr12, position 27483921, QUAL=6842.3",
+  "rubric": "Must state chr12, position 27483921, and QUAL=6842.3. All three required.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?=.*chr12)(?=.*27483921).*6842",
+  "notes": "Basic VCF field extraction -- CHROM, POS, QUAL."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_019",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following VCF record contains imputed genotypes. Compare the hard-call genotype (GT) with the genotype probabilities (GP) for sample IRIS_220. Is the hard call consistent with the GP values? What is the imputation quality (DR2) for this site?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_220\tIRIS_221\nchr01\t34812509\t.\tG\tA\t.\t.\tDR2=0.41;AF=0.09\tGT:DS:GP\t0/0:0.48:0.55,0.42,0.03\t0/1:0.97:0.08,0.87,0.05",
+  "correct_answer": "For IRIS_220: GT=0/0 but GP shows P(0/0)=0.55, P(0/1)=0.42, P(1/1)=0.03. The hard call is technically consistent (0/0 has the highest probability) but the confidence is very low -- only 55% vs 42% for het. The dosage DS=0.48 reflects this uncertainty (would be 0.0 for a confident 0/0). DR2=0.41, indicating poor imputation quality at this site.",
+  "rubric": "Must note GT=0/0 is technically the highest-probability call but with very low confidence (0.55 vs 0.42). Must extract DR2=0.41 and note it indicates poor imputation quality. Must connect DS=0.48 to the uncertainty.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?=.*DR2.*0\\.41)(?=.*(?:low|poor|uncertain|weak))",
+  "notes": "Tests understanding of discordance between hard calls and probabilistic genotype fields in imputed data."
+}
