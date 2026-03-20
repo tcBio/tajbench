@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fst_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following pairwise Weir-Cockerham FST estimates were computed between five rice subpopulations using the 3K Rice Genomes WGS dataset (n>100 per group except aromatic). Interpret the population differentiation pattern. Which two subpopulations are most genetically similar, and what does the FST between indica and japonica suggest about their evolutionary history?",
+  "context": "Pairwise FST matrix (Weir-Cockerham estimator, 205,418 LD-pruned SNPs):\n\n                    indica   trop-jap  temp-jap  aus      aromatic\nindica              0.000\ntrop-japonica       0.238    0.000\ntemp-japonica       0.352    0.094     0.000\naus                 0.136    0.271     0.379    0.000\naromatic            0.198    0.152     0.181    0.231    0.000\n\nAll FST estimates p < 0.001 (permutation test, 1000 permutations).\nSample sizes: indica n=1,306, trop-japonica n=484, temp-japonica n=396, aus n=241, aromatic n=76.",
+  "correct_answer": "Tropical japonica and temperate japonica are the most genetically similar pair (FST=0.094), consistent with their shared japonica origin followed by geographic and ecological divergence (upland tropical vs. irrigated temperate). The indica vs. temperate japonica FST=0.352 indicates high differentiation, consistent with independent domestication events from distinct wild Oryza rufipogon pools -- indica in South/Southeast Asia and japonica in the Yangtze River basin. The aus subpopulation shows moderate differentiation from indica (FST=0.136), suggesting a closer evolutionary relationship to indica than to japonica, consistent with aus being an early-diverging indica-related lineage adapted to drought-prone environments in South Asia. Aromatic rice shows intermediate FST to all groups (0.152-0.231), consistent with its admixed ancestry between indica and japonica lineages.",
+  "rubric": "Must correctly identify tropical japonica / temperate japonica as the most similar pair (lowest FST=0.094). Must interpret indica vs japonica FST as high differentiation consistent with independent domestication. Should note aus is closer to indica than japonica. Major errors: reading FST table incorrectly, or stating indica and japonica are closely related.",
+  "source_method": "Weir-Cockerham FST via PLINK2",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "FST values are representative of published 3K RGP analyses. The indica-japonica split is one of the most well-characterized differentiation patterns in crop genomics."
+}

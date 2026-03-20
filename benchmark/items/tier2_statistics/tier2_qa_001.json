@@ -1,0 +1,16 @@
+{
+  "id": "tier2_qa_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Using the quality tier criteria below, assign each of the 4 rice accessions to the appropriate tier (A, B, or C). Justify each assignment by showing which criteria were met or failed.",
+  "context": "Quality tier criteria for imputed rice genotype samples:\n\n  Tier A: GP >= 93.4% AND |Het_zscore| < 2.0 AND |F_zscore| < 2.0\n  Tier B: GP >= 91.0% AND no outlier flags (but does not meet all Tier A thresholds)\n  Tier C: GP < 91.0% OR any outlier flag present\n\nSample metrics:\n\nSample            GP(%)    Het_zscore   F_zscore   Outlier_flags\nIRIS_313-8695     93.71    -1.44        1.44       None\nIRIS_313-9102     91.72    0.66         -0.66      None\nIRIS_313-9318     89.80    1.16         -1.16      None\nIRIS_313-9877     90.31    1.46         -1.46      None\n\nPopulation: 500 indica rice accessions, GBS imputed against 3,010-sample WGS panel.",
+  "correct_answer": "IRIS_313-8695 -> Tier A: GP=93.71% >= 93.4%, |Het_z|=1.44 < 2.0, |F_z|=1.44 < 2.0 -- all three Tier A criteria met. IRIS_313-9102 -> Tier B: GP=91.72% >= 91.0% but < 93.4%, so fails the Tier A GP threshold; no outlier flags, so qualifies for Tier B. IRIS_313-9318 -> Tier C: GP=89.80% < 91.0%, which triggers Tier C regardless of z-scores. IRIS_313-9877 -> Tier C: GP=90.31% < 91.0%, which triggers Tier C. The tier system prioritizes genotype posterior confidence (GP%) as the primary quality metric, with z-scores serving as secondary guards against statistical outliers. Notably, IRIS_313-9877 narrowly misses Tier B (GP 90.31% vs 91.0% threshold), which could be revisited if the accession has high biological value.",
+  "rubric": "Full marks (3): Correctly assigns all 4 tiers with explicit threshold comparisons for each sample. Mostly correct (2): Gets 3 out of 4 assignments correct with reasonable justification. Partial (1): Gets the logic right for at least 2 samples but makes errors on boundary cases. Incorrect (0): Misapplies the criteria systematically (e.g., using z-scores as primary rather than GP). Major error flag: Confusing which metric drives each tier boundary, or reversing the tier direction (assigning high-GP samples to Tier C).",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": ""
+}

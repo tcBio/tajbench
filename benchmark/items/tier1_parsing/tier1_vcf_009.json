@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_009",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "For sample S001 at the site below, report (a) the GT value, (b) the DS value, (c) the full GP triplet, and (d) which GP value is highest and which genotype it corresponds to.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS001\tS002\tS003\nchr06\t3201847\t.\tA\tT\t.\t.\tAF=0.35;AN=170;AC=60;DR2=0.61;IMP\tGT:DS:GP\t0/1:0.82:0.28,0.62,0.10\t0/0:0.05:0.95,0.05,0.00\t1/1:1.94:0.01,0.05,0.94\n\nNote: DS = expected alternate allele dosage (0-2). GP = posterior probabilities for genotypes 0/0, 0/1, 1/1 (sum to 1.0).",
+  "correct_answer": "(a) GT=0/1; (b) DS=0.82; (c) GP=0.28,0.62,0.10; (d) highest GP is 0.62, corresponding to genotype 0/1.",
+  "rubric": "Must report GT=0/1, DS=0.82, GP=0.28,0.62,0.10, and identify 0.62 as the highest GP corresponding to 0/1.",
+  "source_method": "GLIMPSE2",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?=.*GT.*0/1)(?=.*DS.*0\\.82)(?=.*0\\.28\\s*,\\s*0\\.62\\s*,\\s*0\\.10)(?=.*0\\.62.*0/1)",
+  "notes": "Tests understanding of imputed VCF fields (GT, DS, GP) and their interrelationship. DS=0.82 is the expected dosage computed as 0*0.28 + 1*0.62 + 2*0.10 = 0.82, confirming internal consistency. DR2=0.61 indicates moderate imputation quality."
+}

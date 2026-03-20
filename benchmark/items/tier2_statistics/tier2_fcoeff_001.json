@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fcoeff_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following table shows heterozygosity rates and inbreeding coefficients (F) for 8 rice accessions from the 3K Rice Genomes WGS dataset, spanning two subpopulations. What does the F-coefficient distribution tell you about the mating system and population structure of these rice subpopulations?",
+  "context": "Per-sample QA metrics (selected accessions from 3K RGP, 18M SNPs):\n\nSample             Subpop              Het_Rate(%)   F_Coefficient\nIRIS_313-10177     temperate japonica   1.82          0.916\nIRIS_313-10421     temperate japonica   2.04          0.906\nIRIS_313-10893     temperate japonica   1.91          0.912\nIRIS_313-11025     temperate japonica   2.31          0.893\nIRIS_313-8695      indica               4.87          0.775\nIRIS_313-9102      indica               5.44          0.749\nIRIS_313-9318      indica               5.12          0.764\nIRIS_313-9877      indica               6.01          0.722\n\nF-coefficients computed via PLINK2 --het. Positive F indicates excess homozygosity relative to Hardy-Weinberg expectation; negative F indicates excess heterozygosity.",
+  "correct_answer": "The uniformly high positive F-coefficients (0.72-0.92) across all samples reflect the predominantly selfing mating system of rice (Oryza sativa), which produces extreme homozygosity. Temperate japonica shows higher F (0.89-0.92) and lower heterozygosity (1.8-2.3%) compared to indica (F=0.72-0.78, Het=4.9-6.0%), consistent with a more severe domestication bottleneck and narrower genetic base in temperate japonica. The indica samples retain more residual heterozygosity, reflecting their larger effective population size, wider geographic sampling, and potentially slightly higher outcrossing rate in tropical environments. The F-value difference between subpopulations is not a quality concern but a genuine biological signal of different demographic histories within a selfing species.",
+  "rubric": "Full marks (3): Identifies excess homozygosity from uniformly positive F, links to selfing mating system of rice, and explains the difference between subpopulations (temperate japonica more inbred/bottlenecked than indica). Mostly correct (2): Gets homozygosity/selfing interpretation right but doesn't discuss subpopulation differences. Partial (1): Mentions F relates to homozygosity but misinterprets direction or doesn't connect to rice biology. Incorrect (0): Misidentifies negative F or claims the population is in HWE. Major error flag: Attributing high F solely to a bottleneck without mentioning the selfing mating system.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Rice is a predominantly selfing species (~95-99% self-fertilization), which is the primary driver of high F-coefficients. The subpopulation difference in F reflects genuine demographic history differences."
+}

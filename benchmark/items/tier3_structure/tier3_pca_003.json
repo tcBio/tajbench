@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_003",
+  "tier": 3,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on two overlapping sample sets from the 3K Rice Genomes Project. The full panel includes all 3,010 accessions spanning indica, japonica, aus, aromatic, and admixed subpopulations. A subset includes only 396 temperate japonica accessions. Compare the variance explained by the top PCs in each analysis and explain why PC1 captures much more variance in the smaller subset.",
+  "context": "PCA variance explained -- Full panel (3,010 samples, 205K LD-pruned SNPs):\n  PC1 = 32.4%\n  PC2 = 14.1%\n  PC3 =  7.8%\n  PC4 =  4.2%\n  PC5 =  3.1%\n  Cumulative (PC1-5) = 61.6%\n\nPCA variance explained -- Temperate japonica only (396 samples, same SNP set):\n  PC1 = 48.7%\n  PC2 = 12.3%\n  PC3 =  5.8%\n  PC4 =  4.1%\n  Cumulative (PC1-4) = 70.9%\n\nSubpopulations in full panel: indica (N=1,306), tropical japonica (N=484), temperate japonica (N=396), aus (N=241), aromatic (N=76), admixed (N=507).",
+  "correct_answer": "The full panel contains multiple genetically divergent subpopulations (indica, tropical japonica, temperate japonica, aus, aromatic) that differ along several independent axes of variation -- indica vs japonica, tropical vs temperate japonica, aus vs indica. This distributes variance across multiple PCs (PC1=32.4%, PC2=14.1%, PC3=7.8%), with no single axis dominating. In the 396-sample temperate japonica subset, the major between-subpopulation axes are removed. The remaining structure is dominated by a single axis (likely geographic origin within East Asia, e.g., Japanese vs Korean vs Chinese temperate japonica), which concentrates 48.7% of variance in PC1. The lesson is that PCA variance proportions are relative to the sample composition -- a higher PC1 percentage does not mean 'more structure'; it means the structure present is lower-dimensional. This is critical for interpreting rice population genomics because subsetting to a single subpopulation collapses the multi-axis divergence into a simpler signal.",
+  "rubric": "Full marks (3): Explains that adding diverse subpopulations distributes variance across multiple independent axes, correctly identifies that the temperate japonica subset is dominated by one axis concentrating variance in PC1, and notes that PCA variance proportions are relative to sample composition. Mostly correct (2): Gets the core insight (diverse panels spread variance, homogeneous panels concentrate it) but does not discuss the specific subpopulations creating multiple axes. Partial (1): Mentions sample composition matters but incorrectly attributes the difference to SNP count, sample size alone, or technical artifacts. Incorrect (0): Claims the subset has 'more structure' or that the full panel result is wrong. Major error: Interpreting higher PC1 variance in the subset as indicating greater genetic diversity.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding that PCA eigenvalue proportions are relative to sample composition, not absolute measures of structure."
+}

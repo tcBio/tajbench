@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_004",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "rad_gbs",
+  "difficulty": 2,
+  "prompt": "A researcher building a GBS-aware reference panel for GLIMPSE2 imputation used the following command to create the GBS coverage footprint from BAM files:\n\n  samtools depth -r chr01 sample.bam | awk '$3 > 0 {print $1\"\\t\"$2-1\"\\t\"$2}'\n\nThis produced 32 million single-base positions (0.9 GB BED file), and extracting WGS variants at these positions yielded 14 million variants. GLIMPSE2 failed with '#non-ref gls: 0'. Identify the error and propose the correct approach.",
+  "context": "Pipeline output from incorrect approach:\n  BED positions:    32,000,000 (0.9 GB)\n  Extracted variants: 14,200,000\n  SNP density:     ~320 SNPs/kb\n  GLIMPSE2 error:  \"#non-ref gls: 0\"\n\nFor comparison, a correct pipeline on the same data should produce:\n  Merged intervals: ~48,000\n  Coverage:         ~35% of chromosome\n  Extracted SNPs:   ~1.8M\n  SNP density:      ~50 SNPs/kb\n\nNote: 5 rice GBS BAMs (ApeKI digest, 2-8x depth), chromosome chr01 (43.3 Mb, IRGSP-1.0).",
+  "correct_answer": "The error is using per-base depth positions instead of merged GBS read intervals. The samtools depth command outputs individual base positions with coverage, creating 32M single-base entries that essentially represent the entire chromosome rather than the ~48K distinct restriction fragment intervals. This produces an unphaseable number of variants (14M) and GLIMPSE2 fails because the reference panel at these positions doesn't meaningfully overlap the sparse GBS reads. The correct approach is to convert BAM reads to intervals (bedtools bamtobed), sort, and merge overlapping intervals with a gap tolerance (bedtools merge -d 100), then filter to intervals >= 50bp. This produces ~48K merged intervals covering ~35% of the chromosome, yielding ~1.8M extractable SNPs -- a manageable count for phasing and imputation.",
+  "rubric": "Full marks (3): Identifies the per-base vs merged-interval error, explains why 32M positions are wrong, provides the correct bedtools bamtobed + merge pipeline. Mostly correct (2): Identifies the problem but doesn't describe the correct solution in detail. Partial (1): Notes the BED file is too large but doesn't explain the root cause. Incorrect (0): Suggests the error is in GLIMPSE2 parameters or reference panel. Major error: Recommending to increase the GLIMPSE2 thread count or retry.",
+  "source_method": "bedtools/samtools",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests debugging of a common bioinformatics pipeline error in GBS-to-WGS imputation."
+}

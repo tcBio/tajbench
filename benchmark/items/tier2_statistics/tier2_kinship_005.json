@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_005",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 3,
+  "prompt": "The pair IRIS_313-10893 / IRIS_313-11025 has a KING kinship coefficient of 0.173, which falls just below the standard first-degree threshold of 0.177. A researcher classifies this as second-degree. Is this classification reliable? What factors could cause a true first-degree pair to fall below the threshold?",
+  "context": "KING-robust pairwise kinship results (selected pairs, temperate japonica accessions):\n\nPair                                    KINSHIP   IBS0      Classification\nIRIS_313-10893 / IRIS_313-11025         0.173     0.00412   Second_Degree (?)\nIRIS_313-10177 / IRIS_313-10421         0.290     0.00312   First_Degree\nIRIS_313-8695  / IRIS_313-9102          0.246     0.01805   First_Degree (indica)\nIRIS_313-11432 / IRIS_313-11587         0.048     0.00614   Third_Degree\n\nStandard KING thresholds:\n  First-degree:  0.177 - 0.354\n  Second-degree: 0.0884 - 0.177\n  Third-degree:  0.0442 - 0.0884\n\nAll samples WGS at ~14x depth. 205,418 LD-pruned biallelic SNPs.",
+  "correct_answer": "The classification is not reliable at this boundary. IRIS_313-10893/IRIS_313-11025 at 0.173 is only 0.004 below the first-degree cutoff (0.177), well within estimation noise. Several factors can deflate kinship in highly selfing species like rice: (1) the extreme homozygosity (F>0.9 in temperate japonica) compresses the kinship coefficient range because there is very little heterozygosity to detect allele sharing differences, (2) the KING thresholds were calibrated for outbred human populations, not inbred selfing plants where the effective kinship range is compressed, (3) at ~14x depth some genotyping errors at heterozygous sites can introduce random discordance. The very low IBS0 (0.004) -- similar to the confirmed first-degree pair IRIS_313-10177/IRIS_313-10421 (IBS0=0.003) -- suggests this pair shares very few opposite-homozygote sites, more consistent with first-degree than second-degree. Recommend treating this as a probable first-degree pair requiring manual review, and consider using adjusted thresholds for selfing species.",
+  "rubric": "Full marks (3): Identifies boundary uncertainty, explains at least 2 factors that deflate kinship in selfing/inbred plant data (homozygosity compression, human-calibrated thresholds), uses IBS0 as supporting evidence. Mostly correct (2): Notes the boundary issue but only gives one deflation factor. Partial (1): Says the classification might be wrong but doesn't explain why. Incorrect (0): Accepts the second-degree classification without question. Major error: Claiming KING thresholds are always definitive regardless of mating system.",
+  "source_method": "KING-robust",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "This item tests understanding of threshold sensitivity in selfing plant data. KING thresholds were designed for outbred human populations and need adjustment for rice."
+}

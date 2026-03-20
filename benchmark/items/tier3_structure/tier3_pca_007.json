@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_007",
+  "tier": 3,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Two PCA analyses were run on different subsets of the 3K Rice Genomes panel. Analysis A (396 temperate japonica only) has PC1 explaining 48.7% of variance. Analysis B (all 3,010 accessions across all subpopulations) has PC1 explaining 32.4%. A researcher concludes that Analysis A provides 'better resolution' because PC1 captures more variance. Evaluate this conclusion.",
+  "context": "Analysis A (temperate japonica only):\n  Samples: 396 temperate japonica accessions\n  PC1: 48.7%  PC2: 12.3%  PC3: 5.8%  PC4: 4.1%\n  Top 2 PCs: 61.0% cumulative\n\nAnalysis B (full panel):\n  Samples: 3,010 (indica, tropical japonica, temperate japonica, aus, aromatic, admixed)\n  PC1: 32.4%  PC2: 14.1%  PC3: 7.8%  PC4: 4.2%\n  Top 2 PCs: 46.5% cumulative\n\nBoth analyses: 205K LD-pruned SNPs, PLINK2 --pca.",
+  "correct_answer": "The conclusion is wrong. Higher variance on PC1 does not mean better resolution -- it reflects lower genetic diversity in the sample set. In Analysis A, 396 temperate japonica accessions share a narrow genetic background from the japonica domestication bottleneck, so most variation falls along a single axis (likely geographic origin within East Asia). In Analysis B, the full panel includes genetically divergent subpopulations (indica, japonica, aus, aromatic) that differ along multiple independent axes, distributing variance more evenly across PCs. Analysis B actually provides MORE resolution for distinguishing subpopulations -- it just requires more PCs to capture the structure. The 'better resolution' question depends on the goal: Analysis A is better for fine-scale differentiation within temperate japonica (e.g., Japanese vs Korean varieties), while Analysis B is necessary for understanding the broader rice population context. Both are valid for different purposes.",
+  "rubric": "Full marks (3): Correctly explains that concentrated PC1 variance reflects narrow diversity, not better resolution; distinguishes the two analyses by their appropriate use cases. Mostly correct (2): Identifies the conclusion as wrong but doesn't fully explain why. Partial (1): Discusses variance explained but accepts the researcher's framing. Incorrect (0): Agrees that higher PC1 variance means better analysis. Major error: Equating high PC1 variance with high data quality.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests a common misunderstanding about interpreting PCA variance explained across datasets of different genetic breadth."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier2_gp_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Two 1 Mb regions on rice chromosome chr01 have different imputation profiles. Region A (6-7 Mb) has mean GP = 94.4% with 33,286 variants. Region B (42-43 Mb) has mean GP = 95.1% with only 2,247 variants. A researcher concludes that Region B has 'better imputation quality' because of higher GP. Is this conclusion valid? Explain.",
+  "context": "Region     Mean_GP(%)  N_Variants  Min_GP(%)\n6-7 Mb     94.41       33,286      2.4\n42-43 Mb   95.09        2,247      11.8\n\nPanel: 500 GBS samples imputed via Beagle 5.4 against 3,010-sample WGS panel.\nTotal chromosome variants: ~1.5M imputed sites on chr01.",
+  "correct_answer": "The conclusion is misleading. Region B's higher mean GP is partly an artifact of having far fewer variants -- only 2,247 vs 33,286. With fewer sites, the imputation algorithm only attempts variants where it has high confidence (likely common, well-tagged SNPs), inflating the mean. Region A imputes 15x more variants including rare and difficult sites, which pulls the mean GP down but provides far more information. The Min_GP tells a different story: Region B's minimum (11.8%) is higher than Region A's (2.4%), but this again reflects the filtered variant set. For downstream analyses, Region A provides better coverage despite slightly lower mean GP. Imputation quality should be assessed jointly by GP confidence AND variant yield, not GP alone.",
+  "rubric": "Full marks (3): Identifies the variant count confound, explains why fewer variants inflate mean GP, recommends joint assessment. Mostly correct (2): Notes the variant count difference but doesn't explain the mechanism. Partial (1): Agrees the conclusion is wrong but for the wrong reason. Incorrect (0): Agrees with the researcher's conclusion. Major error: Treating mean GP as the sole quality metric.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of the GP-variant density tradeoff. A common pitfall is treating mean GP as a standalone quality metric without considering the number of variants attempted."
+}

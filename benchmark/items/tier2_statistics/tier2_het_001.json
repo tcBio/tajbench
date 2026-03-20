@@ -1,0 +1,16 @@
+{
+  "id": "tier2_het_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Sample IRIS_313-9877 has the highest heterozygosity rate among indica accessions in this subset (6.01%) alongside the lowest genotype posterior confidence (GP=90.31%). The indica subpopulation average heterozygosity is ~4.9%. Is this elevated heterozygosity a quality concern or a genuine biological signal? What additional evidence would help you distinguish between the two explanations?",
+  "context": "Per-sample QA metrics for selected indica accessions (GBS imputed against 3K WGS panel):\n\nSample            Het_Rate(%)   GP_Confidence(%)   F_Coefficient\nIRIS_313-9877     6.01          90.31              0.722\nIRIS_313-9318     5.12          94.01              0.764\nIRIS_313-9102     5.44          93.75              0.749\nIRIS_313-8695     4.87          94.43              0.775\n\nSubpopulation summary (indica, n=1,306): mean Het = 4.9%, SD = 0.8%, mean GP = 93.2%.\nImputation method: Beagle 5.4 against 3,010-sample WGS reference panel, 18M variants.",
+  "correct_answer": "IRIS_313-9877's het rate (6.01%) is ~1.4 SD above the mean -- elevated but not extreme. However, its low GP confidence (90.31%) raises a quality concern: imputation at lower confidence can inflate heterozygosity because uncertain genotype calls are more likely to be assigned heterozygous genotypes by the imputation algorithm. To distinguish quality artifact from biology: (1) check if high het is concentrated at low-DR2 sites -- if so, it reflects imputation uncertainty rather than true genotype variation; (2) compare het rate before vs after applying a DR2 > 0.8 filter -- if het rate normalizes after filtering, it is an imputation artifact; (3) check if this sample has lower GBS read coverage than others, which would explain lower imputation confidence. If het rate persists after stringent quality filtering, the sample may genuinely be an admixed accession with japonica introgression, or a recent cross with a broader genetic base than typical pure indica lines.",
+  "rubric": "Full marks (3): Identifies the GP/het correlation as a potential imputation artifact (lower confidence inflates het calls), and provides at least 2 concrete diagnostic steps (e.g., DR2 filtering, coverage check, pre/post filter comparison). Mostly correct (2): Notes the quality concern from low GP but doesn't propose specific diagnostics to resolve it. Partial (1): Mentions het is elevated but attributes it entirely to biology (e.g., admixture) without considering imputation quality as a confound. Incorrect (0): Dismisses the observation as unimportant or misinterprets the metrics. Major error flag: Concluding the sample is contaminated based on heterozygosity rate alone.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "In a selfing species like rice, elevated heterozygosity is more notable than in outcrossers. Admixed accessions between indica and japonica are common in the 3K dataset."
+}

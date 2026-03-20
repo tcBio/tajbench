@@ -1,0 +1,66 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "mcp__mcp-registry__search_mcp_registry",
+      "WebSearch",
+      "WebFetch(domain:www.canva.dev)",
+      "WebFetch(domain:www.pulsemcp.com)",
+      "WebFetch(domain:www.canva.com)",
+      "WebFetch(domain:smithery.ai)",
+      "WebFetch(domain:mcp.composio.dev)",
+      "WebFetch(domain:zapier.com)",
+      "WebFetch(domain:composio.dev)",
+      "WebFetch(domain:www.remote-mcp.com)",
+      "WebFetch(domain:www.jan.ai)",
+      "WebFetch(domain:vidiq.com)",
+      "WebFetch(domain:www.chatsports.com)",
+      "WebFetch(domain:www.noxinfluencer.com)",
+      "WebFetch(domain:playboard.co)",
+      "WebFetch(domain:vidmaestro.com)",
+      "WebFetch(domain:socialblade.com)",
+      "WebFetch(domain:videos.feedspot.com)",
+      "WebFetch(domain:www.capandtrade.football)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:overthecap.com)",
+      "WebFetch(domain:www.spotrac.com)",
+      "WebFetch(domain:commentpicker.com)",
+      "WebFetch(domain:ytlarge.com)",
+      "WebFetch(domain:ytpeek.com)",
+      "WebFetch(domain:us.youtubers.me)",
+      "WebFetch(domain:www.clnsmedia.com)",
+      "WebFetch(domain:sportspyder.com)",
+      "WebFetch(domain:rephonic.com)",
+      "WebFetch(domain:app.thoughtleaders.io)",
+      "WebFetch(domain:noembed.com)",
+      "WebFetch(domain:yt.lemnoslife.com)",
+      "mcp__Claude_Preview__preview_start",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
+    ],
+    "deny": [
+      "Bash(pip install:*)",
+      "Bash(pip uninstall:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(python -m pip uninstall:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx:*)",
+      "Bash(conda install:*)",
+      "Bash(conda remove:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -Command \"$p = Get-NetTCPConnection -LocalPort 9001 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess; if ($p) { Stop-Process -Id $p -Force -ErrorAction SilentlyContinue }\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

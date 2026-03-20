@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_008",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "A researcher wants to run KING relatedness estimation on 500 GBS-imputed rice accessions. They have two variant sets: (A) 12.4M LD-pruned variants from the pre-QC merged panel, and (B) 205K LD-pruned variants from the post-QC panel (after --geno 0.10, --maf 0.01, --hwe 1e-6 filters). Which variant set should be used for KING, and why?",
+  "context": "Variant set A (pre-QC): 12,400,000 variants\n  - LD-pruned (r2 < 0.2)\n  - Includes sites with up to 30% missingness\n  - Includes rare variants (MAF < 0.01)\n  - Includes HWE-violating sites\n\nVariant set B (post-QC): 205,418 variants\n  - LD-pruned (r2 < 0.2)\n  - Missingness < 10% per site\n  - MAF >= 0.01\n  - No HWE violations (p > 1e-6)\n\nPanel: 500 GBS-imputed rice accessions (indica and japonica), imputed against the 3K WGS reference panel.",
+  "correct_answer": "Variant set B (post-QC, 205K) is strongly preferred. KING-robust is designed for population-level relatedness estimation and assumes reasonable genotype quality. Using pre-QC variants (set A) introduces several problems: (1) sites with high missingness create artificial kinship deflation for sample pairs where one has missing data, (2) rare variants (MAF < 0.01) are poorly imputed and contribute noise rather than signal to kinship estimates, (3) HWE-violating sites may reflect genotyping errors or imputation artifacts rather than real variation -- note that HWE filtering in a selfing species like rice should use a relaxed threshold since deviation from HWE is expected due to excess homozygosity. The 205K post-QC variants still provide ample resolution -- KING performs well with as few as 100K common SNPs. The quality of variants matters far more than quantity for kinship estimation.",
+  "rubric": "Full marks (3): Recommends set B with 2+ specific reasons (missingness bias, rare variant noise, HWE artifacts), notes KING doesn't need millions of variants. Mostly correct (2): Picks set B but gives only one reason. Partial (1): Picks the right set but reasoning is vague ('cleaner data'). Incorrect (0): Recommends set A for 'more information.' Major error: Claiming more variants always improves kinship estimation.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "In selfing species like rice, HWE filtering thresholds may need adjustment since excess homozygosity is biologically expected."
+}

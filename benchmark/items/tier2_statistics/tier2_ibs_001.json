@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ibs_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Two genomic windows on rice chromosome chr05 show elevated mean identity-by-state (IBS) compared to the chromosome-wide average. Interpret what these hotspots indicate about the genomic region and the population.",
+  "context": "Chromosome-wide mean IBS: 0.871 (396 temperate japonica accessions, 1000-variant sliding windows)\n\nIBS Hotspots on chr05:\nWindow    Start       End        Mean_IBS   N_Variants\n1         27,678      56,527     0.962      1,000\n14        460,195     489,241    0.951      1,000\n\nFor comparison, typical windows on this chromosome:\nWindow    Start       End        Mean_IBS   N_Variants\n50        2,104,339   2,178,521  0.869      1,000\n100       5,421,876   5,512,003  0.873      1,000",
+  "correct_answer": "The two hotspots show mean IBS of 0.951-0.962 vs. the chromosome average of 0.871 -- approximately 10% higher allele sharing. Both are in the first 500 kb of the chromosome, likely subtelomeric or pericentromeric. Possible explanations: (1) a selective sweep has driven one or a few haplotypes to high frequency in this subpopulation, reducing diversity -- rice domestication genes on chr05 (e.g., genes involved in grain width or seed shattering) could produce such signatures in temperate japonica, (2) the region has lower recombination rate, preserving longer identical-by-descent tracts, or (3) structural variation or repeat content reduces effective polymorphism. The positional clustering (both within 500 kb of chromosome start) supports the pericentromeric/subtelomeric hypothesis. The high baseline IBS in temperate japonica (0.871) already reflects its narrow genetic base from the domestication bottleneck.",
+  "rubric": "Full marks (3): Identifies at least 2 plausible mechanisms (selective sweep, low recombination), notes positional clustering, connects to rice domestication context. Mostly correct (2): Gives one correct explanation but misses the positional clustering. Partial (1): Notes IBS is elevated but offers no biological mechanism. Incorrect (0): Misinterprets IBS direction or claims it's a data error. Major error: Confusing high IBS with high diversity.",
+  "source_method": "PLINK2 --ibs-matrix",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests interpretation of localized IBS elevation in the context of rice population genetics."
+}

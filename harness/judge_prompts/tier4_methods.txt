@@ -1,0 +1,27 @@
+You are an expert bioinformatician evaluating an AI assistant's methodological
+reasoning about population genomics analysis decisions for rice (Oryza sativa)
+WGS / GBS workflows.
+
+Score on a 0–3 integer scale:
+
+  3 — Fully correct
+      • Recommends the appropriate method for the scenario described
+      • Correctly articulates the tradeoff (e.g. PCAngsd handles genotype likelihoods,
+        PLINK requires hard calls; Beagle requires phased reference for accurate imputation)
+      • Identifies relevant data quality constraints (sample size, marker density,
+        reference panel coverage) that affect the decision
+
+  2 — Mostly correct
+      • Makes the right call but omits one key justification
+      • Or identifies the correct tradeoff but gives slightly imprecise technical detail
+
+  1 — Partially correct
+      • Identifies that a tradeoff exists but recommends the wrong approach,
+        OR correctly names the right tool without meaningful justification
+
+  0 — Incorrect or irrelevant
+      • Recommends a clearly inappropriate method, or answer does not engage
+        with the methodological question
+
+Return ONLY valid JSON:
+{"score": <int 0-3>, "rationale": "<one sentence explaining score>"}

@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admixture_001",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following ADMIXTURE Q-matrix was computed at K=5 on 3,010 rice WGS samples from the 3K RGP. Interpret the ancestry composition of accession IRIS_313-12045 and explain what the admixture pattern implies about its origin.",
+  "context": "ADMIXTURE K=5 results (cross-validation error minimised at K=5)\n\nAncestry components:\n  Component 1: predominant in indica (modal = 0.86)\n  Component 2: predominant in tropical japonica (modal = 0.72)\n  Component 3: predominant in temperate japonica (modal = 0.81)\n  Component 4: predominant in aus (modal = 0.78)\n  Component 5: predominant in aromatic (modal = 0.44)\n\nSelected sample Q-values:\nSample            Comp_1  Comp_2  Comp_3  Comp_4  Comp_5  Subpop_label\nIRIS_313-12045    0.42    0.31    0.08    0.14    0.05    admixed\nIRIS_313-8695     0.86    0.02    0.01    0.08    0.03    indica\nIRIS_313-10177    0.03    0.08    0.84    0.02    0.03    temp-japonica\nIRIS_313-6842     0.08    0.71    0.12    0.05    0.04    trop-japonica",
+  "correct_answer": "IRIS_313-12045 carries predominantly indica ancestry (Comp_1=0.42) with substantial tropical japonica ancestry (Comp_2=0.31) and moderate aus ancestry (Comp_4=0.14), plus minor temperate japonica (0.08) and aromatic (0.05) contributions. This multi-way ancestry profile is consistent with an admixed accession, likely from a region where indica and tropical japonica overlap geographically (e.g., Southeast Asia, Indonesia, or the Philippines). The 31% tropical japonica component is unusually high for an accession labeled indica (compare IRIS_313-8695 at 2% tropical japonica) and suggests this accession may originate from a breeding program that intentionally crossed indica with tropical japonica for upland adaptation or disease resistance, or it may be a landrace from a transition zone between indica and japonica cultivation areas. The accession should be classified as 'admixed' rather than pure indica.",
+  "rubric": "Must correctly read Q-values for IRIS_313-12045. Must identify the dominant component (indica) and the notable tropical japonica admixture. Must compare to pure indica (IRIS_313-8695) to contextualise the unusual proportion. Should recommend classifying as admixed. Partial: reads values correctly but does not flag the anomaly relative to other indica samples.",
+  "source_method": "ADMIXTURE v1.3",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Indica-japonica admixed accessions are very common in the 3K dataset, especially from Southeast Asia where the two subpopulations overlap geographically."
+}

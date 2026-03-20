@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_006",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Two first-degree pairs are identified in rice accessions. Pair A (both from the 3K WGS panel) has KINSHIP=0.246. Pair B (both from a GBS-imputed panel) has KINSHIP=0.195. Both are classified as first-degree. Why is there a systematic difference in kinship magnitude between WGS and imputed samples?",
+  "context": "Pair A (WGS):      KINSHIP=0.246, IBS0=0.01805, N_SNPs=205,418\nPair B (Imputed):  KINSHIP=0.195, IBS0=0.01201, N_SNPs=205,418\n\nPanel summary:\n  3K WGS panel:      3,010 samples, hard-call genotypes (GATK HaplotypeCaller, ~14x depth)\n  GBS imputed panel:  500 samples, imputed genotypes (Beagle 5.4, mean DR2=0.78)",
+  "correct_answer": "The systematic kinship deflation in imputed samples (0.195 vs 0.246 for the same relationship degree) is expected and has two main causes: (1) Imputation introduces genotype uncertainty -- even at DR2=0.78, a fraction of genotypes are miscalled, creating artificial discordance that lowers kinship estimates. This disproportionately affects allele-sharing metrics. (2) The KING-robust estimator assumes hard-call genotypes are accurate. When imputed hard calls carry uncertainty, the estimator systematically underestimates kinship. This is why Pair B (KINSHIP=0.195) falls lower in the first-degree range than Pair A (0.246) despite potentially being the same biological relationship. This bias should be accounted for when applying standard thresholds to imputed data -- consider lowering thresholds by ~0.02-0.05 for imputed panels.",
+  "rubric": "Full marks (3): Identifies imputation error as the cause, explains the mechanism (hard-call assumption violation), recommends threshold adjustment. Mostly correct (2): Notes the difference but attributes it to 'data quality' without specifics. Partial (1): Observes the difference but offers no explanation. Incorrect (0): Claims the pairs have different biological relationships. Major error: Attributing the difference to population structure rather than genotype accuracy.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how genotype accuracy affects kinship estimation. WGS pair from 3K reference panel, imputed pair from GBS Beagle panel."
+}

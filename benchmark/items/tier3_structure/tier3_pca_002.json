@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_002",
+  "tier": 3,
+  "task_type": "comparison",
+  "data_layer": "imputed",
+  "difficulty": 3,
+  "prompt": "A researcher computed PCA twice on 500 rice GBS samples imputed against the 3K WGS panel: once using all imputed sites (DR2 > 0.3), and once using high-confidence sites only (DR2 > 0.8). The variance explained by PC1 increased from 24% to 33% when the stricter filter was applied, but the number of sites dropped from 12.4M to 3.1M. Two technical replicates (same accession sequenced twice) are included. Interpret what the change in PC1 variance explained tells you, and explain whether you would prefer the DR2 > 0.3 or DR2 > 0.8 result for accession identity verification.",
+  "context": "DR2 > 0.3 run (12.4M sites):\n  PC1=24.1%, PC2=10.8%, PC3=5.9%\n  Technical replicate pair Euclidean distance: 0.062\n  Mean between-accession distance: 0.071\n  Signal-to-noise ratio (between/within): 1.15\n\nDR2 > 0.8 run (3.1M sites):\n  PC1=32.8%, PC2=14.2%, PC3=5.1%\n  Technical replicate pair Euclidean distance: 0.018\n  Mean between-accession distance: 0.044\n  Signal-to-noise ratio (between/within): 2.44",
+  "correct_answer": "The increase in PC1 variance explained (24% to 33%) when using DR2 > 0.8 indicates that low-quality imputed sites (DR2 0.3-0.8) add noise that dilutes the true population structure signal. More diagnostic: the signal-to-noise ratio (between-accession distance / within-replicate distance) improves from 1.15 to 2.44 with the stricter filter -- a near doubling of discriminatory power. For accession identity verification, DR2 > 0.8 is strongly preferred: replicate distance drops from 0.062 to 0.018, while between-accession distance remains meaningful at 0.044, giving much cleaner discrimination.",
+  "rubric": "Must explain the PC1 variance increase as signal-to-noise improvement, not simply 'more variance'. Must use the replicate pair distances as the key discriminatory metric. Must recommend DR2 > 0.8 with correct reasoning (replicate distance much lower, between-accession distance sufficient). Partial: recommends correct filter without explaining the replicate-based rationale.",
+  "source_method": "PLINK2 --pca + Beagle5.4",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how imputation quality filtering affects PCA signal-to-noise ratio."
+}

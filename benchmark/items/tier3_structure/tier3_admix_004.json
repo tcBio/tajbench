@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_004",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "At K=5, accession IRIS_313-12045 shows near-equal ancestry proportions across all five components (0.22, 0.21, 0.18, 0.20, 0.19). Most other accessions have a dominant component (>0.60). Is this accession genuinely admixed, or could this pattern be an artifact? What evidence would distinguish these explanations?",
+  "context": "ADMIXTURE K=5 ancestry proportions (selected accessions):\n\nSample            Comp_1(ind)  Comp_2(trj)  Comp_3(tej)  Comp_4(aus)  Comp_5(aro)  Dominant\nIRIS_313-8695     0.86         0.02         0.01         0.08         0.03         indica\nIRIS_313-10177    0.03         0.08         0.84         0.02         0.03         temp-jap\nIRIS_313-12045    0.22         0.21         0.18         0.20         0.19         None (high entropy)\nIRIS_313-7501     0.14         0.06         0.04         0.42         0.34         aus/aro\nIRIS_313-6842     0.08         0.71         0.12         0.05         0.04         trop-jap\n\nSubpopulation means:\n  indica (n=1,306):       Comp_1=0.85\n  trop-japonica (n=484):  Comp_2=0.72\n  temp-japonica (n=396):  Comp_3=0.81\n  aus (n=241):            Comp_4=0.78\n  aromatic (n=76):        Comp_5=0.44",
+  "correct_answer": "A near-uniform ancestry profile (0.18-0.22 across 5 components) can be either biological or artifactual. Biological explanation: IRIS_313-12045 is a genuinely admixed accession with recent ancestry from multiple subpopulations, possibly an intentional cross between divergent lines in a modern breeding program, or a landrace from a region where multiple rice types converge (e.g., Southeast Asia). Artifact explanations: (1) the sample has low genotyping quality (low call rate, high missingness), causing ADMIXTURE to assign diffuse ancestry rather than confident assignment, (2) the sample is from a population not well-represented by any of the K=5 components (e.g., a wild rice relative or an African rice accession), forcing the algorithm to 'average' across components. To distinguish: check the sample's call rate and sequencing depth -- if quality metrics are comparable to other samples, the admixture is likely real. Also run ADMIXTURE at K=6 and K=7 -- if a new component emerges that this accession dominates, it represents a distinct genetic background rather than true admixture. Additionally, check passport data for geographic origin, which may explain multi-way ancestry.",
+  "rubric": "Full marks (3): Proposes both biological and artifact explanations, provides at least 2 concrete diagnostic steps (quality check, run higher K, check passport data). Mostly correct (2): Mentions both possibilities but only one diagnostic. Partial (1): Accepts one explanation uncritically. Incorrect (0): Concludes it must be contamination. Major error: Claiming near-equal proportions always indicate poor data quality.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests the ability to distinguish genuine multi-way admixture from artifacts. Admixed accessions are common in the 3K dataset, especially from Southeast Asian breeding programs."
+}

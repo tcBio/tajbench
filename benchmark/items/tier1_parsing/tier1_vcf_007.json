@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_007",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "Which samples have missing genotypes (./.) at this site?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS001\tS002\tS003\tS004\tS005\tS006\nchr04\t891204\t.\tT\tC\t156\tPASS\tAF=0.25;AN=8;AC=2\tGT:DP\t0/1:22\t./.:\t0/0:18\t0/1:15\t./.:\t0/0:30",
+  "correct_answer": "S002 and S005",
+  "rubric": "Must identify both S002 and S005 as having missing genotypes (./.). Note AN=8 reflects only 4 called samples (8 alleles / 2 per sample).",
+  "source_method": "GATK",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "S002.*S005|S005.*S002",
+  "notes": "Tests recognition of missing genotype encoding (./.) in VCF. AN=8 is consistent with 4 genotyped diploid samples out of 6 total."
+}

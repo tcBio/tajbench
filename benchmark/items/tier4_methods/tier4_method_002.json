@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_002",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "imputed",
+  "difficulty": 3,
+  "prompt": "A lab has 500 new rice GBS samples and wants to impute them using the 3K Rice Genomes WGS reference panel of 3,010 samples. They ask whether Beagle 5.4 or GLIMPSE2 is more appropriate for this use case, given the reference panel size and the GBS data characteristics.",
+  "context": "Reference panel: 3,010 phased WGS samples (SHAPEIT5-phased, 3K RGP)\nTarget samples: 500 GBS samples, ApeKI protocol\n  - ~150K sites overlapping reference panel per sample\n  - Average depth at overlapping sites: 5x\n  - Some samples have 30-60K overlapping sites (low-quality GBS)\n\nTools under consideration:\n  Beagle 5.4: array-style imputation; requires hard-called genotypes at reference sites;\n              scales well with large reference panels\n  GLIMPSE2:   low-coverage WGS imputation using genotype likelihoods;\n              designed for <1x WGS but works with any GL input;\n              particularly accurate when depth is variable",
+  "correct_answer": "GLIMPSE2 is generally preferable when depth is variable and some samples have limited site overlap. GLIMPSE2 uses genotype likelihoods directly from sequencing depth at each site, so it handles the 30-60K low-overlap samples better than Beagle, which treats all hard-called sites equally and can be misled by low-coverage miscalls. However, Beagle 5.4 is a defensible choice given the large reference panel (3,010 samples provides excellent haplotype diversity for indica and japonica) if the overlapping sites are pre-filtered to DP >= 3 and the low-overlap samples are excluded or treated separately. The key decision criterion is whether the lowest-quality samples can be cleaned to a reliable hard-call set; if not, GLIMPSE2's likelihood model is the safer choice.",
+  "rubric": "Must identify the likelihood-vs-hard-call distinction as the core difference. Must recommend GLIMPSE2 for variable depth / low-overlap samples with valid justification. Should acknowledge Beagle is acceptable with strict pre-filtering. Major error: recommending Beagle unconditionally or stating both are equivalent without nuance.",
+  "source_method": "Beagle5.4 / GLIMPSE2",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The 3K RGP panel is one of the largest crop WGS reference panels available, making it ideal for imputation."
+}

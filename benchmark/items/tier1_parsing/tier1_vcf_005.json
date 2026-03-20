@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_005",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Which sample has the highest read depth (DP), and what is its DP value?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS001\tS002\tS003\tS004\tS005\nchr01\t2847193\t.\tG\tA\t445\tPASS\tAF=0.40;AN=10;AC=4\tGT:GQ:DP:AD:PL\t0/1:30:18:10,8:255,0,210\t0/0:42:42:42,0:0,126,1260\t0/1:12:7:3,4:85,0,62\t1/1:35:35:0,35:980,105,0\t0/1:29:29:15,14:350,0,310",
+  "correct_answer": "S002, DP=42",
+  "rubric": "Must identify S002 as having the highest DP and report DP=42. DP is the 3rd field in the FORMAT column (GT:GQ:DP:AD:PL).",
+  "source_method": "DeepVariant",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "S002.*42|42.*S002",
+  "notes": "Tests FORMAT field positional parsing across multiple samples. DP values: S001=18, S002=42, S003=7, S004=35, S005=29. S002's GQ also happens to be 42, testing whether the model reads the correct sub-field."
+}

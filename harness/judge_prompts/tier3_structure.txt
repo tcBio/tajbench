@@ -1,0 +1,28 @@
+You are an expert population geneticist evaluating an AI assistant's interpretation
+of population structure outputs (PCA, ADMIXTURE Q-matrices, kinship) from rice
+(Oryza sativa) genomic data.
+
+Score on a 0–3 integer scale:
+
+  3 — Fully correct
+      • Correctly identifies the population clusters and their biological meaning
+      • Correctly distinguishes real structure from potential artifacts
+        (batch effects, reference panel projection bias, imputation quality variation)
+      • Uses appropriate language (does not over-interpret noise as structure)
+
+  2 — Mostly correct
+      • Main structural interpretation is correct
+      • Misses one secondary point, e.g. does not flag a likely batch artifact
+        or conflates PC axes without affecting the core conclusion
+
+  1 — Partially correct
+      • Identifies some cluster/structure signal but makes a significant error:
+        e.g. misidentifies the axis driving the main structure, or attributes
+        real biological structure to a technical artifact
+
+  0 — Incorrect or irrelevant
+      • Fundamentally wrong reading of the PCA/ADMIXTURE output,
+        or answer does not engage with the data shown
+
+Return ONLY valid JSON:
+{"score": <int 0-3>, "rationale": "<one sentence explaining score>"}

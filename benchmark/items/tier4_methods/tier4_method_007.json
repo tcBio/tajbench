@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_007",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "A researcher is merging two rice genotyping panels (3,010 WGS from the 3K RGP + 500 GBS imputed = 3,510 samples) into a single dataset for population structure analysis. The merged VCF has 29M variants but substantial structural missingness: variants called in the WGS panel may be absent from the GBS-imputed panel and vice versa. The researcher applies --geno 0.10 (remove variants missing in >10% of samples), which removes 11.2M variants. Is this threshold appropriate?",
+  "context": "Pre-filter: 29,000,000 variants across 3,510 samples\nPost --geno 0.10: 17,800,000 variants retained (61.4% retained)\n\nMissingness structure:\n  Variants in WGS panel only:           ~8M (absent from GBS-imputed panel)\n  Variants in GBS-imputed panel only:   ~2M\n  Variants shared across both panels:   ~19M\n\nPanel sizes: WGS=3,010 (85.8%), GBS_imputed=500 (14.2%)",
+  "correct_answer": "The --geno 0.10 threshold is reasonable but imperfect. It effectively removes variants present in only the GBS-imputed panel (~2M, since they'd be missing in 85.8% of samples) and some WGS-only variants. Variants exclusive to the WGS panel (8M) will have ~14.2% missingness (missing in 500 GBS samples = 14.2% of 3,510), so they are borderline at the 0.10 threshold. The issue is that this is structural missingness (panel design), not quality missingness (random genotype failure). A more principled approach: (1) first identify the intersection of confidently-imputed sites across panels (using DR2 thresholds), (2) apply --geno only to filter quality missingness within that intersection, or (3) accept higher missingness for variants present in the larger panel (e.g., --geno 0.20) and use downstream methods that handle missingness (PCAngsd, which uses genotype likelihoods). The 0.10 threshold's main risk is over-filtering: it may remove informative WGS-only variants that have good quality in the dominant panel.",
+  "rubric": "Full marks (3): Distinguishes structural from quality missingness, evaluates the 0.10 threshold in context of panel sizes, proposes a more nuanced alternative. Mostly correct (2): Identifies structural missingness but doesn't quantify or propose alternatives. Partial (1): Evaluates the threshold without considering the multi-panel structure. Incorrect (0): Recommends stricter filtering (--geno 0.01). Major error: Treating all missingness as quality failures.",
+  "source_method": "PLINK2 --geno",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of structural vs quality missingness when merging WGS and GBS panels."
+}

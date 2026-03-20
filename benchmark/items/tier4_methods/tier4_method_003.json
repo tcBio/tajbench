@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_003",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "A collaborator shares a joint-called rice VCF from the 3K RGP and wants to compute nucleotide diversity (pi) across the genome for indica and japonica subpopulations. They plan to use all PASS-filter sites including those in repeat regions. Evaluate this plan and recommend any modifications.",
+  "context": "Dataset: 3,010 samples, joint-called GATK VCF, rice genome (IRGSP-1.0 assembly, ~390 Mb)\n  - Total PASS sites: 18.9M\n  - Sites in annotated repeats (RepeatMasker): ~35% of PASS sites\n  - Sites in low-complexity regions: ~10% of PASS sites\n  - Sites in coding/genic regions: ~28% of PASS sites\n\nPlanned analysis:\n  vcftools --window-pi 50000 --keep indica.txt\n  vcftools --window-pi 50000 --keep japonica.txt\n  (No additional site filters beyond PASS)",
+  "correct_answer": "Including repeat and low-complexity regions will inflate pi estimates and make comparisons unreliable, because these regions accumulate more variants due to alignment errors and repeat-driven variation rather than true population diversity. The plan should add a mask file (BED format) excluding RepeatMasker and low-complexity regions before computing pi. Additionally, a minimum-depth filter (e.g. DP >= 5 per sample) and a maximum-missing filter (e.g. < 20% missing per site) should be applied. After masking, compute pi on the retained ~55% of PASS sites. This is standard practice for plant genome diversity analyses where repeat content is high. The rice genome has substantial transposable element content (~35% of genome), making repeat masking particularly important.",
+  "rubric": "Must identify the repeat/low-complexity masking problem as the primary concern. Must recommend a BED mask exclusion. Should also mention depth/missing filters. Partial: mentions repeat masking but omits the depth/missing filters. Zero: approves the plan without modification or raises only irrelevant concerns.",
+  "source_method": "vcftools / bcftools",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The rice genome has ~35% repetitive content, making repeat masking essential for accurate diversity estimates."
+}

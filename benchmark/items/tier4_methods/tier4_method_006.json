@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_006",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "imputed",
+  "difficulty": 3,
+  "prompt": "In a merged panel of 3,510 rice samples from two sources (3,010 WGS from the 3K RGP and 500 GBS imputed), PCA reveals that PC3 separates samples primarily by data type rather than biological subpopulation. A researcher proposes mean-centering and variance-scaling each data-type panel independently before merging, then re-running PCA. Evaluate this correction strategy.",
+  "context": "Pre-correction PCA:\n  PC1 (30.2%): Separates indica from japonica (biological)\n  PC2 (12.8%): Separates tropical japonica from temperate japonica (biological)\n  PC3 (8.1%):  Separates WGS from GBS-imputed samples (technical)\n  PC4 (4.9%):  Aus vs aromatic separation (biological)\n\nPanel composition:\n  3K WGS panel:     3,010 samples (all five subpopulations)\n  GBS imputed:       500 samples (mostly indica, some japonica)\n\nProposed correction: For each panel, subtract panel mean and divide by panel SD\non each variant independently, then concatenate and re-run PCA.",
+  "correct_answer": "The correction is statistically aggressive and risks removing real biological signal. Mean-centering per panel is defensible if the batch effect is purely additive (e.g., systematic genotype probability inflation in imputed samples). However, variance-scaling per panel is dangerous: if the two panels differ in genuine genetic diversity (e.g., WGS includes all five subpopulations while GBS is mostly indica), scaling to unit variance will artificially equalize diversity that is biologically real. A better approach: (1) verify the batch effect by checking whether WGS and GBS-imputed indica samples from the same subpopulation cluster differently, (2) if confirmed, use only the batch-affected PC (PC3) as a covariate in downstream analyses rather than correcting the genotype matrix, or (3) restrict cross-panel comparisons to shared subpopulations (indica samples in both panels) where batch vs. biology can be disentangled.",
+  "rubric": "Full marks (3): Identifies the risk of removing biological signal with variance-scaling, distinguishes mean-centering (defensible) from variance-scaling (dangerous), proposes covariate-based alternative. Mostly correct (2): Notes the risk but doesn't propose concrete alternatives. Partial (1): Approves the correction uncritically, or rejects it without explanation. Incorrect (0): Recommends even more aggressive normalization. Major error: Treating all PC variance from imputed vs WGS as purely technical.",
+  "source_method": "Custom PCA correction",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of batch effect correction risks when panels have different subpopulation compositions."
+}

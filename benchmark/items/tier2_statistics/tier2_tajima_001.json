@@ -1,0 +1,16 @@
+{
+  "id": "tier2_tajima_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following Tajima's D values were computed in 100 kb windows across chromosome chr01 for two rice subpopulations. Interpret the difference between the two distributions and what it implies about the demographic and selective history of each group.",
+  "context": "Tajima's D summary statistics (100 kb windows, chr01, WGS data from 3K RGP):\n\nGroup                N samples  Mean D   Median D  % windows D < -1.5  % windows D > 1.5\nindica               1306       -0.62    -0.71     28%                  5%\ntemperate japonica   396        -1.14    -1.22     47%                  2%\n\nMinimum window SNPs: 50. Windows with <50 SNPs excluded.",
+  "correct_answer": "Both subpopulations show negative Tajima's D, consistent with population expansion or selective sweeps, but temperate japonica is more strongly negative (mean -1.14, 47% of windows below -1.5) than indica (mean -0.62, 28% below -1.5). This difference reflects a more severe domestication bottleneck in temperate japonica, which underwent stronger founder effects as it was selected for cold-tolerant, irrigated paddy cultivation in East Asia (Japan, Korea, northern China). The narrower genetic base of temperate japonica results in an excess of rare alleles relative to intermediate-frequency variants. Indica, while also showing signs of selection (negative D), retains more diversity consistent with a milder bottleneck, larger effective population size, and more diverse geographic origins across South and Southeast Asia. The contrast supports independent domestication trajectories with different intensities of genetic drift and selection.",
+  "rubric": "Must correctly interpret negative D as expansion/selection in both groups. Must explain why temperate japonica has more strongly negative D than indica (stronger bottleneck, smaller Ne). Must link interpretations to rice domestication biology. Major errors: reversing the interpretation of D sign, or treating both groups as having identical demographic histories.",
+  "source_method": "Tajima's D via vcftools",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Values are representative of published analyses on the 3K RGP dataset. Temperate japonica consistently shows stronger bottleneck signatures than indica across the rice genome."
+}

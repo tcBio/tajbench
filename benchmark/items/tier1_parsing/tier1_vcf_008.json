@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_008",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "How many of the three VCF records below pass quality filtering?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS001\tS002\nchr01\t5012841\t.\tA\tG\t342\tPASS\tAF=0.50;AN=4;AC=2\tGT:DP\t0/1:25\t0/1:30\nchr01\t5012903\t.\tC\tT\t28\tLowQual\tAF=0.25;AN=4;AC=1\tGT:DP\t0/0:8\t0/1:5\nchr01\t5012967\t.\tG\tA\t512\tPASS\tAF=0.75;AN=4;AC=3\tGT:DP\t0/1:35\t1/1:40",
+  "correct_answer": "2",
+  "rubric": "Must answer 2. Records at positions 5012841 and 5012967 have FILTER=PASS. The record at 5012903 has FILTER=LowQual and does not pass.",
+  "source_method": "DeepVariant",
+  "population_groups": ["indica"],
+  "scoring_method": "exact_match",
+  "answer_pattern": "",
+  "notes": "Tests understanding of the FILTER column in VCF. PASS indicates the record passed all filters; any other value (e.g., LowQual) indicates a failed filter."
+}

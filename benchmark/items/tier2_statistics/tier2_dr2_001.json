@@ -1,0 +1,16 @@
+{
+  "id": "tier2_dr2_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 3,
+  "prompt": "After Beagle 5.4 imputation of rice GBS samples against a WGS reference panel from the 3K Rice Genomes Project, the DR2 (dosage r-squared) distribution is shown below stratified by minor allele frequency (MAF) bin. A researcher proposes applying a uniform DR2 > 0.8 filter across all MAF bins before computing population structure statistics. Evaluate this proposal and recommend an alternative approach if appropriate.",
+  "context": "DR2 distribution by MAF bin (post-imputation, 18.2M sites, 500 GBS samples):\n\nMAF bin     Median DR2  % sites > 0.8  N sites\n< 0.01      0.31        12%            8.1M\n0.01-0.05   0.61        38%            4.2M\n0.05-0.20   0.84        71%            3.8M\n0.20-0.50   0.93        89%            2.1M\n\nNote: The WGS reference panel has 3,010 samples (~14x depth); GBS targets\nare ApeKI-digested with ~150K sites overlapping the reference panel per sample.",
+  "correct_answer": "The uniform DR2 > 0.8 filter is problematic for rare variants (MAF < 0.05): only 12-38% of sites pass, which will severely deplete rare alleles and bias downstream statistics (e.g. Tajima's D, private allele counts). For population structure analysis using PCA or FST, a MAF > 0.05 filter combined with DR2 > 0.8 is more appropriate: this retains 71-89% of common sites where imputation is reliable. Rare variant analyses should either be restricted to WGS samples or use a genotype-likelihood approach rather than hard-call imputed genotypes.",
+  "rubric": "Must identify that DR2 quality is highly MAF-dependent. Must flag that a uniform filter will disproportionately remove rare alleles. Should recommend MAF-stratified filtering or a combined MAF+DR2 threshold. Full marks only if the population structure vs. rare variant distinction is made. Partial: identifies MAF dependence but gives no concrete recommendation.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "This item tests a non-obvious failure mode: LLMs tend to accept uniform DR2 thresholds without questioning the MAF stratification issue."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_005",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "A researcher plans to run both ADMIXTURE and PCA on the 3K Rice Genomes panel (3,010 samples, 18.9M biallelic SNPs). They propose using the same LD-pruned variant set for both analyses, with PLINK2 parameters: window=50, step=5, r2=0.2. This produces 205K independent variants. Is this parameter choice appropriate for both analyses, and should the same pruned set be used?",
+  "context": "Panel: 3,010 rice accessions (indica, japonica, aus, aromatic, admixed)\nStarting variants: 18.9M biallelic SNPs (post-QC)\nLD pruning result: 205,418 variants retained (1.1% of input)\n\nPLINK2 parameters: --indep-pairwise 50 5 0.2\n  window = 50 variants\n  step   = 5 variants\n  r2     = 0.2 (variants with r2 > 0.2 pruned)",
+  "correct_answer": "The r2=0.2 threshold is appropriate for ADMIXTURE, which requires approximately independent markers and is sensitive to LD-induced artifacts. However, PCA is more robust to LD and can benefit from a less stringent threshold (r2=0.5 or even unpruned for large datasets). Using the same pruned set for both is acceptable as a practical compromise -- the 205K variants provide sufficient resolution for PCA while meeting ADMIXTURE's independence requirements. One caveat: for PCA, the 1.1% retention rate removes a lot of genomic signal, potentially reducing resolution for fine-scale structure discrimination within subpopulations. If the researcher needs maximum PCA resolution (e.g., distinguishing closely related accessions within temperate japonica), a separate PCA run on the full or lightly pruned set would be more informative. Note that the aggressive pruning (1.1% retained) reflects the high LD in selfing rice, where LD blocks are much longer than in outcrossing species.",
+  "rubric": "Full marks (3): Distinguishes ADMIXTURE vs PCA sensitivity to LD, evaluates the r2=0.2 threshold for each, provides a nuanced recommendation (shared set acceptable with caveats). Mostly correct (2): Notes r2=0.2 is for ADMIXTURE, missing the PCA nuance. Partial (1): Discusses LD pruning generally without distinguishing the two analyses. Incorrect (0): Recommends no pruning for both, or much stricter pruning. Major error: Claiming PCA requires stricter pruning than ADMIXTURE.",
+  "source_method": "PLINK2 --indep-pairwise",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The low retention rate (1.1%) reflects the long LD blocks in selfing rice. This is expected and appropriate for ADMIXTURE."
+}

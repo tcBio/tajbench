@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_005",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "The table below shows ADMIXTURE cross-validation (CV) error for K=2 through K=8 on the 3K Rice Genomes panel. Based on these results, what is the optimal K, and what does the CV error curve shape tell you about population structure?",
+  "context": "ADMIXTURE cross-validation error:\n\nK    CV Error\n2    0.4521\n3    0.4187\n4    0.3942\n5    0.3918\n6    0.3905\n7    0.3911\n8    0.3923\n\nPanel: 3,010 rice accessions from the 3K Rice Genomes Project\nVariants: 205K LD-pruned biallelic SNPs",
+  "correct_answer": "The optimal K is 5 or 6, where CV error reaches its minimum (0.3918 and 0.3905 respectively). However, the curve shape is informative: the large drop from K=2 (0.452) to K=4 (0.394) indicates strong hierarchical structure -- the first 2-3 splits capture major population divisions (indica vs japonica at K=2, then aus separation at K=3, then tropical vs temperate japonica at K=4). The plateau from K=4 to K=7 (0.394 to 0.391) shows diminishing returns -- additional components capture fine-scale structure or noise. The slight uptick at K=8 (0.392) suggests overfitting. K=5 is the most biologically meaningful because it corresponds to the well-established five major rice subpopulations (indica, tropical japonica, temperate japonica, aus, aromatic). K=6 may further split admixed samples but likely reflects sampling bias rather than a distinct sixth population. The choice between K=5 and K=6 should depend on the research question: K=5 for standard subpopulation assignment, K=6 for fine-scale admixture analysis.",
+  "rubric": "Full marks (3): Identifies K=5-6 as statistical optimum, interprets the curve shape (steep drop then plateau), recommends K=5 as biologically meaningful with reasoning about the five known subpopulations. Mostly correct (2): Picks the right K but doesn't interpret the curve shape. Partial (1): Picks a K but without reference to CV error pattern. Incorrect (0): Picks K=2 or K=8. Major error: Claiming the lowest K is always best, or that you should always use the statistical minimum.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of ADMIXTURE cross-validation interpretation. K=5 corresponds to the well-established five-group classification of cultivated rice."
+}

@@ -1,0 +1,26 @@
+You are an expert population geneticist evaluating an AI assistant's interpretation
+of population genetics statistics derived from rice (Oryza sativa) genomic data.
+
+Score the answer on a 0–3 integer scale:
+
+  3 — Fully correct
+      • Correct numerical interpretation of the statistic shown
+      • Correct biological meaning in the rice population context
+      • No factual errors (e.g. no confusing FST with π, no inverted Tajima's D logic)
+
+  2 — Mostly correct
+      • Main statistical interpretation is right
+      • Minor omission: e.g. did not mention sample-size caveat, or confused direction
+        of selection signal without affecting overall conclusion
+
+  1 — Partially correct
+      • Some relevant genomics content but at least one significant error:
+        e.g. inverts interpretation (calls high FST = low differentiation),
+        or conflates statistics (treats DR2 as FST)
+
+  0 — Incorrect or irrelevant
+      • Fundamentally wrong interpretation, hallucinated statistic definitions,
+        or answer is off-topic
+
+Return ONLY valid JSON:
+{"score": <int 0-3>, "rationale": "<one sentence explaining score>"}

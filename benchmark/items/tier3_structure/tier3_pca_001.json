@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_001",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following PCA was computed on 3,010 rice accessions from the 3K Rice Genomes Project using PLINK2 with 205,418 LD-pruned SNPs (MAF > 0.05). PC1 explains 32.4% and PC2 explains 14.1% of variance. Interpret the population structure visible in the first two PCs.",
+  "context": "Sample coordinates (PC1, PC2) -- representative centroids by subpopulation:\n\nSubpopulation        N      PC1_mean  PC2_mean\nindica               1306   +0.198    -0.021\ntropical japonica    484    -0.187    +0.142\ntemperate japonica   396    -0.241    -0.108\naus                  241    +0.152    +0.198\naromatic             76     -0.048    +0.162\nadmixed              507    +0.012    +0.024\n\nVariance explained: PC1=32.4%, PC2=14.1%, PC3=7.8%, PC4=4.2%\n\nWithin-subpopulation spread (mean Euclidean distance from centroid):\nindica: 0.089 | temperate japonica: 0.042 | aus: 0.065 | admixed: 0.152",
+  "correct_answer": "PC1 separates indica (positive) from japonica (negative) subpopulations, capturing the primary domestication axis -- this reflects the independent domestication of indica and japonica from distinct Oryza rufipogon gene pools. PC2 further separates the japonica subtypes (tropical japonica positive, temperate japonica negative) and pulls aus toward the positive end, reflecting the geographic and ecological differentiation within the major groups. Aromatic rice clusters between indica and japonica on PC1 but closer to tropical japonica on PC2, consistent with its admixed ancestry. The admixed group shows the highest within-group spread (0.152), as expected for samples with intermediate ancestry that do not cleanly assign to any subpopulation. Temperate japonica shows the tightest clustering (0.042), consistent with its narrower genetic base from a more severe domestication bottleneck.",
+  "rubric": "Must correctly identify PC1 as the indica-japonica separation axis. Must note PC2 differentiates within japonica (tropical vs temperate) and positions aus. Must interpret the admixed group's high spread as expected for intermediate-ancestry samples. Must note temperate japonica's tight clustering reflects a narrow genetic base. Partial: identifies main axis but misses subpopulation-level interpretation.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "PCA values are representative of published 3K RGP analyses. The indica-japonica split on PC1 is one of the most well-characterized patterns in crop genomics."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier4_method_001",
+  "tier": 4,
+  "task_type": "decision",
+  "data_layer": "rad_gbs",
+  "difficulty": 2,
+  "prompt": "A population genetics study has 500 rice accessions sequenced with GBS (ApeKI digest) at 2-8x average coverage and wants to compute a PCA for population structure analysis. A collaborator suggests using PLINK2's --pca command on hard-called genotypes. Evaluate this approach and state whether PCAngsd would be preferable, with justification.",
+  "context": "Dataset properties:\n- 500 samples, GBS ApeKI protocol\n- Average depth: 2-8x (range 0.5-25x)\n- Missing genotype rate: 42% per sample (variable coverage across GBS loci)\n- SNP count after joint calling: 312,841 biallelic SNPs\n- Many sites have DP < 3 in 30-50% of samples\n\nAvailable tools:\n- PLINK2 --pca: requires hard-called genotypes (GT field)\n- PCAngsd: uses genotype likelihood matrices (GL/GP fields) and handles uncertainty",
+  "correct_answer": "PCAngsd is preferable. PLINK2 --pca on hard-called genotypes will treat all genotype calls as equally certain, but at 2-8x coverage many heterozygous sites will have inflated error rates and the 42% missing data rate will force either imputation or exclusion, both introducing bias. PCAngsd uses the genotype likelihood (GL) or posterior probability (GP) distribution directly, properly weighting uncertain calls at low depth. For GBS data specifically, where depth is highly variable across loci and samples, the likelihood-based approach of PCAngsd substantially improves PCA accuracy and avoids the missing data problem by treating uncertain genotypes probabilistically rather than excluding them.",
+  "rubric": "Must recommend PCAngsd over PLINK2 hard calls. Must cite at least two of: genotype uncertainty at low depth, variable depth in GBS, missing data treatment, or likelihood-based vs hard-call approach. Partial: recommends PCAngsd but only gives one reason. Zero: recommends PLINK2 or states both are equivalent.",
+  "source_method": "PCAngsd",
+  "population_groups": ["indica", "japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "GBS is the most common reduced-representation sequencing method for rice diversity panels."
+}

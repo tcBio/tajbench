@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following table shows KING-robust kinship coefficients for four rice accession pairs from the 3K Rice Genomes Project. Two of the pairs have negative kinship values. What do negative KING kinship coefficients mean? Should negative values be treated as a data quality concern?",
+  "context": "KING-robust kinship estimates for four rice accession pairs:\n\nPair | Sample_A         | Sample_B         | KINSHIP | IBS0  | Subpopulations\n-----|------------------|------------------|---------|-------|------------------\n1    | IRIS_313-8695    | IRIS_313-10177   | -0.042  | 0.112 | indica x temp-japonica\n2    | IRIS_313-9102    | IRIS_313-10421   | -0.018  | 0.098 | indica x temp-japonica\n3    | IRIS_313-9318    | IRIS_313-11025   | 0.008   | 0.091 | indica x temp-japonica\n4    | IRIS_313-10177   | IRIS_313-10421   | 0.290   | 0.003 | Both temp-japonica\n\nAll samples WGS at ~14x depth. 205,418 LD-pruned biallelic SNPs used.\nSubpopulation assignments from ADMIXTURE K=5 analysis.",
+  "correct_answer": "Negative KING kinship coefficients do not mean the samples are 'more unrelated than random' or that there is a data quality problem. KING-robust estimates kinship relative to the average allele sharing in the sample population. A negative value indicates that the pair shares fewer alleles than the population average. This typically occurs when the two samples come from different subpopulations -- in this case, pairs comparing indica against temperate japonica accessions. Because indica and japonica underwent independent domestication from distinct Oryza rufipogon gene pools, they carry different allele frequencies at many loci, leading to below-average allele sharing and thus negative kinship estimates. This is an expected and well-understood property of the KING-robust estimator in multi-population datasets. Pair 1 (kinship=-0.042) shows the strongest negative signal, reflecting the greatest indica-japonica differentiation between those two samples. Pair 3 (kinship=0.008) is near zero, still consistent with unrelated cross-subpopulation samples. Neither value indicates a data quality issue. In contrast, pair 4 (kinship=0.290) is within the same subpopulation and shows strong first-degree relatedness.",
+  "rubric": "Must explain that negative KING kinship reflects below-average allele sharing relative to the sample population, not an error. Must connect negative values to population structure (indica vs. japonica from different subpopulations). Must state that this is expected behavior for the KING-robust estimator in multi-population panels. Should note that indica and japonica have been independently domesticated with divergent allele frequencies. Major errors: interpreting negative kinship as a data quality problem, interpreting it as meaning the samples are biologically incompatible, or failing to connect negative values to population substructure.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The strong indica-japonica differentiation (FST ~0.35) makes negative KING kinship values very common in cross-subpopulation comparisons in the 3K dataset."
+}

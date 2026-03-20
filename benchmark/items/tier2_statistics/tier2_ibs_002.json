@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ibs_002",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "The table below shows mean and range of window-level IBS scores across 5 rice chromosomes for temperate japonica accessions. Chromosome chr03 has both the lowest minimum IBS (0.795) and the widest range. What does this cross-chromosome variation suggest?",
+  "context": "Chromosome-level IBS summary (396 temperate japonica accessions, 1000-variant windows):\n\nChromosome  Mean_IBS  Min_IBS  Max_IBS  Range    N_Windows\nchr01       0.878     0.822    0.941    0.119    20\nchr03       0.862     0.795    0.940    0.145    18\nchr04       0.886     0.841    0.932    0.091    16\nchr05       0.875     0.829    0.962    0.133    15\nchr07       0.880     0.831    0.924    0.093    14\n\nNote: Oryza sativa has 12 chromosomes (IRGSP-1.0 assembly, ~390 Mb). Window size = 1,000 variants.",
+  "correct_answer": "The cross-chromosome variation reflects differences in recombination landscape, gene density, and selective history. Chr03 has the lowest minimum IBS (0.795) and widest range (0.145), suggesting it contains both highly selected regions (high IBS near 0.94) and regions of high diversity (low IBS at 0.795). The low-IBS windows may correspond to regions under balancing selection or with introgressed diversity from indica or wild rice. Chr04 has the narrowest range (0.091) and highest minimum (0.841), suggesting more uniform selection or a more homogeneous recombination landscape. Chr05 has the highest maximum (0.962), consistent with strong selective sweeps around domestication genes such as those controlling grain size or shattering. In temperate japonica, chromosomes carrying major-effect domestication or adaptation loci (e.g., heading date genes on chr03, grain width genes on chr05) would show more extreme IBS heterogeneity than chromosomes without strong selection targets.",
+  "rubric": "Full marks (3): Connects IBS variance to recombination, selection, and gene content; identifies chr03's wide range as evidence of mixed selective pressures; mentions the domestication/breeding context. Mostly correct (2): Identifies recombination or selection but doesn't link to specific chromosomal features. Partial (1): Describes the numbers but offers no population genetics interpretation. Incorrect (0): Claims all chromosomes should have identical IBS distributions. Major error: Attributing cross-chromosome variance solely to technical artifacts.",
+  "source_method": "PLINK2 --ibs-matrix",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Difficulty 3 item requiring expert-level synthesis across chromosomes. Tests whether the model can integrate recombination landscape, selection, and domestication history to explain IBS heterogeneity."
+}

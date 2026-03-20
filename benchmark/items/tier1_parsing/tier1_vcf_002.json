@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_002",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following record is from a Beagle 5.4 imputed VCF produced from low-coverage rice GBS data imputed against a WGS reference panel from the 3K Rice Genomes Project. Identify (a) the imputation quality score (DR2) for this site, (b) whether this site should be retained if the analysis requires DR2 > 0.8, and (c) the genotype call (GT) and full genotype-posterior triplet (GP) for sample GBS_011.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tGBS_011\tGBS_012\nchr03\t4481923\t.\tC\tT\t.\tPASS\tAF=0.312;AN=2160;AC=674;DR2=0.723;IMP\tGT:DS:GP\t0/1:0.98:0.03,0.96,0.01\t1/1:2.00:0.00,0.01,0.99",
+  "correct_answer": "(a) DR2=0.723; (b) No, 0.723 < 0.80 threshold, site should be filtered out; (c) GT=0/1, GP=0.03,0.96,0.01",
+  "rubric": "Must extract DR2=0.723 correctly. Must state the site fails DR2>0.8 filter. Must correctly read GT as 0/1 and report GP=0.03,0.96,0.01. Major error: stating site passes filter, or reading GT/GP from GBS_012 instead of GBS_011.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica", "aus"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?=.*DR2\\s*[=:]\\s*0\\.723)(?=.*(?:\\bno\\b|\\bnot\\s+retained\\b|\\bshould\\s+be\\s+filtered\\s+out\\b|\\bshould\\s+be\\s+excluded\\b|\\bfails?\\s+(?:the\\s+)?(?:DR2\\s*)?(?:threshold|filter)\\b|\\bexclude(?:d)?\\b|\\bremove(?:d)?\\b|\\bfiltered?\\s+out\\b))(?=.*0/1)(?=.*0\\.03\\s*,\\s*0\\.96\\s*,\\s*0\\.01)",
+  "notes": "Tests imputation quality field (DR2) extraction and threshold reasoning, plus GP posterior probability parsing."
+}

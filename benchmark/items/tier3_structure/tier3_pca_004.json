@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_004",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Six indica rice accessions were projected into a shared PCA space computed on 205K LD-pruned SNPs. Three are from the 3K WGS panel and three are from a GBS panel imputed to WGS density. From the PCA coordinates below, identify which samples are likely imputed (not WGS) and explain the artifact you observe.",
+  "context": "PCA coordinates for 6 indica rice accessions:\n\nSample    PC1      PC2      PC3      Panel\nS_A      +0.212   -0.041   +0.019   ???\nS_B      +0.189   +0.012   -0.007   ???\nS_C      +0.196   -0.018   +0.003   ???\nS_D      +0.198   -0.009   +0.001   ???\nS_E      +0.194   -0.015   -0.002   ???\nS_F      +0.215   +0.024   -0.015   ???\n\nIndica centroid: PC1=+0.198, PC2=-0.008, PC3=+0.000\nPC coordinate standard deviation across all indica WGS samples: PC1=0.024, PC2=0.031, PC3=0.018\n\nNote: All six samples are confirmed indica accessions from independent breeding programs.",
+  "correct_answer": "Samples S_C, S_D, and S_E have coordinates that are compressed toward the indica centroid across all three PCs -- their PC1 values (0.196, 0.198, 0.194) cluster within a narrow 0.004 range near the centroid (0.198), and their PC2/PC3 values are all within ~0.02 of zero. In contrast, S_A (PC1=0.212, PC2=-0.041), S_B (PC2=+0.012), and S_F (PC1=0.215, PC2=+0.024) show larger deviations from the centroid, consistent with genuine genetic individuality captured by WGS. The imputed samples are likely S_C, S_D, and S_E. The compression artifact arises because imputation replaces missing genotypes with population-frequency-weighted estimates, shrinking individual-specific variation toward population means. This is a known PCA artifact for imputed data: imputed samples have lower effective genetic individuality in PCA space, appearing artificially clustered. This can be mistaken for genuine genetic similarity if not accounted for.",
+  "rubric": "Full marks (3): Correctly identifies that the samples closest to the centroid with smallest spread (S_C, S_D, S_E) are likely imputed, explains the compression/shrinkage artifact of imputation on PCA coordinates, and notes that imputation replaces missing data with population-frequency estimates that reduce individual-specific variation. Mostly correct (2): Identifies the compressed samples as imputed and mentions imputation artifacts, but does not explain the mechanism. Partial (1): Notices the difference in spread but attributes it to sequencing depth or batch effects. Incorrect (0): Identifies the wrong samples as imputed or fails to detect the pattern. Major error: Claiming the tightly clustered samples are WGS because they are 'more consistent'.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Coordinates are constructed to illustrate the imputation compression artifact. S_A and S_F are WGS, S_B could be either. The key signal is the reduced PCA spread of imputed samples."
+}

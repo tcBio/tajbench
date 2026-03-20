@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_004",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 1,
+  "prompt": "How many distinct alleles (including the reference) are present at this multi-allelic site?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS001\tS002\tS003\tS004\nchr02\t542891\t.\tA\tT,G,C\t312\tPASS\tAF=0.31,0.12,0.07;AN=8;AC=3,1,1\tGT:GQ:DP:AD\t0/1:35:28:14,12,2,0\t0/0:42:31:31,0,0,0\t1/2:18:19:0,11,8,0\t0/3:22:24:15,0,0,9",
+  "correct_answer": "4",
+  "rubric": "Must answer 4. The site has REF allele A and three ALT alleles (T, G, C) for a total of 4 distinct alleles.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "exact_match",
+  "answer_pattern": "",
+  "notes": "Tests ability to count alleles at a multi-allelic site. REF=A plus ALT=T,G,C gives 4 distinct alleles. The AD field has 4 values corresponding to each allele."
+}
