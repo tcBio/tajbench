@@ -1,0 +1,16 @@
+{
+  "id": "tier3_ibd_003",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "IBD segment sharing was computed across all 1,306 indica accessions. The mean pairwise IBD sharing (fraction of genome shared IBD) was then averaged by geographic origin of each pair. The results reveal geographic structure within indica. Interpret the pattern.",
+  "context": "Mean pairwise IBD sharing (fraction genome IBD, hap-IBD, min 1 cM) by geographic pair:\n\n  Pair                              Mean_IBD   N_pairs\n  Within South Asia                 0.084      84,828\n  Within Southeast Asia             0.072      73,536\n  Within East Asia                  0.068      23,653\n  S.Asia x SE.Asia                  0.038      158,208\n  S.Asia x E.Asia                   0.028      90,396\n  SE.Asia x E.Asia                  0.042      83,712\n\nWithin-country peaks:\n  India-India: 0.098\n  Bangladesh-Bangladesh: 0.112\n  Vietnam-Vietnam: 0.088\n  China-China: 0.074\n\nGenome-wide background IBD (random indica pairs): 0.048",
+  "correct_answer": "The IBD sharing pattern reveals geographic substructure within indica rice that mirrors its dispersal history: (1) WITHIN-REGION IBD: All within-region means exceed the genome-wide background (0.048), confirming geographic clustering. South Asian pairs share the most IBD (0.084), consistent with South Asia being the center of indica diversity and domestication -- accessions from the same region share more recent ancestors. (2) CROSS-REGION IBD: SE.Asia x E.Asia sharing (0.042) exceeds S.Asia x E.Asia (0.028), suggesting indica dispersed from South Asia through Southeast Asia to East Asia -- the stepping-stone dispersal pattern creates more shared ancestry between adjacent regions. (3) WITHIN-COUNTRY PEAKS: Bangladesh shows the highest within-country IBD (0.112), suggesting either a narrower genetic base for Bangladeshi indica (bottleneck from limited introductions) or more intensive local breeding creating genetic uniformity. India's lower within-country IBD (0.098) despite being the likely center of origin reflects India's larger geographic extent and more diverse landraces. (4) The IBD gradient (within-country > within-region > cross-region > background) is a classic isolation-by-distance pattern, where genetic sharing decreases with geographic distance. This geographic structure must be accounted for in indica-specific GWAS, as phenotypic variation correlated with geography (e.g., photoperiod sensitivity varying with latitude) could create false associations if not corrected.",
+  "rubric": "Full marks (3): Must interpret the IBD gradient as geographic structure, identify the South Asian center of diversity, note the stepping-stone dispersal pattern (SE.Asia-E.Asia > S.Asia-E.Asia), and discuss GWAS implications. Mostly correct (2): Identifies geographic pattern correctly but missing the dispersal route inference or GWAS implication. Partial (1): Notes IBD varies by geography without interpretation. Incorrect (0): Claims within-country high IBD indicates duplicate samples.",
+  "source_method": "hap-IBD",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests IBD-based geographic structure inference within a single subpopulation."
+}

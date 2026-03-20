@@ -1,0 +1,16 @@
+{
+  "id": "tier3_family_004",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "KING-robust kinship was computed for 484 tropical japonica accessions. The kinship distribution is compared with the distribution for 1,306 indica accessions. Tropical japonica shows a higher mean kinship and a longer right tail. Interpret the difference.",
+  "context": "KING-robust kinship distributions:\n\n  Statistic              Indica (n=1306)   Trop_japonica (n=484)\n  Mean kinship           0.024             0.048\n  Median kinship         0.008             0.022\n  SD                     0.042             0.058\n  Frac > 0.0884 (2nd)   4.2%              8.8%\n  Frac > 0.177 (1st)    0.8%              2.4%\n  Frac > 0.354 (dup)    0.02%             0.08%\n  Frac < 0.00           18.4%             12.1%\n\nSample sizes: indica 852,415 pairs, trop_jap 117,028 pairs",
+  "correct_answer": "Tropical japonica shows systematically higher kinship than indica across all metrics, reflecting three complementary factors: (1) SMALLER EFFECTIVE POPULATION SIZE: Tropical japonica has fewer accessions (484 vs 1,306) representing a smaller global breeding pool. With fewer founders, any two accessions are more likely to share recent ancestry, elevating mean kinship. (2) NARROWER GENETIC BASE: Tropical japonica underwent a bottleneck during japonica domestication and subsequent upland adaptation. The narrower genetic diversity means that even unrelated accessions share more genome-wide allele identity, which KING interprets as elevated kinship. (3) BREEDING PROGRAM STRUCTURE: The 2.4% of pairs above the first-degree threshold (vs 0.8% in indica) suggests more pervasive family structure -- tropical japonica breeding programs may use fewer elite parents, creating denser relatedness networks. The lower fraction of negative kinship pairs in tropical japonica (12.1% vs 18.4%) indicates less within-subpopulation substructure compared to indica. In indica, the geographic substructure (South Asian vs Southeast Asian vs East Asian) creates cross-group pairs with negative kinship, while tropical japonica's more geographically concentrated cultivation (primarily island Southeast Asia and West Africa) produces fewer such divergent pairs. Implications: kinship thresholds for QC (e.g., removing pairs with kinship > 0.0884) will flag proportionally more tropical japonica pairs, potentially over-pruning the sample for GWAS. Subpopulation-specific thresholds may be needed.",
+  "rubric": "Full marks (3): Must attribute higher kinship to smaller Ne/narrower genetic base, interpret the higher fraction of related pairs as breeding program structure, explain the negative kinship difference as within-subpopulation substructure, and note QC threshold implications. Mostly correct (2): Identifies smaller Ne as cause but missing the negative kinship interpretation or QC implication. Partial (1): Notes tropical japonica has higher kinship without explanation. Incorrect (0): Attributes to sample size artifact only.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica", "tropical-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests comparison of kinship distributions between subpopulations with different demographic histories."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier3_treemix_002",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "TreeMix was run on the 5 rice subpopulations with 0 migration edges. The residual covariance matrix shows which population pairs are poorly fit by the tree model. Interpret the residuals and predict which migration edge TreeMix would add first.",
+  "context": "TreeMix residual covariance matrix (0 migrations, scaled):\n\n                    indica   trop_jap  temp_jap  aus      aromatic\nindica              0.00\ntrop_japonica      -0.02     0.00\ntemp_japonica      -0.01    -0.01      0.00\naus                +0.03    -0.02     -0.03      0.00\naromatic           +0.01    +0.08     +0.02     -0.01     0.00\n\nPositive residuals: observed covariance EXCEEDS tree-predicted (populations are more similar than tree implies)\nNegative residuals: observed covariance LESS THAN tree-predicted\n\nBase tree topology: ((indica, aus), (aromatic, (trop_jap, temp_jap)))\nOverall fit: 98.2%",
+  "correct_answer": "The largest positive residual is aromatic-tropical japonica (+0.08), meaning these two populations share more genetic similarity than the bifurcating tree predicts. This excess covariance indicates gene flow that the tree model cannot capture. TreeMix would add a migration edge from tropical japonica to aromatic (or vice versa) first, as this would explain the largest residual. This is biologically plausible: aromatic rice (especially Jasmine types from Southeast Asia) shares substantial ancestry with tropical japonica due to geographic proximity and historical exchange in the Southeast Asian rice cultivation zone. The second-largest positive residual is aus-indica (+0.03), which would likely be the second migration edge added -- consistent with ongoing gene flow between these sister lineages in South Asia. The negative residuals (e.g., aus-temperate japonica at -0.03) indicate these populations are LESS similar than the tree predicts, which makes sense given that aus and temperate japonica are geographically and ecologically the most separated pair (South Asian drought-adapted vs East Asian irrigated temperate). The tree overestimates their similarity because it forces them to share a common ancestor through the tree topology.",
+  "rubric": "Full marks (3): Must identify aromatic-tropical japonica as the largest positive residual, correctly predict it as the first migration edge, explain the biological plausibility (geographic proximity, Jasmine-japonica connection), and interpret at least one negative residual. Mostly correct (2): Correctly predicts the first migration edge but missing biological explanation or negative residual interpretation. Partial (1): Identifies the largest residual but cannot predict the migration edge direction. Incorrect (0): Predicts a different migration edge or misinterprets residual signs.",
+  "source_method": "TreeMix",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests ability to read TreeMix residual matrices and predict migration edges from first principles."
+}

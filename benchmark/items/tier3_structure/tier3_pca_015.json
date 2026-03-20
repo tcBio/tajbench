@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_015",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on the full 3K panel. PC3 (7.8% variance) and PC4 (4.2% variance) reveal structure not visible on PC1-PC2. The PC3-PC4 plot is described below. Interpret which population relationships PC3 and PC4 capture.",
+  "context": "PC3-PC4 plot (3,010 accessions):\n\nPC3 axis (7.8% variance):\n  Positive end: aus cluster (centroid PC3=+0.182)\n  Negative end: aromatic cluster (centroid PC3=-0.148)\n  indica, trop-jap, temp-jap: near zero on PC3 (+/-0.02)\n\nPC4 axis (4.2% variance):\n  Positive end: aromatic cluster (centroid PC4=+0.134)\n  Negative end: aus cluster (centroid PC4=-0.098)\n  Overlap: admixed samples spread across both axes\n  indica: PC4 centroid = -0.008\n  trop-jap: PC4 centroid = +0.042\n  temp-jap: PC4 centroid = -0.028\n\nNotable: On PC3-PC4, aus and aromatic are maximally separated, while indica and both japonica subtypes overlap near the origin.",
+  "correct_answer": "PC3 and PC4 capture the differentiation of the two minor subpopulations (aus and aromatic) that are not well-resolved on PC1-PC2: PC3 (7.8%) separates aus (positive) from aromatic (negative), with the three major subpopulations (indica, tropical japonica, temperate japonica) near zero. This axis captures the genetic distinctiveness of aus and aromatic relative to each other -- despite both being minor groups, they are genetically very different (aus is indica-related, aromatic has japonica affinities). The major subpopulations contribute little to PC3 because their main differentiation is already captured by PC1-PC2. PC4 (4.2%) provides additional separation, with aromatic positive and aus negative. PC4 likely captures finer-scale structure -- the tropical japonica slight positive loading (+0.042) on PC4 may reflect the shared ancestry between tropical japonica and aromatic (the Jasmine connection). The temperate japonica slight negative loading (-0.028) on PC4, closer to aus, may reflect shared features of bottlenecked populations. Together, PC3-PC4 resolve the aus-aromatic axis that is orthogonal to the indica-japonica axis on PC1-PC2. This is why using only PC1-PC2 as GWAS covariates is insufficient -- aus and aromatic structure would remain uncorrected. Admixed samples spread across both axes because their mixed ancestry places them at intermediate positions depending on their specific aus/aromatic/indica/japonica proportions.",
+  "rubric": "Full marks (3): Must identify PC3 as the aus-aromatic separation axis, explain why major subpopulations are near zero (already captured by PC1-PC2), interpret the PC4 loadings as finer structure (tropical japonica-aromatic connection), and note implications for GWAS covariate selection. Mostly correct (2): Identifies aus-aromatic separation but missing the GWAS implication or PC4 fine structure. Partial (1): Describes positions without interpretation. Incorrect (0): Claims PC3-PC4 are noise.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests interpretation of higher PCs that capture minor subpopulation structure."
+}

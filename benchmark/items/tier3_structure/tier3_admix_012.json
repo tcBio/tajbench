@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_012",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "ADMIXTURE was run at K=2 through K=10 on 3,010 rice accessions. The cross-validation (CV) error curve is shown. Interpret the CV error pattern and explain why it does not have a single clear minimum.",
+  "context": "ADMIXTURE cross-validation error by K:\n\n  K    CV_error   Delta_CV (change from K-1)\n  2    0.524      --\n  3    0.448      -0.076\n  4    0.398      -0.050\n  5    0.362      -0.036\n  6    0.358      -0.004\n  7    0.361      +0.003\n  8    0.368      +0.007\n  9    0.374      +0.006\n  10   0.382      +0.008\n\nPattern: Steep decline K=2-5, near-plateau at K=5-6, gradual increase K=7+\n\nBiological context: 5 named subpopulations + admixed group in 3K RGP classification.",
+  "correct_answer": "The CV error curve shows a characteristic pattern for hierarchically structured populations: (1) STEEP DECLINE (K=2-5): Each additional cluster captures a major biological group. K=2 separates indica from japonica. K=3 adds aus or aromatic. K=4-5 resolves all five major subpopulations. The large delta-CV values (-0.076 to -0.036) indicate each new cluster explains substantial predictive variance. (2) NEAR-PLATEAU (K=5-6): CV error barely changes (delta=-0.004), suggesting K=5 captures the major structure and K=6 provides only marginal improvement. K=6 likely captures the admixed group as a weak cluster or resolves within-subpopulation structure. (3) GRADUAL INCREASE (K=7+): CV error rises as additional clusters overfit -- they capture noise or sample-specific variation rather than genuine population structure. The monotonic increase confirms overfitting. The lack of a sharp minimum is typical when population structure is hierarchical rather than discrete. The five subpopulations are not equally differentiated (indica-japonica split is much deeper than tropical-temperate japonica split), so the CV curve shows diminishing returns rather than a sudden optimum. Best practice: report K=5 as the primary result (matching the five known subpopulations) but also show K=6 to check for additional meaningful structure. Do NOT select K based solely on the minimum CV -- biological interpretability and consistency with independent evidence (PCA, FST) should also guide K selection.",
+  "rubric": "Full marks (3): Must explain the three phases (decline, plateau, increase), connect each K to biological groups, explain why no sharp minimum exists (hierarchical structure), and recommend K=5 with caveats about model selection. Mostly correct (2): Explains the pattern correctly but missing the hierarchical structure insight or K selection recommendation. Partial (1): Identifies K=5-6 as optimal without explaining the curve shape. Incorrect (0): Selects K=10 or claims the curve is uninformative.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests CV error curve interpretation -- one of the most common ADMIXTURE analysis tasks."
+}

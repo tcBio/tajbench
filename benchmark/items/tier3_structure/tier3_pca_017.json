@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_017",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on 3,010 rice accessions using LD-pruned SNPs. A single outlier sample (IRIS_313-11284) appears far from all subpopulation clusters on PC1-PC2. Diagnose the most likely cause of this outlier.",
+  "context": "Outlier sample characteristics:\n\n  Sample: IRIS_313-11284\n  Passport: classified as indica, origin India\n  PC1: +0.42 (indica centroid: +0.198)\n  PC2: +0.38 (indica centroid: -0.021)\n  Distance to nearest cluster: 0.32 (nearest is aus centroid)\n\n  QC metrics:\n    Mean DP: 4.2x (panel mean: 14.8x)\n    Missing rate: 0.284 (panel mean: 0.029)\n    Het rate: 0.142 (indica mean: 0.031)\n    Ts/Tv: 1.82 (panel mean: 2.31)\n\n  ADMIXTURE K=5:\n    Q = (0.38, 0.18, 0.12, 0.22, 0.10)\n    No dominant component\n\n  KING kinship to nearest neighbor: 0.004 (effectively unrelated to all)",
+  "correct_answer": "This outlier is most likely caused by SAMPLE CONTAMINATION or DNA MIXING, not genuine biological admixture. The evidence: (1) EXTREMELY HIGH HETEROZYGOSITY: Het rate of 0.142 is 4.6x the indica mean (0.031). In a selfing species with F~0.92, observing 14.2% heterozygosity is nearly impossible from biology alone -- even a recent F1 hybrid would have het ~6-8%. The 14.2% rate suggests two different DNA sources were mixed. (2) LOW DEPTH AND HIGH MISSINGNESS: Mean DP=4.2x (vs panel 14.8x) and missing rate=0.284 indicate poor sequencing quality, which is common for contaminated or degraded samples. (3) LOW Ts/Tv: 1.82 vs panel 2.31 indicates elevated false positive variant calls, consistent with errors from mixed-sample reads creating apparent heterozygous sites. (4) ADMIXTURE PATTERN: The near-equal distribution across all 5 components (0.10-0.38) is NOT consistent with any known rice population or admixture pattern -- genuine admixed accessions typically have 1-2 dominant components. This 'flat' ADMIXTURE profile is the classic signature of contamination, where mixed reads from two divergent samples create an artificial intermediate. (5) PCA POSITION: The extreme outlier position (far from all clusters) occurs because the mixed genotypes create an artificial genotype profile that does not match any real population. RECOMMENDATION: Flag this sample for removal from all analyses. If the DNA is available, check with a contamination detection tool (e.g., VerifyBamID) or re-extract DNA.",
+  "rubric": "Full marks (3): Must diagnose contamination/DNA mixing as primary cause, cite the extreme het rate as the key evidence (impossible in selfing species), interpret the flat ADMIXTURE profile as contamination signature, and recommend removal with verification. Mostly correct (2): Identifies contamination but missing one key line of evidence. Partial (1): Suggests low quality data but does not specifically diagnose contamination. Incorrect (0): Interprets as genuine biological admixture.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests ability to diagnose sample contamination from PCA outlier + QC metrics -- a critical practical skill."
+}
