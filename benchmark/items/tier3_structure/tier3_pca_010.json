@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_010",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on a subset of 1,306 indica accessions only (excluding all other subpopulations). The PC1-PC2 plot reveals substructure within indica that was not visible in the full-panel PCA. Interpret the within-indica structure.",
+  "context": "PCA on indica only (1,306 accessions, 312,408 LD-pruned SNPs MAF>0.05):\n\nPC1 explains 5.8%, PC2 explains 3.2%\n\nCentroid coordinates and annotations:\n\n  Cluster                  N     PC1_mean   PC2_mean   Geographic_origin\n  South Asian indica       412   +0.082     +0.041     India, Bangladesh, Sri Lanka\n  Southeast Asian indica   384   -0.068     +0.048     Vietnam, Myanmar, Thailand\n  East Asian indica        218   -0.024     -0.088     China (southern)\n  Improved indica          292   +0.012     -0.018     IRRI breeding lines, mixed\n\nWithin-cluster spread:\n  South Asian: 0.048 | SE Asian: 0.042 | East Asian: 0.038 | Improved: 0.062",
+  "correct_answer": "The within-indica PCA reveals geographic substructure masked by the dominant indica-japonica axis in the full-panel analysis. Four clusters emerge: (1) South Asian indica (PC1+) represents the ancestral indica diversity center, likely closest to the original domestication location in the Ganges basin. (2) Southeast Asian indica (PC1-) shows the geographic expansion of indica into Indochina, with adaptation to tropical lowland ecosystems. (3) East Asian indica (PC2-) represents indica varieties adapted to subtropical/temperate conditions in southern China, potentially with introgressions from japonica due to geographic proximity. (4) Improved indica shows the highest within-cluster spread (0.062), consistent with IRRI breeding lines that combine diverse indica parents -- these are positioned centrally because they sample from all three geographic groups. The lower variance explained per PC (5.8% vs 32.4% in full panel) confirms this is finer-scale structure -- the geographic differentiation within indica is much weaker than the indica-japonica split. This substructure is important for: (a) GWAS within indica should include these PCs as covariates to avoid geographic confounding, (b) genomic prediction models trained on one indica subgroup may not transfer well to another, (c) breeding programs should sample from multiple indica clusters to maximize genetic diversity.",
+  "rubric": "Full marks (3): Must identify geographic clustering, interpret each cluster's origin, note the improved lines' central position and high spread, and discuss implications for GWAS/breeding. Mostly correct (2): Identifies geographic structure but missing practical implications. Partial (1): Notes clusters exist without geographic interpretation. Incorrect (0): Claims within-indica PCA shows no meaningful structure.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Within-indica geographic structure is well-documented. The IRRI improved lines' central position is characteristic of multi-parent breeding programs."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier3_assign_001",
+  "tier": 3,
+  "task_type": "decision",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "A new rice accession was genotyped with a 50K SNP array and projected onto the 3K RGP PCA and ADMIXTURE results. The classification outputs are shown below. Assign this accession to a subpopulation or classify it as admixed. Justify your decision.",
+  "context": "New accession classification results:\n\nPCA projection (onto 3K RGP PC axes):\n  PC1: +0.142, PC2: +0.168\n  Nearest subpopulation centroid: aus (distance=0.042)\n  Second nearest: indica (distance=0.108)\n  Third nearest: aromatic (distance=0.124)\n\nADMIXTURE projection (K=5, using 3K RGP reference):\n  Q1(indica)=0.18, Q2(trop-jap)=0.02, Q3(temp-jap)=0.01, Q4(aus)=0.76, Q5(aromatic)=0.03\n\nDiagnostic SNP panel (12 ancestry-informative markers):\n  11/12 markers match aus consensus alleles\n  1/12 matches indica consensus\n\nSubpopulation centroids for reference:\n  indica: PC1=+0.198, PC2=-0.021\n  aus: PC1=+0.152, PC2=+0.198\n  aromatic: PC1=-0.048, PC2=+0.162",
+  "correct_answer": "This accession should be classified as aus. All three lines of evidence converge: (1) PCA: closest to aus centroid (distance 0.042), well separated from indica (0.108) and aromatic (0.124). The PC1=+0.142, PC2=+0.168 coordinates place it firmly in the aus cluster. (2) ADMIXTURE: 76% aus ancestry with 18% indica admixture. The dominant aus ancestry exceeds the typical 80% threshold for 'pure' subpopulation assignment in some studies, but the 76% is still strong. The 18% indica component is consistent with known gene flow between aus and indica in South Asia -- many aus landraces have minor indica introgression. (3) Diagnostic SNPs: 11/12 aus-specific markers confirm the classification. The single indica marker is consistent with the 18% indica admixture seen in ADMIXTURE. Classification: aus with minor indica admixture. This is NOT admixed in the sense of the 3K RGP 'admixed' category (which typically has no dominant component >60%). The sample should be included in aus-specific analyses but the indica component should be noted.",
+  "rubric": "Full marks (3): Must classify as aus using all three evidence lines, note the minor indica admixture is consistent across methods, and distinguish from the 'admixed' classification category. Mostly correct (2): Classifies as aus correctly but does not integrate all three evidence types. Partial (1): Classifies correctly but with weak justification. Incorrect (0): Classifies as admixed or indica.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["aus", "indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests multi-evidence population assignment -- integrating PCA, ADMIXTURE, and diagnostic markers."
+}

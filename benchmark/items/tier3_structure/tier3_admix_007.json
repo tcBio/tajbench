@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_007",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "ADMIXTURE was run on 3,010 rice accessions at K=3, K=5, and K=7. The cross-validation (CV) error for each K is shown, along with the ancestry proportions for a single accession (IRIS_313-8244) at each K. Interpret how this sample's ancestry assignment changes with K and which K is most appropriate.",
+  "context": "Cross-validation error:\n  K=3: CV=0.412\n  K=4: CV=0.384\n  K=5: CV=0.362\n  K=6: CV=0.358\n  K=7: CV=0.361\n  K=8: CV=0.372\n\nAncestry proportions for IRIS_313-8244:\n\n  K=3: Q1=0.52 (indica-like), Q2=0.38 (japonica-like), Q3=0.10 (aus-like)\n  K=5: Q1=0.48 (indica), Q2=0.22 (trop-jap), Q3=0.14 (temp-jap), Q4=0.08 (aus), Q5=0.08 (aromatic)\n  K=7: Q1=0.31 (indica-S.Asia), Q2=0.18 (indica-SE.Asia), Q3=0.19 (trop-jap), Q4=0.12 (temp-jap), Q5=0.06 (aus), Q6=0.07 (aromatic), Q7=0.07 (unknown)\n\nSample metadata: IRIS_313-8244, origin: Myanmar, classified as 'admixed' in 3K RGP passport data.",
+  "correct_answer": "IRIS_313-8244 is a genuinely admixed accession from Myanmar, a geographic region where indica and japonica cultivation zones overlap. Its ancestry interpretation changes with K: At K=3, it appears as a simple indica-japonica hybrid (52-38%). At K=5 (optimal K based on CV error minimum at K=6, plateau K=5-6), the japonica component resolves into tropical (22%) and temperate (14%), revealing that the japonica ancestry is predominantly tropical -- consistent with Myanmar's tropical geography. At K=7, the indica component itself splits into South Asian (31%) and Southeast Asian (18%), and a 7th 'unknown' component appears (7%). The K=7 model may be overfitting (CV error increases from K=6 to K=7), and the 7th component likely represents noise from forcing too many clusters. The optimal K is 5 or 6 (CV error minimum at 0.358 for K=6, with K=5 nearly as good at 0.362). At K=5, the ancestry proportions are most interpretable: this is an indica-dominant admixed accession with substantial tropical japonica ancestry and minor contributions from temperate japonica, aus, and aromatic -- a pattern consistent with a landrace from a geographic contact zone rather than a deliberate breeding cross.",
+  "rubric": "Full marks (3): Must identify K=5 or K=6 as optimal from CV error, trace how ancestry resolution changes with K, interpret the Myanmar origin as a geographic contact zone for admixture, and note K=7 overfitting. Mostly correct (2): Identifies optimal K and traces ancestry changes but missing geographic interpretation. Partial (1): Notes the sample is admixed without discussing K optimization. Incorrect (0): Selects K=3 or K=7 as optimal.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how ADMIXTURE resolution changes with K and how to select optimal K using CV error."
+}

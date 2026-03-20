@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_009",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on 3,010 rice accessions. The scree plot (variance explained by each PC) is shown. How many PCs capture meaningful population structure versus noise? Justify your choice.",
+  "context": "Scree plot data (first 20 PCs):\n\n  PC    Variance_explained_%   Cumulative_%\n  1     32.4                  32.4\n  2     14.1                  46.5\n  3      7.8                  54.3\n  4      4.2                  58.5\n  5      2.9                  61.4\n  6      2.1                  63.5\n  7      1.8                  65.3\n  8      1.5                  66.8\n  9      1.4                  68.2\n  10     1.3                  69.5\n  11     1.2                  70.7\n  12     1.1                  71.8\n  13     1.1                  72.9\n  14     1.0                  73.9\n  15     1.0                  74.9\n  16     1.0                  75.9\n  17     0.9                  76.8\n  18     0.9                  77.7\n  19     0.9                  78.6\n  20     0.9                  79.5\n\nTracy-Widom test (significant PCs at p<0.05): PCs 1-6\nKnown subpopulations: 5 (indica, tropical japonica, temperate japonica, aus, aromatic) + admixed",
+  "correct_answer": "PCs 1-6 capture meaningful population structure, with a clear 'elbow' between PC6 (2.1%) and PC7 (1.8%). Evidence: (1) The Tracy-Widom test identifies PCs 1-6 as statistically significant (p<0.05), confirming they explain more variance than expected under a null model of no structure. (2) The scree plot shows a steep decline from PC1 (32.4%) through PC4 (4.2%), then a more gradual decline through PC6, before flattening into a near-linear tail from PC7 onward. PCs 7+ each explain ~1% and decrease slowly -- this is the 'noise floor' where each PC captures sampling variation rather than population structure. (3) Biologically, 5 known subpopulations create at most 4 independent axes of between-group variation (K-1 for K groups), but the admixed group and substructure within subpopulations (e.g., Basmati vs Jasmine within aromatic) add 1-2 additional meaningful PCs. PC5-6 likely capture within-subpopulation structure or the admixed gradient. Practical recommendation: use PCs 1-6 as covariates in GWAS to correct for population stratification. Using too few PCs (e.g., only PC1-2) would leave residual confounding from fine-scale structure; using too many (e.g., PC1-20) would over-correct and reduce power by absorbing real phenotypic signal.",
+  "rubric": "Full marks (3): Must identify PCs 1-6 as significant using both the elbow/scree shape and Tracy-Widom test, connect to K-1 expectation for K subpopulations, and discuss practical implications for GWAS covariate selection. Mostly correct (2): Identifies correct number of PCs but missing one line of evidence or practical implication. Partial (1): Gives a reasonable number but poor justification. Incorrect (0): Claims all 20 PCs are meaningful or only 1-2 PCs matter.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests scree plot interpretation -- a fundamental skill for PCA-based structure analysis."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier3_ibd_001",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "IBD (identity-by-descent) segments were detected between pairs of indica accessions using hap-IBD. The length distribution of shared IBD segments is shown for three pairs with different relationship types. Classify each pair's relationship and explain your reasoning.",
+  "context": "IBD segment summary (3 indica pairs, hap-IBD, min segment 1 cM):\n\nPair 1: IRIS_313-8695 vs IRIS_313-9102\n  N_segments: 142\n  Total_IBD_length: 1,248 cM (of ~1,500 cM genome)\n  Mean_segment: 8.8 cM\n  Longest_segment: 82 cM\n  Fraction_genome_IBD: 0.832\n  IBD2_fraction: 0.41\n\nPair 2: IRIS_313-10177 vs IRIS_313-10421\n  N_segments: 84\n  Total_IBD_length: 624 cM\n  Mean_segment: 7.4 cM\n  Longest_segment: 48 cM\n  Fraction_genome_IBD: 0.416\n  IBD2_fraction: 0.02\n\nPair 3: IRIS_313-8244 vs IRIS_313-8502\n  N_segments: 28\n  Total_IBD_length: 112 cM\n  Mean_segment: 4.0 cM\n  Longest_segment: 18 cM\n  Fraction_genome_IBD: 0.075\n  IBD2_fraction: 0.00\n\nNote: IBD1 = sharing one haplotype IBD; IBD2 = sharing both haplotypes IBD.\nExpected for full siblings: ~50% IBD1, ~25% IBD2\nExpected for parent-offspring: ~100% IBD1, ~0% IBD2\nExpected for half-siblings: ~25% IBD1, ~0% IBD2",
+  "correct_answer": "Pair 1 (83.2% genome IBD, 41% IBD2): Full siblings or equivalent in a selfing species. The high IBD2 fraction (0.41) indicates both haplotypes are shared at 41% of the genome, which exceeds the 25% expected for outbred full siblings. In a selfing species, parental homozygosity inflates IBD2 -- if both parents are highly inbred (F~0.9), most sites are effectively IBD2 even in half-sibs. The 83% total IBD is consistent with progeny from a cross between closely related inbred lines (first-degree relationship). Pair 2 (41.6% genome IBD, 2% IBD2): Second-degree relatives or parent-offspring from a cross between more divergent lines. The very low IBD2 (0.02) rules out full siblings in an outbred context, but in selfing rice this pattern could arise from parent-offspring where the parents differ at ~60% of the genome. The segment length distribution (mean 7.4 cM, max 48 cM) is consistent with recent shared ancestry (1-3 generations). Pair 3 (7.5% genome IBD, 0% IBD2): Distant relatives or unrelated within-subpopulation pair. The short mean segment length (4.0 cM) suggests the shared IBD is from more ancient common ancestry (>5 generations). This level of sharing is typical for members of the same breeding program or geographic region without recent pedigree connections.",
+  "rubric": "Full marks (3): Must classify all three pairs correctly (first-degree, second-degree, distant/unrelated), use IBD2 fraction to distinguish relationship types, and note how selfing inflates IBD2 relative to outbred expectations. Mostly correct (2): Classifies correctly but misses the selfing effect on IBD2. Partial (1): Classifies one pair correctly but misinterprets others. Incorrect (0): Cannot distinguish the three relationship levels.",
+  "source_method": "hap-IBD",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests IBD segment analysis for relationship classification, accounting for selfing effects on IBD sharing."
+}
