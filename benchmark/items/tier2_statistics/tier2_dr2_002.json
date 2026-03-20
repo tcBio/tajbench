@@ -1,0 +1,16 @@
+{
+  "id": "tier2_dr2_002",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Imputation quality (DR2) was stratified by minor allele frequency (MAF) bin for 480 GBS rice samples imputed with Beagle 5.4. Interpret the pattern and identify which MAF range is most problematic for downstream GWAS.",
+  "context": "DR2 by MAF bin (480 indica GBS samples, Beagle 5.4, 3K indica reference panel):\n\n  MAF_bin       N_variants   Mean_DR2   Median_DR2   Frac_DR2>0.80\n  0.01-0.02     1,284,102    0.58       0.52         0.22\n  0.02-0.05     1,557,460    0.72       0.68         0.41\n  0.05-0.10     1,523,841    0.84       0.86         0.68\n  0.10-0.20     1,892,104    0.91       0.93         0.84\n  0.20-0.30     1,204,523    0.94       0.95         0.92\n  0.30-0.50       982,341    0.95       0.96         0.95\n\nTotal variants: 8,444,371\nReference panel: 1,354 indica WGS samples",
+  "correct_answer": "DR2 shows a strong positive correlation with MAF -- rare variants (MAF 0.01-0.02) have dramatically lower imputation quality (mean DR2=0.58, only 22% pass DR2>0.80) compared to common variants (MAF 0.30-0.50, mean DR2=0.95, 95% pass). This is expected because rare variants have fewer informative haplotypes in the reference panel for the HMM to match against, and their alleles are carried by fewer samples, providing less LD information for imputation. The MAF 0.01-0.05 range is most problematic for GWAS: these variants contain 2.84M sites (34% of all variants) but only 22-41% pass the standard DR2>0.80 threshold. Applying a DR2>0.80 filter would remove ~70% of very rare variants (MAF 0.01-0.02), creating an ascertainment gap in the rare variant spectrum. For GWAS of complex traits where rare variants may contribute to missing heritability, this gap limits detection power. Possible mitigations include: increasing the reference panel size, using a lower DR2 threshold with appropriate meta-analysis corrections, or using dosage-based (rather than hard-call) association tests which naturally downweight uncertain genotypes.",
+  "rubric": "Full marks (3): Must describe the MAF-DR2 correlation, quantify the rare variant problem (22% pass rate), explain why rare variants impute poorly (fewer haplotypes in reference), and discuss GWAS implications (ascertainment gap). Mostly correct (2): Correct correlation and GWAS implication but missing mechanistic explanation or quantification. Partial (1): Notes DR2 varies with MAF but no interpretation. Incorrect (0): Claims DR2 is independent of MAF or that all variants should be used regardless.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The MAF-DR2 relationship is one of the most important practical considerations in imputation-based GWAS design."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier2_pi_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Nucleotide diversity (pi) was computed in 100-kb windows for indica rice on chromosome 5. Two regions show contrasting patterns. Interpret the biological significance of these differences.",
+  "context": "Nucleotide diversity (pi) for indica, chr05, selected windows:\n\nRegion A (chr05:22.0-22.5 Mb, 5 windows):\n  Window  Start       End         Pi\n  1       22000000    22100000    0.00008\n  2       22100000    22200000    0.00012\n  3       22200000    22300000    0.00005\n  4       22300000    22400000    0.00009\n  5       22400000    22500000    0.00011\n  Mean pi: 0.00009\n\nRegion B (chr05:10.0-10.5 Mb, 5 windows):\n  Window  Start       End         Pi\n  1       10000000    10100000    0.00482\n  2       10100000    10200000    0.00518\n  3       10200000    10300000    0.00491\n  4       10300000    10400000    0.00502\n  5       10400000    10500000    0.00475\n  Mean pi: 0.00494\n\nGenome-wide mean pi for indica: 0.00312\nNote: chr05:22 Mb region contains the Wx (waxy) gene controlling amylose content.",
+  "correct_answer": "Region A (mean pi=0.00009) shows dramatically reduced diversity -- ~35x lower than the genome-wide mean (0.00312). This is a classic signature of a selective sweep around the Wx (waxy) gene, which controls amylose content and has been a major target of selection in rice breeding. Strong positive selection on a favored Wx allele would have eliminated nearby variation through genetic hitchhiking, creating a diversity valley. Region B (mean pi=0.00494) shows elevated diversity -- ~1.6x above the genome-wide mean. This could reflect balancing selection maintaining multiple alleles, an introgression hotspot bringing in divergent haplotypes from wild or other domesticated rice, or simply a region of high ancestral diversity that escaped purifying selection. The 55x difference between regions A and B (0.00009 vs 0.00494) illustrates how selection creates dramatic heterogeneity in diversity across the genome.",
+  "rubric": "Full marks (3): Must identify Region A as a selective sweep signature around Wx, note the magnitude of reduction vs genome-wide mean, and interpret Region B's elevation as balancing selection or introgression. Mostly correct (2): Identifies sweep in Region A with Wx connection but gives weak interpretation of Region B. Partial (1): Notes one region is low and one is high without mechanistic interpretation. Incorrect (0): Attributes the difference to sequencing artifacts or sample size.",
+  "source_method": "vcftools-window-pi",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The Wx gene selective sweep is one of the best-characterized examples in rice genomics. Region B values approximate wild rice diversity levels."
+}

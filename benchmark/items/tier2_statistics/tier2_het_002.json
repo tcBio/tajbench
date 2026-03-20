@@ -1,0 +1,16 @@
+{
+  "id": "tier2_het_002",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Observed and expected heterozygosity were computed per sample for 396 temperate japonica accessions. The distribution of F (inbreeding coefficient, 1 - Ho/He) is shown below. Interpret the distribution and its implications for population genetics analyses that assume Hardy-Weinberg equilibrium.",
+  "context": "Inbreeding coefficient (F = 1 - Ho/He) distribution, 396 temperate japonica accessions:\n\n  Statistic          Value\n  Mean F             0.924\n  Median F           0.941\n  SD F               0.048\n  Min F              0.782\n  Max F              0.992\n  25th percentile    0.908\n  75th percentile    0.958\n  N samples F > 0.90 342 (86.4%)\n  N samples F > 0.95 148 (37.4%)\n\nExpected heterozygosity (He) across sites: 0.128\nMean observed heterozygosity (Ho): 0.0097\n\nNote: Under complete selfing (no outcrossing), expected F = 1.0. Under random mating, expected F = 0.0.",
+  "correct_answer": "The mean F=0.924 with 86.4% of samples above 0.90 confirms that temperate japonica rice is predominantly selfing, with only ~7.6% observed heterozygosity relative to expectation. The range (0.782-0.992) indicates variation in outcrossing history: samples with F near 0.99 are essentially completely inbred, while those near 0.78 show evidence of recent outcrossing events (perhaps 1-2 generations ago). Implications for analyses assuming HWE: (1) HWE-based genotype probability calculations (used in many variant callers) will overestimate heterozygote probabilities, potentially inflating het calls. (2) Standard population genetics formulas that assume F=0 (e.g., He=2pq) will overestimate diversity; the effective formula should be Ho = 2pq(1-F). (3) Association tests that use HWE-based genotype coding will have reduced power. (4) Kinship estimation methods calibrated for outbred populations (like KING-robust) will produce biased estimates. Analyses should explicitly model inbreeding by setting the --nonfounders flag in PLINK or using inbreeding-aware methods.",
+  "rubric": "Full marks (3): Must interpret F distribution as confirming selfing biology, note the range indicates variable outcrossing, and list at least 2 specific analytical implications of HWE violation (genotype calling bias, kinship estimation, association testing). Mostly correct (2): Interprets selfing correctly and notes HWE assumption problems, but missing specific analytical consequences. Partial (1): Notes high F but does not connect to analytical implications. Incorrect (0): Interprets high F as a data quality issue.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of inbreeding coefficient interpretation and its practical consequences for standard genomic analyses."
+}

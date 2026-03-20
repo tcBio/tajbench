@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fst_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Per-chromosome weighted FST was computed between indica and temperate japonica using the 3K RGP WGS panel. The values for all 12 chromosomes are shown. Interpret any chromosomes that deviate substantially from the genome-wide mean.",
+  "context": "Per-chromosome weighted FST (indica vs temperate japonica, Weir-Cockerham):\n\n  Chr    N_SNPs     Weighted_FST\n  chr01  2,184,302  0.348\n  chr02  1,891,204  0.355\n  chr03  1,782,108  0.341\n  chr04  1,624,502  0.362\n  chr05  1,428,910  0.388\n  chr06  1,512,304  0.371\n  chr07  1,382,106  0.346\n  chr08  1,291,804  0.349\n  chr09  1,108,502  0.344\n  chr10  1,182,408  0.352\n  chr11  1,421,206  0.356\n  chr12  1,102,952  0.342\n\nGenome-wide weighted FST: 0.352\nSD across chromosomes: 0.013",
+  "correct_answer": "Most chromosomes cluster near the genome-wide mean (0.352 +/- 0.013). Two chromosomes deviate noticeably: (1) Chromosome 5 (FST=0.388) is the highest, exceeding the mean by 2.8 SD. This is consistent with chr05 harboring major domestication loci (including Wx and Sd1) that experienced strong divergent selection between indica and japonica, elevating differentiation genome-wide on this chromosome. (2) Chromosome 3 (FST=0.341) and chr09 (0.344) are slightly below average but within normal variation. The overall pattern shows remarkably uniform differentiation across chromosomes, which is expected when the primary driver of FST is demographic divergence (independent domestication events) rather than localized selection. Individual selective sweeps create peaks within chromosomes but their effect on chromosome-wide FST averages is diluted across millions of SNPs.",
+  "rubric": "Full marks (3): Must identify chr05 as an outlier, connect to domestication loci, and note that the overall uniformity reflects demographic rather than selective divergence. Mostly correct (2): Identifies chr05 as elevated with reasonable explanation but does not discuss the demographic vs selection distinction. Partial (1): Lists values without interpretation. Incorrect (0): Claims all chromosomes are identical or attributes variation to technical artifacts.",
+  "source_method": "Weir-Cockerham FST via PLINK2",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests ability to identify chromosome-level outliers in FST and connect to known biology."
+}

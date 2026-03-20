@@ -1,0 +1,16 @@
+{
+  "id": "tier2_sfs_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Folded site frequency spectra (SFS) were computed for indica and temperate japonica rice subpopulations. The first 10 frequency bins are shown below. Compare the shapes and interpret the demographic signals.",
+  "context": "Folded SFS (first 10 bins, biallelic SNPs, MAF > 0.00):\n\nBin   indica (n=1306)   temp_japonica (n=396)\n1     111,175           50,042\n2      54,814           31,208\n3      34,840           22,481\n4      28,186           18,920\n5      20,846           16,102\n6      16,954           14,284\n7      14,472           12,810\n8      11,891           11,620\n9      10,482           10,804\n10      9,218           10,110\n\nTotal segregating sites: indica=892,410, temp_japonica=384,218",
+  "correct_answer": "The indica SFS shows a steeper L-shape: the singleton class (bin 1) is ~12x larger than bin 10, consistent with a relatively large effective population size where rare variants accumulate through mutation and are not yet lost to drift. In contrast, temperate japonica has a much flatter SFS: bin 1 is only ~5x larger than bin 10. This excess of intermediate-frequency variants (relative to rare variants) is a hallmark of a population bottleneck -- during a bottleneck, rare variants are preferentially lost while intermediate-frequency variants are less affected, flattening the spectrum. The total segregating sites are also much lower in temperate japonica (384K vs 892K), confirming dramatically reduced genetic diversity. The ratio of singletons to total sites is higher in indica (111K/892K = 12.5%) than in temperate japonica (50K/384K = 13.0%), but the key difference is the shape: temperate japonica's relatively flat tail indicates the bottleneck signature is stronger than any recent recovery.",
+  "rubric": "Full marks (3): Must compare SFS shapes (steeper in indica, flatter in temperate japonica), connect the flat temperate japonica SFS to bottleneck (excess intermediates), and note the total diversity difference. Mostly correct (2): Correct shape comparison with bottleneck interpretation but missing quantitative comparison. Partial (1): Notes one SFS has more sites than the other but does not interpret the shape difference. Incorrect (0): Claims the spectra look similar or attributes differences to sample size.",
+  "source_method": "vcftools-freq",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "SFS shape is a fundamental summary of population demographic history. The flattened temperate japonica SFS is well-documented in rice genomics literature."
+}

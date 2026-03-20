@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ld_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Linkage disequilibrium (LD) decay was measured as mean r-squared in distance bins for three rice subpopulations using the 3K RGP WGS panel. Interpret the differences in LD decay patterns and their implications for GWAS marker density.",
+  "context": "Mean r-squared by physical distance (LD-pruned to MAF > 0.05, 100K random SNP pairs per bin):\n\nDistance_bin   indica    temp_japonica   aus\n0-10 kb        0.48      0.71            0.42\n10-50 kb       0.22      0.52            0.19\n50-100 kb      0.12      0.38            0.10\n100-250 kb     0.07      0.24            0.06\n250-500 kb     0.04      0.14            0.03\n500-1000 kb    0.02      0.08            0.02\n\nBackground r2 (>5 Mb): indica=0.01, temp_japonica=0.03, aus=0.01\n\nSample sizes: indica=1,306, temp_japonica=396, aus=241",
+  "correct_answer": "Temperate japonica has dramatically slower LD decay than indica or aus -- r2 remains above 0.10 out to 500 kb, while indica and aus drop below 0.10 by 100 kb. This reflects temperate japonica's smaller effective population size (Ne) from a severe domestication bottleneck and intensive breeding selection, which reduces effective recombination and maintains longer haplotype blocks. The elevated background LD (0.03 vs 0.01) in temperate japonica further confirms reduced Ne. For GWAS: indica and aus require denser marker arrays (markers every ~50-100 kb for r2>0.10) to capture most QTL, while temperate japonica can achieve equivalent tagging power with sparser markers (~250-500 kb spacing). However, longer LD in temperate japonica also means lower mapping resolution -- associated signals will span larger genomic intervals, making it harder to pinpoint causal genes.",
+  "rubric": "Full marks (3): Must note temperate japonica has slowest decay, connect to Ne/bottleneck, and discuss the tradeoff between marker density requirements and mapping resolution for GWAS. Mostly correct (2): Correct LD ranking with Ne explanation but misses the GWAS resolution tradeoff. Partial (1): Notes LD differences without mechanistic interpretation. Incorrect (0): Attributes LD differences to sample size artifacts.",
+  "source_method": "PLINK2 --ld-window",
+  "population_groups": ["indica", "temperate-japonica", "aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "LD decay differences between rice subpopulations are well-documented and have major practical implications for association mapping study design."
+}

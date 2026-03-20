@@ -1,0 +1,16 @@
+{
+  "id": "tier2_pi_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Nucleotide diversity (pi) was computed in 100-kb windows across chromosome 1 for three rice subpopulations. The genome-wide means are shown below. Interpret the differences between subpopulations in terms of their demographic history.",
+  "context": "Mean nucleotide diversity (pi) per 100-kb window, chr01:\n\n  Subpopulation          N_samples   Mean_pi     SD_pi      Min_pi    Max_pi\n  indica                 1,306       0.00312     0.00184    0.00002   0.01248\n  temperate japonica       396       0.00098     0.00072    0.00001   0.00482\n  aus                      241       0.00248     0.00152    0.00003   0.00984\n\nFor reference:\n  Wild rice (O. rufipogon): pi ~ 0.005-0.008\n  Maize (domesticated): pi ~ 0.006-0.010\n  Soybean (selfing): pi ~ 0.001-0.003",
+  "correct_answer": "Indica has the highest pi (0.00312), followed by aus (0.00248), then temperate japonica (0.00098). This ranking reflects their demographic histories: (1) Indica has the largest sample (N=1,306) and the broadest geographic distribution, retaining more ancestral diversity. (2) Aus has moderate diversity, consistent with an early-diverging lineage with a smaller but still substantial effective population size. (3) Temperate japonica has dramatically reduced diversity (~3x lower than indica), consistent with a severe domestication bottleneck and subsequent intensive selection in a narrow breeding pool. All values are below wild rice (O. rufipogon, 0.005-0.008), reflecting the diversity cost of domestication. Temperate japonica's pi is comparable to soybean, another selfing crop with a known narrow genetic base.",
+  "rubric": "Full marks (3): Must rank subpopulations correctly, explain the ranking in terms of bottleneck severity and effective population size, and compare to wild rice to contextualize the domestication cost. Mostly correct (2): Correct ranking with demographic explanation but no wild rice comparison. Partial (1): Notes differences without mechanistic explanation. Incorrect (0): Ranks incorrectly or attributes differences to sampling artifact.",
+  "source_method": "vcftools-window-pi",
+  "population_groups": ["indica", "temperate-japonica", "aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests interpretation of nucleotide diversity as a measure of effective population size and demographic history."
+}

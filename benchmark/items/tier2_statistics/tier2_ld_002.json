@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ld_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "LD decay was measured for indica rice on two chromosomes. Chromosome 5 shows a region where LD remains elevated well beyond the genome-wide average. Interpret the difference between the two chromosomes.",
+  "context": "Mean r-squared by distance for indica (n=1,306), biallelic SNPs MAF>0.05:\n\nChromosome 3 (genome-wide representative):\n  0-10 kb: 0.48\n  10-50 kb: 0.22\n  50-100 kb: 0.12\n  100-250 kb: 0.07\n  250-500 kb: 0.04\n\nChromosome 5, region 21.5-23.0 Mb:\n  0-10 kb: 0.82\n  10-50 kb: 0.71\n  50-100 kb: 0.64\n  100-250 kb: 0.52\n  250-500 kb: 0.41\n\nNote: chr05:22 Mb region contains the Wx (waxy) gene, a major domestication locus controlling grain amylose content. Two predominant haplotypes (Wx-a, high amylose; Wx-b, low amylose) segregate in indica.",
+  "correct_answer": "The chr05:21.5-23.0 Mb region shows dramatically elevated LD compared to the genome-wide pattern (chr03). At 250-500 kb, r2=0.41 in the Wx region vs 0.04 genome-wide -- a 10x elevation. This is a classic signature of recent strong positive selection around the Wx gene. When a beneficial allele (e.g., Wx-b for low amylose, preferred for sticky rice) sweeps to high frequency, it drags along a long haplotype of linked variants, creating extended LD. The two predominant haplotypes (Wx-a and Wx-b) further maintain elevated LD because recombination between them is suppressed when both are at intermediate frequency -- this is the 'soft sweep' or 'standing variation sweep' pattern where selection acts on pre-existing variation. The LD extends over ~1.5 Mb, which is unusually long for indica (which normally has LD decay to r2<0.1 by ~100 kb), confirming the strength and recency of selection. This has practical implications: any GWAS signal in this region will be very broad, making it difficult to fine-map causal variants beyond identifying the Wx gene region.",
+  "rubric": "Full marks (3): Must identify the elevated LD as a selective sweep signature around Wx, quantify the magnitude of elevation (10x at 250-500 kb), explain how selection extends LD through hitchhiking, and note implications for GWAS fine-mapping. Mostly correct (2): Identifies selective sweep and Wx connection but missing quantitative comparison or fine-mapping implication. Partial (1): Notes LD is elevated but attributes to recombination suppression (e.g., centromere) rather than selection. Incorrect (0): Claims the difference is a data artifact or due to sample size.",
+  "source_method": "PLINK2 --ld-window",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Extended LD around Wx is well-documented. The two-haplotype structure maintaining long-range LD is a key feature of selection on standing variation."
+}

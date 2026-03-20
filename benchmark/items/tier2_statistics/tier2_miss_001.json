@@ -1,0 +1,16 @@
+{
+  "id": "tier2_miss_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Per-sample missingness rates were computed for the 3K RGP WGS panel. The distribution is shown below, stratified by subpopulation. Interpret the pattern and its implications for downstream analyses.",
+  "context": "Per-sample missingness (fraction of sites with ./. genotype):\n\n  Subpopulation        N     Mean_miss   Median_miss   Max_miss   N_samples_miss>0.10\n  indica               1306  0.024       0.018         0.182      28\n  tropical japonica     484  0.031       0.022         0.204      18\n  temperate japonica    396  0.019       0.015         0.098      3\n  aus                   241  0.028       0.021         0.165      8\n  aromatic               76  0.038       0.029         0.142      4\n  admixed               507  0.042       0.031         0.312      31\n\nOverall panel: mean=0.029, median=0.021\nSites with >50% missing across all samples: 284,102 / 18,412,308 = 1.5%",
+  "correct_answer": "Key patterns: (1) Admixed samples have the highest missingness (mean 0.042, max 0.312, 31 samples >10%), likely because they are genetically divergent from the reference genome (Nipponbare, a temperate japonica). Variant calling against a single reference genome produces more missing calls for divergent samples. (2) Temperate japonica has the lowest missingness (mean 0.019, only 3 samples >10%), consistent with the reference genome being from this subpopulation -- reads map and call most cleanly. (3) Aromatic rice has elevated missingness (0.038) despite small sample size, consistent with its admixed ancestry creating mapping challenges. Implications: (a) Differential missingness by subpopulation can create systematic biases in PCA, ADMIXTURE, and association analyses. (b) The 92 samples with >10% missingness should be flagged for QC review. (c) Site-level filtering (removing sites with >50% missing removes 1.5% of sites) is modest, but per-subpopulation missingness should be checked to avoid removing sites informative for specific groups.",
+  "rubric": "Full marks (3): Must connect missingness pattern to reference genome bias (temperate japonica lowest because reference is Nipponbare), note admixed/divergent samples have highest rates, and discuss implications for downstream analyses (PCA bias, subpopulation-specific filtering). Mostly correct (2): Identifies reference bias and missingness ranking but omits downstream implications. Partial (1): Notes differences exist without mechanistic explanation. Incorrect (0): Attributes differences to sequencing quality alone.",
+  "source_method": "PLINK2 --missing",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Reference genome bias in missingness is a well-known issue in population genomics. Nipponbare (temperate japonica) is the IRGSP-1.0 reference."
+}

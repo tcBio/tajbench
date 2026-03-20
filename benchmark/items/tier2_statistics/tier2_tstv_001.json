@@ -1,0 +1,16 @@
+{
+  "id": "tier2_tstv_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Transition/transversion (Ts/Tv) ratios were computed for SNPs called in three rice datasets. Interpret the values and what they indicate about data quality.",
+  "context": "Ts/Tv ratios:\n\n  Dataset                              N_SNPs       Ts/Tv\n  3K RGP WGS (all biallelic SNPs)      18,412,308   2.14\n  3K RGP WGS (PASS filter only)        14,891,204   2.31\n  GBS panel (480 indica, raw calls)       312,408   1.68\n  GBS panel (imputed, DR2>0.8)          8,241,029   2.18\n\nFor reference:\n  Expected Ts/Tv for random errors: ~0.5 (2 transitions, 4 transversions)\n  Typical whole-genome Ts/Tv: 2.0-2.2\n  Typical exome/coding Ts/Tv: 2.8-3.5\n  Rice genome Ts/Tv literature range: 2.0-2.3",
+  "correct_answer": "The Ts/Tv ratios indicate: (1) The 3K WGS PASS-filtered SNPs (Ts/Tv=2.31) have the highest quality -- filtering removes false positives that are enriched for transversions, raising the ratio above the unfiltered set (2.14). Both values are within the expected range for whole-genome SNPs. (2) The raw GBS calls (Ts/Tv=1.68) show poor quality -- the low ratio indicates substantial false positive calls, which are biased toward transversions (as random sequencing errors produce equal Ts and Tv, giving Ts/Tv~0.5, which drags the ratio down). At 1.68, roughly 20-30% of calls may be errors. (3) The imputed GBS set (Ts/Tv=2.18) recovers to a normal range, indicating that imputation with the WGS reference panel effectively corrects the error-prone raw GBS genotypes by leveraging LD structure and reference haplotypes. The Ts/Tv ratio is a useful first-pass quality metric: values well below 2.0 for whole-genome data suggest excessive false positives.",
+  "rubric": "Full marks (3): Must explain why PASS-filtered > unfiltered (error removal), why raw GBS is low (false positives enriched for Tv), and why imputed GBS recovers (reference panel correction). Must reference the 0.5 baseline for random errors. Mostly correct (2): Correctly interprets the quality ranking but misses one of the three explanations. Partial (1): Notes that higher Ts/Tv is better but does not explain mechanistically. Incorrect (0): Claims all values are acceptable or that Ts/Tv is not a quality metric.",
+  "source_method": "bcftools-stats",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Ts/Tv ratio is one of the most widely used first-pass quality metrics for variant calls. The GBS raw call ratio is realistic for low-depth GBS data."
+}
