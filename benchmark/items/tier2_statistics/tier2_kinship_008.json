@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_008",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "KING-robust kinship was computed between pairs of accessions from different subpopulations. The mean cross-subpopulation kinship values are shown. Interpret the negative values and what they reveal about population structure.",
+  "context": "Mean KING-robust kinship for cross-subpopulation pairs:\n\n  Pair                          Mean_kinship   SD      N_pairs\n  indica x tropical_japonica    -0.082         0.031   633,204\n  indica x temperate_japonica   -0.118         0.028   517,176\n  indica x aus                  -0.041         0.038   314,646\n  indica x aromatic             -0.058         0.034    99,256\n  tropical_jap x temperate_jap  -0.028         0.024   191,664\n  aus x aromatic                -0.072         0.036    18,316\n\nFor reference:\n  Mean within-indica kinship: +0.024\n  Mean within-temperate_japonica kinship: +0.047\n  Expected kinship for unrelated individuals in a panmictic population: ~0.0",
+  "correct_answer": "The negative cross-subpopulation kinship values are expected and informative. KING-robust estimates kinship relative to the overall sample -- when two individuals come from different subpopulations, they share fewer alleles than the average pair in the full panel, producing negative kinship estimates. The magnitude of negative kinship reflects the genetic distance between subpopulations: indica x temperate japonica has the most negative mean (-0.118), consistent with the deepest evolutionary divergence (independent domestication events, FST~0.35). Indica x aus is the least negative (-0.041), consistent with their closer evolutionary relationship (FST~0.14). The tropical japonica x temperate japonica pair (-0.028) is the least negative of any cross-subpopulation comparison, reflecting their shared japonica ancestry. These values are NOT errors or quality problems -- they are a direct consequence of population structure. The within-subpopulation positive values (+0.024 indica, +0.047 temperate japonica) confirm that members of the same subpopulation share more alleles than the panel average. The higher within-temperate japonica kinship (0.047 vs 0.024) reflects the narrower genetic base (smaller Ne) of temperate japonica.",
+  "rubric": "Full marks (3): Must explain negative kinship as expected under population structure (less sharing than panel average), correctly rank the pairs by magnitude as reflecting evolutionary distance, and note within-subpopulation positive values as complement. Mostly correct (2): Explains negative values correctly but missing the ranking interpretation or within-subpopulation comparison. Partial (1): States negatives are not errors but no mechanistic explanation. Incorrect (0): Interprets negative kinship as indicating data quality problems.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Cross-subpopulation negative KING values are routinely misinterpreted. The magnitude directly reflects FST."
+}

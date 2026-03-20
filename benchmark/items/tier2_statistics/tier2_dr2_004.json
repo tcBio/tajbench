@@ -1,0 +1,16 @@
+{
+  "id": "tier2_dr2_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Imputation quality (DR2) was compared between two chromosomes for the same 480 GBS indica samples imputed with Beagle 5.4. One chromosome has notably lower DR2. Interpret why.",
+  "context": "Per-chromosome mean DR2 (480 indica GBS, Beagle 5.4, 1,354 indica reference):\n\n  Chromosome   N_imputed_variants   Mean_DR2   Median_DR2   Frac_DR2>0.80   GBS_marker_density\n  chr01        1,482,108            0.86       0.89         0.71            1 per 24 kb\n  chr04          891,204            0.78       0.81         0.58            1 per 41 kb\n\nChromosome properties:\n  chr01: 43.3 Mb, 38.2% gene density, low repeat content\n  chr04: 35.8 Mb, 31.4% gene density, large pericentromeric region (40% of chr)\n  chr04 pericentromeric: ~14.3 Mb with elevated repeat content and reduced LD\n\nReference panel haplotype diversity:\n  chr01: 2,184 distinct haplotypes per 100-kb window (mean)\n  chr04: 1,842 distinct haplotypes per 100-kb window (mean)",
+  "correct_answer": "Chromosome 4 has lower imputation quality (DR2=0.78 vs 0.86) due to multiple compounding factors: (1) LOWER MARKER DENSITY: GBS markers on chr04 are sparser (1/41 kb vs 1/24 kb), providing less scaffold information for the HMM to anchor haplotype switching. With fewer observed genotypes, the imputer has less data to identify the correct reference haplotype at each position. (2) PERICENTROMERIC REGION: 40% of chr04 is pericentromeric with high repeat content. This region has both lower LD (from reduced recombination creating more haplotype diversity in short physical distances) AND sparser GBS markers (restriction enzyme sites are less frequent in repetitive regions), creating a double penalty for imputation. (3) HAPLOTYPE DIVERSITY: chr04 has fewer distinct haplotypes in the reference (1,842 vs 2,184), which seems counterintuitive but reflects the pericentromeric region where many haplotypes cannot be resolved. The combination of sparse markers and complex LD structure in the pericentromere is the primary driver. Practical recommendation: chromosome-specific DR2 thresholds should be considered -- using a genome-wide DR2>0.80 filter would remove 42% of chr04 variants but only 29% of chr01 variants, potentially creating an uneven genomic representation.",
+  "rubric": "Full marks (3): Must identify marker density AND pericentromeric region as causes, explain how sparse markers compound with complex LD structure, and note practical implications for variant filtering. Mostly correct (2): Identifies marker density as primary cause but misses pericentromeric contribution or practical implications. Partial (1): Notes chr04 has lower DR2 without explanation. Incorrect (0): Attributes to reference panel quality alone.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Chromosome-level imputation quality variation is driven by marker density, LD structure, and repetitive content."
+}

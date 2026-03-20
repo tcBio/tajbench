@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_009",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "KING-robust kinship was estimated for 241 aus accessions using two different SNP sets: (1) genome-wide LD-pruned SNPs (205,418 SNPs) and (2) genic SNPs only (42,108 SNPs in exons and UTRs). The kinship distributions differ. Interpret why and which set is more appropriate for relationship inference.",
+  "context": "KING-robust kinship distributions (241 aus, 28,920 pairs):\n\n  Statistic              Genome-wide_set   Genic_set\n  Mean kinship           0.034             0.041\n  Median kinship         0.018             0.024\n  SD                     0.048             0.062\n  Frac > 0.177           2.8%              4.1%\n  Frac > 0.354           0.08%             0.14%\n  Correlation (r)        0.94\n\nSNP characteristics:\n  Genome-wide: uniform MAF distribution, mean MAF=0.21\n  Genic: enriched for low MAF, mean MAF=0.14, higher fraction of rare variants",
+  "correct_answer": "The genic SNP set produces systematically higher kinship estimates (mean 0.034 vs 0.041) and more pairs classified as related (4.1% vs 2.8% above first-degree threshold). This inflation is caused by two factors: (1) ASCERTAINMENT BIAS: Genic SNPs are enriched for rare variants (mean MAF 0.14 vs 0.21) because purifying selection keeps many functional variants at low frequency. Rare allele sharing is more informative for kinship (sharing a rare allele is stronger evidence of recent common ancestry than sharing a common allele), which inflates kinship estimates. (2) LINKED SELECTION: Genic regions are under stronger selection, which creates longer haplotype blocks and higher LD in these regions. SNPs in LD effectively overweight the same haplotypic information, inflating the variance and mean of kinship estimates. The genome-wide LD-pruned set is more appropriate for relationship inference because: (a) LD pruning ensures approximate independence between SNPs, satisfying the KING estimator's assumptions. (b) Uniform genomic sampling avoids the ascertainment biases of genic SNPs. (c) The larger SNP count (205K vs 42K) provides more precise estimates. The genic set would only be preferred if the goal is to measure functional relatedness (shared selection history), but for standard QC and pedigree verification, genome-wide LD-pruned SNPs are standard practice.",
+  "rubric": "Full marks (3): Must identify both causes of inflation (rare variant enrichment and LD in genic regions), recommend genome-wide LD-pruned set with reasoning about independence assumptions, and discuss when genic SNPs might be appropriate. Mostly correct (2): Identifies rare variant enrichment but misses LD/selection argument, or vice versa. Partial (1): Notes genic set gives higher values but no mechanistic explanation. Incorrect (0): Recommends genic set because 'functional variants are more informative.'",
+  "source_method": "KING-robust",
+  "population_groups": ["aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how SNP ascertainment affects kinship estimation -- a practical issue when choosing variant sets for QC."
+}

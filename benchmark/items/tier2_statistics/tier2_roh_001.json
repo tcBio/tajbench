@@ -1,0 +1,16 @@
+{
+  "id": "tier2_roh_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Runs of homozygosity (ROH) were detected in 396 temperate japonica accessions using PLINK2. The ROH length distribution is shown below. Interpret the two peaks and their biological significance.",
+  "context": "ROH length distribution (396 temperate japonica, minimum 50 SNPs per ROH):\n\n  ROH_length_class   Mean_N_ROH_per_sample   Mean_total_Mb_per_sample   Frac_of_genome\n  100 kb - 500 kb    842                     198.2                      50.8%\n  500 kb - 1 Mb      124                     81.4                       20.9%\n  1 Mb - 5 Mb        38                      78.2                       20.1%\n  5 Mb - 10 Mb       4.2                     28.4                       7.3%\n  > 10 Mb            0.8                     12.1                       3.1%\n\nTotal genome in ROH: mean 398.3 Mb / 390 Mb genome = ~102% (some overlap)\nF_ROH (>1 Mb): 0.842 (consistent with previous estimates)\n\nFor reference:\n  Human outbred: ~5-10% genome in ROH >1 Mb\n  Human consanguineous: ~15-25% genome in ROH >1 Mb",
+  "correct_answer": "The ROH distribution shows two distinct classes reflecting different timescales of inbreeding: (1) SHORT ROH (100 kb - 1 Mb): These are extremely abundant (842+124 = ~966 ROH per sample, covering ~72% of the genome). Short ROH arise from ANCIENT inbreeding -- the accumulated effects of selfing and small effective population size over many generations. Recombination has broken long ancestral homozygous stretches into many short fragments over time. This is the 'background' homozygosity from centuries of selfing and the domestication bottleneck. (2) LONG ROH (>5 Mb): Much rarer (5 per sample) but still covering 10.4% of the genome. Long ROH indicate RECENT inbreeding events -- selfing within the last few generations (ROH of 10+ Mb suggests selfing within 1-5 generations). These have not yet been broken up by recombination. The total genome coverage (~100%) means essentially the entire genome is within some ROH, which is expected for a highly selfing species (F~0.92). Compared to humans, even consanguineous human populations (15-25% in ROH >1 Mb) have far less genome-wide homozygosity than rice (30.5% in ROH >1 Mb). This reflects the fundamental difference between occasional consanguinity in an outbred species vs obligate selfing.",
+  "rubric": "Full marks (3): Must distinguish short ROH (ancient/accumulated inbreeding) from long ROH (recent selfing), explain recombination as the mechanism creating the length gradient, and contextualize against human values. Mostly correct (2): Identifies the short/long distinction but missing the recombination mechanism or human comparison. Partial (1): Notes many ROH without interpreting the length classes. Incorrect (0): Treats all ROH as equivalent.",
+  "source_method": "PLINK2 --homozyg",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "ROH length distribution encodes the inbreeding history timeline. Short ROH = ancient, long ROH = recent."
+}

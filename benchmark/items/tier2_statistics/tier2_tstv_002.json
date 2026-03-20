@@ -1,0 +1,16 @@
+{
+  "id": "tier2_tstv_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Ts/Tv ratios were computed separately for variants in genic regions versus intergenic regions for the 3K RGP WGS panel. The genic Ts/Tv is notably higher. Explain why.",
+  "context": "Ts/Tv ratio by genomic context (3K RGP, PASS-filtered biallelic SNPs):\n\n  Region              N_SNPs        Ts/Tv\n  Genic (exons+UTRs)  2,184,302     2.82\n  Intronic            4,812,108     2.28\n  Intergenic          7,894,794     2.18\n  Whole genome        14,891,204    2.31\n\nGenic breakdown:\n  Synonymous          1,042,108     3.41\n  Nonsynonymous         892,204     2.18\n  UTR                   249,990     2.54",
+  "correct_answer": "The elevated Ts/Tv in genic regions (2.82 vs 2.18 intergenic) is driven by purifying selection acting differentially on transitions vs transversions. The key mechanism: at the DNA level, transitions and transversions occur at roughly a 2:1 ratio due to the biochemistry of mutagenesis (transitions are more likely because they involve purine-purine or pyrimidine-pyrimidine swaps). However, transversions are more likely to be functionally disruptive because they change the chemical class of the base. In coding regions, purifying selection preferentially removes deleterious transversions, further enriching for transitions and raising Ts/Tv above the baseline mutation ratio. The synonymous Ts/Tv (3.41) is the highest because synonymous transitions are nearly invisible to selection (they don't change the amino acid), while even synonymous transversions can occasionally affect splicing or codon usage. Nonsynonymous Ts/Tv (2.18) is much lower because both types of nonsynonymous changes are subject to selection, and the selection pressure equalizes the ratio closer to the mutation-level baseline. Intergenic Ts/Tv (2.18) reflects the raw mutation spectrum with minimal selection pressure. This gradient (synonymous > UTR > intronic > intergenic > nonsynonymous) is a classic signature of purifying selection strength varying across functional categories.",
+  "rubric": "Full marks (3): Must explain the selection mechanism (purifying selection removes transversions more from functional regions), note synonymous has highest Ts/Tv because transitions are often synonymous, and describe the gradient across functional categories. Mostly correct (2): Identifies selection as the cause but incomplete functional category explanation. Partial (1): Notes genic Ts/Tv is higher but attributes entirely to mutation rate differences. Incorrect (0): Claims the difference is a technical artifact.",
+  "source_method": "bcftools-stats",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "The Ts/Tv gradient across functional categories is a textbook example of how selection shapes observed mutation spectra."
+}

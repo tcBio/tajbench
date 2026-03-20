@@ -1,0 +1,16 @@
+{
+  "id": "tier2_pi_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "The ratio of nonsynonymous to synonymous nucleotide diversity (piN/piS) was computed for each rice subpopulation. The values are shown below. Interpret the differences and what they reveal about the efficacy of purifying selection.",
+  "context": "piN/piS ratio per subpopulation (coding regions, 3K RGP WGS):\n\n  Subpopulation          piN/piS    piN          piS\n  indica                 0.228      0.00048      0.00211\n  tropical japonica      0.241      0.00038      0.00158\n  temperate japonica     0.312      0.00022      0.00071\n  aus                    0.234      0.00042      0.00179\n  aromatic               0.348      0.00031      0.00089\n\nFor reference:\n  piN/piS under strict neutrality: ~1.0\n  piN/piS in Drosophila melanogaster: ~0.10-0.15\n  piN/piS in Arabidopsis thaliana (selfing): ~0.30-0.40\n  Lower piN/piS indicates more efficient purifying selection",
+  "correct_answer": "All subpopulations show piN/piS well below 1.0, confirming strong purifying selection against nonsynonymous mutations. However, the ratios vary significantly: temperate japonica (0.312) and aromatic (0.348) have the highest piN/piS, while indica (0.228) and aus (0.234) have the lowest. This ranking reflects the efficacy of purifying selection, which depends on effective population size (Ne). With larger Ne, selection is more efficient at removing slightly deleterious nonsynonymous mutations (Ne*s >> 1), keeping piN/piS low. With smaller Ne, more nearly neutral nonsynonymous variants drift to appreciable frequency, inflating piN/piS. Temperate japonica and aromatic have the smallest Ne (from severe bottlenecks and narrow breeding pools), so purifying selection is least efficient, and more slightly deleterious variants persist. This is the 'cost of domestication' -- bottlenecked crop populations accumulate more deleterious mutations than their wild ancestors or larger-Ne subpopulations. The indica value (0.228) approaches Drosophila levels, reflecting its relatively large Ne and efficient selection. The aromatic value (0.348) is in the Arabidopsis range, consistent with similarly small Ne in another selfing species.",
+  "rubric": "Full marks (3): Must connect piN/piS differences to effective population size and purifying selection efficacy, correctly rank subpopulations (indica most efficient, aromatic least), and discuss the cost of domestication. Mostly correct (2): Correct piN/piS interpretation and ranking but missing cost-of-domestication framing. Partial (1): Notes piN/piS < 1 means purifying selection but does not interpret subpopulation differences. Incorrect (0): Claims higher piN/piS indicates positive selection.",
+  "source_method": "custom-piNpiS",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "piN/piS is the population-level analog of dN/dS and reveals the load of slightly deleterious mutations in bottlenecked populations."
+}

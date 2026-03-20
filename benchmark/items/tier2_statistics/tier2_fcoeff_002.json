@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fcoeff_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Inbreeding coefficients (F) were computed using two methods for the same 396 temperate japonica accessions: PLINK2 method-of-moments (F_hat3) and runs of homozygosity (F_ROH). The results are shown. Interpret the discrepancy between the two estimates.",
+  "context": "Inbreeding coefficient comparison (396 temperate japonica):\n\n  Statistic          F_hat3 (PLINK2)   F_ROH (ROH>1Mb)\n  Mean               0.924             0.842\n  Median             0.941             0.861\n  SD                 0.048             0.062\n  Min                0.782             0.618\n  Max                0.992             0.978\n  Correlation        r = 0.91\n\nF_hat3 formula: 1 - Ho/He (based on excess homozygosity relative to HWE)\nF_ROH formula: sum(ROH_length) / genome_size (fraction of genome in long homozygous runs)\n\nROH parameters: minimum 1 Mb, minimum 50 SNPs per ROH, max 1 het per window",
+  "correct_answer": "F_hat3 is systematically higher than F_ROH (mean 0.924 vs 0.842) despite being highly correlated (r=0.91). The discrepancy arises from what each metric measures: (1) F_hat3 captures ALL homozygosity relative to HWE expectation, including both recent inbreeding (long ROH from recent selfing) and ancient homozygosity from population bottlenecks and background selection (short homozygous stretches). (2) F_ROH with a 1 Mb minimum only captures recent inbreeding events (selfing within the last ~50 generations), missing the accumulated short homozygous segments from the population's evolutionary history. The ~8% gap (0.924 - 0.842) represents 'background' homozygosity not attributable to recent selfing -- this includes fixed differences from the domestication bottleneck, purifying selection creating homozygous stretches in gene-rich regions, and ancient LD. The samples with the largest discrepancy (F_hat3=0.782 vs F_ROH=0.618) likely have more recent outcrossing events that broke up long ROH while retaining short homozygous stretches. Both measures are valid but answer different questions: F_hat3 is better for correcting population genetic analyses (it captures total departure from HWE), while F_ROH is better for identifying recent inbreeding and mating system inference.",
+  "rubric": "Full marks (3): Must explain F_hat3 captures all homozygosity (recent + ancient) while F_ROH only captures recent inbreeding (long ROH), quantify the gap as background homozygosity, and discuss when each metric is appropriate. Mostly correct (2): Identifies the measurement difference but missing practical recommendations. Partial (1): Notes one is higher but does not explain mechanistically. Incorrect (0): Claims the difference indicates a data error.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of two complementary inbreeding metrics. The F_hat3 > F_ROH pattern is universal in selfing species."
+}

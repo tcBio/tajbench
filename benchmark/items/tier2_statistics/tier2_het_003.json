@@ -1,0 +1,16 @@
+{
+  "id": "tier2_het_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Observed heterozygosity (Ho) was computed per sample for the full 3K RGP panel. One sample has an unusually high Ho compared to its subpopulation. Evaluate whether this is a biological signal or a data quality concern.",
+  "context": "Observed heterozygosity (Ho) per sample, selected accessions:\n\n  Sample          Subpopulation      Ho       F_hat3   DP_mean   Miss_rate\n  IRIS_313-10421  temp_japonica      0.0082   0.936    14.2x     0.018\n  IRIS_313-10177  temp_japonica      0.0091   0.929    15.1x     0.015\n  IRIS_313-10893  temp_japonica      0.0088   0.931    13.8x     0.021\n  IRIS_313-10999  temp_japonica      0.0384   0.700    8.2x      0.089\n  IRIS_313-11025  temp_japonica      0.0079   0.938    16.4x     0.012\n\nSubpopulation summary (temp_japonica, n=396):\n  Mean Ho: 0.0097\n  SD Ho: 0.0048\n  Mean F_hat3: 0.924\n  Expected Ho under complete selfing (F=1.0): 0.0\n  Expected Ho under random mating (F=0.0): 0.128",
+  "correct_answer": "IRIS_313-10999 (Ho=0.0384, F=0.700) is a clear outlier -- its heterozygosity is 4x the subpopulation mean and 6 SD above it. Two possible explanations: (1) BIOLOGICAL: This accession may have experienced a recent outcrossing event (1-2 generations ago), creating long heterozygous stretches. F=0.700 indicates ~30% excess heterozygosity relative to HWE, which is consistent with an F1 or F2 from a cross between divergent temperate japonica lines. This is plausible for a genebank accession where controlled crosses may have occurred. (2) DATA QUALITY: The lower depth (8.2x vs 13-16x for others) and higher missingness (8.9% vs 1.2-2.1%) raise concerns. At low depth, heterozygous genotype calls can be inflated by sequencing errors -- a single error read at a homozygous site can trigger a het call. However, the het rate increase is too large (4x) to be explained solely by error at 8.2x depth. RECOMMENDED DIAGNOSIS: Check the length distribution of heterozygous runs. If Ho is elevated because of long heterozygous stretches (>1 Mb), it is likely biological (recent outcrossing). If heterozygous sites are randomly scattered, it is more likely contamination or mixed-sample DNA.",
+  "rubric": "Full marks (3): Must consider both biological (outcrossing) and technical (low depth, contamination) explanations, note the supporting QC metrics (low DP, high missingness), and propose a diagnostic (heterozygous run length or contamination check). Mostly correct (2): Identifies both explanations but missing the diagnostic approach. Partial (1): Identifies the outlier but considers only one explanation. Incorrect (0): Dismisses as normal variation.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests the ability to distinguish biological from technical causes of outlier heterozygosity, a common QC challenge."
+}

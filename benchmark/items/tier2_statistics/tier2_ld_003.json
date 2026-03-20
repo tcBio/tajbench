@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ld_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "LD (r-squared) was computed between all pairs of SNPs within 500 kb on chromosome 1 for indica rice, using both WGS-called genotypes and Beagle-imputed genotypes from GBS data. The imputed genotypes show systematically higher r-squared. Interpret why.",
+  "context": "Mean r-squared by distance, chr01, indica:\n\n  Distance_bin   WGS_r2 (n=1306)   Imputed_GBS_r2 (n=480)   Ratio (GBS/WGS)\n  0-10 kb        0.48               0.58                      1.21\n  10-50 kb       0.22               0.31                      1.41\n  50-100 kb      0.12               0.19                      1.58\n  100-250 kb     0.07               0.13                      1.86\n  250-500 kb     0.04               0.09                      2.25\n\nImputation: Beagle 5.4, DR2 > 0.3 filter\nGBS depth: mean 2.8x per locus",
+  "correct_answer": "The systematically inflated r2 in imputed GBS data is an artifact of imputation, not real biology. The mechanism is: Beagle imputes missing genotypes by selecting haplotypes from the reference panel that best match the observed data. This process inherently leverages LD in the reference panel, meaning imputed genotypes at nearby sites are correlated BY CONSTRUCTION -- they come from the same reference haplotype template. This creates artificial LD that inflates r2 beyond the true population value. The inflation increases with distance (ratio from 1.21 at 0-10 kb to 2.25 at 250-500 kb) because: at short distances, the true LD is already high so the imputation artifact is a smaller fraction of the total; at longer distances, true LD decays toward zero but imputation-induced LD persists (since Beagle's HMM uses long haplotype segments), so the artifact becomes the dominant signal. Practical consequences: (1) LD-based analyses (LD decay curves, LD pruning thresholds, haplotype block estimation) should NOT use imputed data without correction. (2) LD pruning for PCA/ADMIXTURE should be done on WGS data or with more aggressive thresholds when using imputed data. (3) The DR2>0.3 filter is too lenient -- poorly imputed sites contribute the most to inflated LD.",
+  "rubric": "Full marks (3): Must identify imputation as the cause (haplotype template sharing), explain why inflation increases with distance (true LD decays but imputation LD persists), and note practical consequences for LD-dependent analyses. Mostly correct (2): Identifies imputation artifact but incomplete mechanism or missing practical implications. Partial (1): Notes inflation without explaining the mechanism. Incorrect (0): Attributes to biological differences between WGS and GBS samples.",
+  "source_method": "PLINK2 --ld-window",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Imputation-inflated LD is a well-known but frequently overlooked artifact. The distance-dependent inflation pattern is diagnostic."
+}

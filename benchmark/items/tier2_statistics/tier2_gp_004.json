@@ -1,0 +1,16 @@
+{
+  "id": "tier2_gp_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Genotype concordance was measured between imputed GBS genotypes and WGS truth genotypes for 48 samples that were genotyped with both platforms. The concordance is stratified by genotype class. Interpret the asymmetry in error rates.",
+  "context": "Genotype concordance (48 indica samples, GBS imputed vs WGS truth, DR2>0.3 sites):\n\n  WGS_truth    Imputed_call   Concordance   N_comparisons\n  0/0          0/0            0.982         82,410,208\n  0/0          0/1            0.014         1,182,304\n  0/0          1/1            0.004           338,104\n  0/1          0/0            0.184          2,841,208\n  0/1          0/1            0.724         11,182,408\n  0/1          1/1            0.092          1,421,604\n  1/1          0/0            0.008            124,804\n  1/1          0/1            0.038            592,108\n  1/1          1/1            0.954         14,882,204\n\nOverall concordance: 0.961\nNon-reference concordance: 0.891",
+  "correct_answer": "The concordance data reveals a strong asymmetry: heterozygous genotypes (0/1) are the hardest to impute correctly (72.4% concordance) compared to hom-ref (98.2%) and hom-alt (95.4%). This is expected in a selfing species like rice for two reasons: (1) PRIOR BIAS: In highly inbred populations (F~0.92), heterozygotes are rare (~8% of genotypes). The imputation HMM's prior strongly favors homozygous states, so uncertain genotypes are pushed toward 0/0 or 1/1. This explains the 18.4% of true hets called as hom-ref -- the imputer 'corrects' het calls toward the more probable homozygous state. (2) LD PATTERN: In a selfing species, LD extends over longer physical distances, which helps impute homozygous segments (long haplotype blocks are easy to match) but makes heterozygous sites harder to resolve because they represent rare recombination or outcrossing events that break the dominant haplotype pattern. The 18.4% het->hom-ref error rate is higher than the 9.2% het->hom-alt rate because the reference allele is typically more common (the panel is enriched for common variants where REF is the major allele). Non-reference concordance (0.891) is a better metric than overall concordance (0.961) because it focuses on the informative genotypes and avoids inflation from the easy-to-call hom-ref majority.",
+  "rubric": "Full marks (3): Must identify heterozygotes as hardest to impute, explain the prior bias from selfing (rare hets pushed toward homozygous), note the asymmetry in het error direction (more het->hom-ref than het->hom-alt), and discuss non-reference concordance as the better metric. Mostly correct (2): Identifies het difficulty and selfing prior but missing the directional asymmetry or concordance metric discussion. Partial (1): Notes overall concordance is high without examining genotype-specific rates. Incorrect (0): Claims 96.1% concordance means imputation is excellent without examining the het class.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Genotype-specific concordance reveals imputation weaknesses hidden by overall concordance metrics."
+}

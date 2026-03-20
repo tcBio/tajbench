@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ld_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "LD decay was computed for aromatic rice (n=76) and compared with the genome-wide pattern for indica (n=1,306). Aromatic shows much higher LD at all distances but with wider confidence intervals. Interpret both the LD difference and the uncertainty difference.",
+  "context": "Mean r-squared by distance (MAF>0.05 SNPs):\n\n  Distance_bin   aromatic (n=76)   95%_CI_aromatic   indica (n=1306)   95%_CI_indica\n  0-10 kb        0.74              0.68-0.80         0.48              0.47-0.49\n  10-50 kb       0.58              0.49-0.67         0.22              0.21-0.23\n  50-100 kb      0.44              0.34-0.54         0.12              0.11-0.13\n  100-250 kb     0.31              0.22-0.40         0.07              0.06-0.08\n  250-500 kb     0.22              0.14-0.30         0.04              0.03-0.05",
+  "correct_answer": "Two patterns to interpret: (1) LD LEVEL: Aromatic rice shows much higher LD at all distances (e.g., r2=0.44 at 50-100 kb vs 0.12 for indica). This reflects aromatic's much smaller effective population size (Ne) -- with only 76 samples representing a narrow genetic base, fewer historical recombination events have had time to break down LD. The combination of small Ne, selfing, and potential population substructure within aromatic (Basmati vs Jasmine types) all extend LD. (2) CONFIDENCE INTERVALS: Aromatic's CIs are 5-10x wider than indica's (e.g., 0.34-0.54 vs 0.11-0.13 at 50-100 kb). This is partly a sample size effect (76 vs 1,306 samples) but also reflects genuine biological heterogeneity within the aromatic group. With only 76 accessions likely comprising multiple sublineages, the LD estimate is highly sensitive to which accessions are sampled. The wide CIs mean LD decay comparisons using aromatic should be interpreted cautiously -- the true population-level LD could be substantially different with a larger or differently composed sample.",
+  "rubric": "Full marks (3): Must explain higher LD through smaller Ne, explain wider CIs through both sample size and biological heterogeneity, and note the practical caution for interpreting aromatic LD estimates. Mostly correct (2): Explains LD difference but attributes CI width only to sample size without biological heterogeneity component. Partial (1): Notes aromatic has higher LD but no mechanistic explanation. Incorrect (0): Claims wider CIs invalidate the comparison entirely.",
+  "source_method": "PLINK2 --ld-window",
+  "population_groups": ["aromatic", "indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how both Ne and sample size affect LD estimation and its uncertainty."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier2_het_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Observed heterozygosity (Ho) was computed per chromosome for a single indica accession (IRIS_313-8695). Two chromosomes show markedly different Ho values. Interpret the within-individual heterozygosity variation.",
+  "context": "Per-chromosome observed heterozygosity for IRIS_313-8695 (indica):\n\n  Chromosome   N_sites    Ho        F_hat3\n  chr01        1,482,108  0.0312    0.901\n  chr02        1,291,204  0.0298    0.905\n  chr03        1,182,408  0.0324    0.897\n  chr04          991,204  0.0282    0.910\n  chr05        1,108,502  0.0048    0.985\n  chr06        1,042,308  0.0308    0.902\n  chr07          982,104  0.0291    0.908\n  chr08          891,408  0.0284    0.910\n  chr09          808,204  0.0278    0.912\n  chr10          882,108  0.0264    0.916\n  chr11        1,021,304  0.0298    0.905\n  chr12          802,408  0.0274    0.913\n\nSample-wide Ho: 0.0271, F_hat3: 0.914\nSubpopulation mean Ho (indica): 0.0312",
+  "correct_answer": "Chromosome 5 is a dramatic outlier with Ho=0.0048 (F=0.985), far below the sample-wide average of 0.0271 (F=0.914). All other chromosomes cluster in a narrow range (Ho=0.026-0.033). The extremely low heterozygosity on chr05 indicates this chromosome is nearly completely homozygous -- effectively one contiguous run of homozygosity spanning most of the chromosome. This could result from: (1) SELECTIVE SWEEP: Strong recent selection on chr05 (which contains major domestication genes Wx and Sd1) could have swept one haplotype to homozygosity while other chromosomes retain residual heterozygosity from occasional outcrossing. (2) IDENTITY-BY-DESCENT: If this accession's parents shared the same chr05 haplotype (IBD for the entire chromosome), the offspring would be homozygous regardless of the rest of the genome. (3) CHROMOSOMAL-LEVEL SELFING DYNAMICS: In a selfing species, each chromosome independently approaches complete homozygosity through selfing. By chance, chr05 reached near-complete homozygosity earlier than other chromosomes. The remaining heterozygosity on other chromosomes (~3%) indicates 1-2 outcrossing events in recent ancestry, but chr05 has not been affected by these events (or any introgressed haplotypes on chr05 were rapidly fixed by selection).",
+  "rubric": "Full marks (3): Must identify chr05 as the outlier, propose at least 2 plausible explanations (selective sweep/IBD/stochastic selfing), and connect to known chr05 domestication genes. Mostly correct (2): Identifies chr05 outlier and one explanation. Partial (1): Notes chr05 is different without biological interpretation. Incorrect (0): Claims the variation is random noise.",
+  "source_method": "PLINK2 --het",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests interpretation of within-individual chromosome-level heterozygosity variation in a selfing species."
+}

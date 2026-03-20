@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fst_005",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Pairwise FST was computed between indica and aus using 100-kb sliding windows. The genome-wide distribution is approximately normal, but a small fraction of windows have negative FST values. Explain how FST can be negative and what it means biologically.",
+  "context": "FST distribution (indica vs aus, 100-kb windows, Weir-Cockerham estimator):\n\n  Statistic              Value\n  N_windows              3,842\n  Mean weighted FST      0.136\n  Median                 0.124\n  SD                     0.082\n  Min                    -0.048\n  Max                    0.682\n  N_windows FST < 0      142 (3.7%)\n  N_windows FST > 0.50   28 (0.7%)\n\nNote: The Weir-Cockerham FST estimator is an unbiased estimator of the population FST parameter.",
+  "correct_answer": "Negative FST values occur because the Weir-Cockerham estimator is an UNBIASED estimator, meaning it can produce values below zero. The true FST parameter is bounded [0,1], but the estimator is not. Negative estimates arise when within-population variance exceeds between-population variance at a locus or window, which happens by chance when: (1) The true local FST is very close to zero (nearly no differentiation). (2) Sampling variance causes the between-population component to be estimated as negative. (3) Stochastic variation in allele frequencies within small windows produces occasional negative estimates. Biologically, windows with negative FST estimates are NOT more similar than 'identical' -- they simply represent regions where indica and aus share very similar allele frequencies, as expected for regions of recent gene flow, shared ancestral variation, or no divergent selection. The 3.7% of negative windows is consistent with sampling noise around true FST values near zero. These should NOT be set to zero (that would bias the genome-wide mean upward) -- retaining them preserves the unbiased property of the estimator.",
+  "rubric": "Full marks (3): Must explain that negative values arise from the unbiased estimator (not a data error), that they occur when within-population variance exceeds between-population by chance, and that they should NOT be truncated to zero. Mostly correct (2): Explains the estimator property but misses the truncation warning or biological context. Partial (1): States negative FST is possible but does not explain why. Incorrect (0): Claims negative FST is a data error or impossible.",
+  "source_method": "vcftools-weir-fst-pop",
+  "population_groups": ["indica", "aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Negative Weir-Cockerham FST is a common source of confusion. The key insight is unbiased estimation vs bounded parameters."
+}

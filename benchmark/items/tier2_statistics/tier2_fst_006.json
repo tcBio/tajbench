@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fst_006",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "Pairwise FST was computed between indica and temperate japonica using different numbers of LD-pruned SNPs (subsampled from the full set). FST changes with the number of SNPs used. Interpret this behavior.",
+  "context": "FST (Weir-Cockerham, indica vs temp_japonica) by SNP count:\n\n  N_SNPs      Weighted_FST   SE\n  1,000       0.358          0.024\n  5,000       0.354          0.011\n  10,000      0.353          0.008\n  50,000      0.352          0.003\n  205,418     0.352          0.001\n  500,000     0.351          0.001\n  2,000,000   0.352          <0.001\n\nAll subsets are random LD-pruned SNPs with MAF>0.05 in both populations.\n10 replicates per N_SNPs level; SE is across replicates.",
+  "correct_answer": "The point estimate of FST is remarkably stable across SNP counts (0.351-0.358), but the standard error decreases dramatically as N_SNPs increases. This demonstrates that: (1) FST is a POPULATION PARAMETER that converges quickly -- even 5,000 random LD-pruned SNPs give an estimate within 0.002 of the full-genome value. This is because FST averages over many independent loci, and with enough loci the Law of Large Numbers ensures the estimator converges to the true value. (2) The SE decrease follows approximately 1/sqrt(N_SNPs), as expected for an average of independent estimates. SE drops from 0.024 (N=1K) to 0.001 (N=205K), roughly a 24x reduction for a 205x increase in SNPs (sqrt(205)~14, close to the 24x given that LD pruning is not perfect). (3) The slight upward bias at very low N_SNPs (0.358 at 1K vs 0.352 at 205K) is due to sampling variance -- with few SNPs, the Weir-Cockerham estimator has slightly higher variance which can manifest as a small upward bias in the weighted average. The practical implication: for genome-wide FST estimation, even modest SNP panels (5-10K SNPs) are sufficient if they are well-distributed and LD-pruned. Dense genotyping improves precision but not accuracy for this summary statistic.",
+  "rubric": "Full marks (3): Must note the stability of the point estimate, explain SE decrease with sqrt(N) scaling, and discuss practical implications (modest panels suffice for FST). Mostly correct (2): Notes stability and SE decrease but missing the scaling argument or practical recommendation. Partial (1): States FST is similar across subsets without quantitative analysis. Incorrect (0): Claims FST changes meaningfully with SNP count.",
+  "source_method": "Weir-Cockerham FST via PLINK2",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of the statistical properties of FST as a summary statistic -- convergence and precision vs accuracy."
+}

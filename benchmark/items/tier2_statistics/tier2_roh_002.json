@@ -1,0 +1,16 @@
+{
+  "id": "tier2_roh_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Runs of homozygosity (ROH) were compared between indica and temperate japonica accessions. The total genome fraction in ROH differs substantially. Interpret the biological meaning of this difference.",
+  "context": "ROH summary (minimum 1 Mb, minimum 50 SNPs):\n\n  Subpopulation        N     Mean_N_ROH   Mean_total_Mb   F_ROH    Longest_ROH_mean\n  indica               1306  22.4         118.6           0.304    8.2 Mb\n  temperate japonica    396  42.8         328.4           0.842    18.4 Mb\n\nGenome size: 390 Mb\n\nROH length distribution (fraction of total ROH length):\n  ROH class          indica    temp_japonica\n  1-2 Mb             48%       22%\n  2-5 Mb             32%       28%\n  5-10 Mb            14%       24%\n  >10 Mb              6%       26%",
+  "correct_answer": "Temperate japonica has dramatically more genome in ROH than indica (F_ROH=0.842 vs 0.304), reflecting its more intense selfing history and smaller effective population size from the domestication bottleneck. Key differences: (1) TOTAL ROH: Temperate japonica has 2.8x more genome in ROH (328 vs 119 Mb), covering 84% vs 30% of the genome. (2) ROH LENGTH DISTRIBUTION: Temperate japonica is dominated by long ROH (50% of ROH length in segments >5 Mb vs 20% in indica). Long ROH indicate recent continuous selfing with little outcrossing to break up homozygous stretches. Indica has more short ROH (48% in 1-2 Mb class vs 22%), indicating that while indica also selfs, there has been more outcrossing or admixture in its recent history, breaking long ancestral ROH into shorter fragments. (3) LONGEST ROH: Temperate japonica's mean longest ROH (18.4 Mb) spans nearly 5% of the genome, indicating some accessions have selfed for many consecutive generations without any outcrossing. Indica's 8.2 Mb longest ROH is still substantial but indicates more frequent outcrossing events. The biological interpretation: both groups are predominantly selfing (rice selfing rate ~95-99%), but temperate japonica's breeding history involves more single-seed-descent and pure-line selection, which maintains complete homozygosity, while indica breeding programs historically involved more cross-pollination and landrace maintenance with occasional outcrossing.",
+  "rubric": "Full marks (3): Must quantify the F_ROH difference, interpret the length distribution shift (long ROH = recent selfing, short ROH = ancient/broken), connect to breeding history differences, and note both groups are selfing but differ in degree. Mostly correct (2): Correct F_ROH interpretation but missing length distribution analysis or breeding history context. Partial (1): Notes temperate japonica has more ROH without explaining why. Incorrect (0): Attributes ROH differences to data quality.",
+  "source_method": "PLINK2 --homozyg",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "ROH comparisons reveal mating system differences between subpopulations beyond simple diversity measures."
+}

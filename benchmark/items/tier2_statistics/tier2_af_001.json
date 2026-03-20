@@ -1,0 +1,16 @@
+{
+  "id": "tier2_af_001",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Allele frequency distributions were computed for biallelic SNPs in the 3K RGP WGS panel, stratified by subpopulation. The fraction of variants in each MAF bin is shown. Interpret the differences between indica and temperate japonica.",
+  "context": "Allele frequency distribution (fraction of biallelic SNPs per MAF bin):\n\n  MAF_bin       indica (n=1306)   temp_japonica (n=396)\n  0.00-0.01     0.428             0.312\n  0.01-0.05     0.198             0.184\n  0.05-0.10     0.102             0.108\n  0.10-0.20     0.098             0.118\n  0.20-0.30     0.072             0.102\n  0.30-0.40     0.058             0.094\n  0.40-0.50     0.044             0.082\n\nTotal biallelic SNPs: indica=14,284,102, temp_japonica=6,812,408",
+  "correct_answer": "Indica has a much stronger skew toward rare variants: 42.8% of SNPs have MAF<0.01 vs 31.2% in temperate japonica. Conversely, temperate japonica has a higher fraction of intermediate-frequency variants (MAF 0.20-0.50: 27.8% vs 17.4% in indica). This pattern reflects: (1) SAMPLE SIZE EFFECT: Indica's larger sample (n=1,306 vs 396) captures more rare variants that would be missed in the smaller temperate japonica sample. Singletons in indica require MAF ~ 1/2612 = 0.0004, while in temperate japonica the minimum is ~1/792 = 0.0013 -- so indica can detect rarer variants. (2) DEMOGRAPHIC HISTORY: Even accounting for sample size, temperate japonica's flatter frequency spectrum reflects its domestication bottleneck, which preferentially eliminated rare variants and shifted the spectrum toward intermediate frequencies. This is the same signal seen in the SFS and Tajima's D analyses. (3) TOTAL VARIANT COUNT: Indica has 2.1x more total SNPs (14.3M vs 6.8M), reflecting its larger effective population size and higher nucleotide diversity. The practical implication: MAF filters (e.g., MAF>0.05) remove a much larger fraction of indica variants (62.6%) than temperate japonica variants (49.6%), which means subpopulation-specific MAF filtering is needed if analyzing both groups jointly.",
+  "rubric": "Full marks (3): Must discuss both sample size effect on rare variant detection AND demographic history (bottleneck) effects on the spectrum shape, note the total variant count difference, and mention practical implications for MAF filtering. Mostly correct (2): Identifies one of the two main factors (sample size or demography) and notes practical implications. Partial (1): Describes the pattern without explaining it. Incorrect (0): Attributes entirely to one factor without considering the other.",
+  "source_method": "PLINK2 --freq",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests the ability to disentangle sample size effects from demographic effects on allele frequency distributions."
+}

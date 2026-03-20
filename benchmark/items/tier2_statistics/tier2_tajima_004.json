@@ -1,0 +1,16 @@
+{
+  "id": "tier2_tajima_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Tajima's D was computed genome-wide for each of the 5 rice subpopulations. All values are positive but vary in magnitude. Interpret the subpopulation differences.",
+  "context": "Genome-wide Tajima's D (100-kb windows, biallelic SNPs):\n\n  Subpopulation          N      Mean_D    SD_D    Median_D\n  indica                 1306   +0.82     0.64    +0.74\n  tropical japonica       484   +1.14     0.72    +1.02\n  temperate japonica      396   +1.48     0.84    +1.38\n  aus                     241   +0.91     0.68    +0.82\n  aromatic                 76   +1.62     0.98    +1.51\n\nExpected D under standard neutral model: ~0.0\nExpected D after population contraction/bottleneck: positive\nExpected D with population expansion: negative",
+  "correct_answer": "All subpopulations show positive genome-wide Tajima's D, consistent with population contraction from domestication bottlenecks. The magnitude ranking (aromatic > temperate japonica > tropical japonica > aus > indica) directly reflects bottleneck severity and effective population size: (1) Aromatic (D=+1.62): Strongest positive D, reflecting the most severe bottleneck and smallest Ne. Aromatic rice has the narrowest genetic base. (2) Temperate japonica (D=+1.48): Strong positive D from the well-documented japonica domestication bottleneck plus subsequent breeding selection. (3) Tropical japonica (D=+1.14): Less severe than temperate japonica, consistent with wider geographic distribution and more diverse landrace maintenance. (4) Aus (D=+0.91): Moderate positive D -- aus has a moderate-sized Ne but experienced its own distinct demographic history. (5) Indica (D=+0.82): Lowest positive D, consistent with the largest Ne among cultivated subpopulations. However, the positive D also has a component from selfing biology: selfing reduces effective recombination and inflates the ratio of intermediate-frequency to rare variants, contributing to positive D even without a bottleneck. Disentangling the bottleneck and selfing contributions requires formal demographic modeling (e.g., with fastsimcoal2 or dadi).",
+  "rubric": "Full marks (3): Must rank subpopulations correctly by D and connect to bottleneck severity/Ne, note that selfing also contributes to positive D, and mention that formal demographic modeling is needed to disentangle effects. Mostly correct (2): Correct ranking with bottleneck interpretation but missing the selfing confound. Partial (1): Notes all are positive without interpreting differences. Incorrect (0): Claims positive D indicates balancing selection across the genome.",
+  "source_method": "vcftools-windowed-tajima",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Genome-wide positive Tajima's D in rice is well-documented and reflects the combined effects of domestication bottlenecks and selfing."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier2_af_002",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The number of private alleles (variants found in only one subpopulation) was counted for each rice subpopulation in the 3K RGP panel. Interpret the counts and what they reveal about each subpopulation's evolutionary distinctiveness.",
+  "context": "Private allele counts (biallelic SNPs, MAF > 0.01 within the subpopulation):\n\n  Subpopulation          N_samples   N_private_alleles   Private_per_sample\n  indica                 1,306       2,841,204           2,175\n  tropical japonica        484         892,108           1,843\n  temperate japonica       396         412,804           1,042\n  aus                      241         684,210           2,839\n  aromatic                  76          98,412           1,295\n  admixed                  507              0               0\n\nTotal biallelic SNPs in panel: 18,412,308\nNote: 'Private' means the variant is polymorphic (MAF>0.01) in exactly one subpopulation and monomorphic (or absent) in all others.",
+  "correct_answer": "Private alleles reveal evolutionary distinctiveness: (1) Aus has the highest per-sample private allele count (2,839), despite being a relatively small group (n=241). This indicates aus has retained substantial unique genetic variation not shared with other subpopulations, consistent with its status as an early-diverging lineage with minimal gene flow from indica or japonica breeding programs. (2) Indica has the most total private alleles (2.84M) due to its large sample size, but per-sample count (2,175) is lower than aus, reflecting that indica's large sample better saturates its variant space. (3) Temperate japonica has the fewest private alleles per sample (1,042), reflecting its narrow genetic base from the domestication bottleneck -- much of its remaining variation is shared with tropical japonica (their shared japonica ancestor). (4) Admixed has zero private alleles by definition -- admixed samples draw their alleles from multiple subpopulations, so any variant found in an admixed sample is also found in at least one source subpopulation. (5) The private allele counts are sensitive to sample size (larger samples detect more rare private variants), so per-sample counts partially but not fully correct for this. Aus's high per-sample count despite small N strongly supports its genuine evolutionary distinctiveness.",
+  "rubric": "Full marks (3): Must note aus has highest per-sample private alleles indicating distinctiveness, temperate japonica has lowest reflecting bottleneck, explain admixed=0, and discuss sample size effects. Mostly correct (2): Correctly interprets 2-3 subpopulations but misses sample size caveat or admixed explanation. Partial (1): Lists counts without interpretation. Incorrect (0): Claims indica is most distinct because it has the most total private alleles.",
+  "source_method": "PLINK2 --freq",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Private allele analysis reveals evolutionary history. Aus's distinctiveness is well-documented in rice genetics."
+}
