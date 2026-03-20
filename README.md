@@ -10,14 +10,14 @@ An open benchmark for evaluating frontier LLMs on plant population genomics reas
 
 ## Leaderboard
 
-*v0.2 -- 50 items, evaluated March 2026*
+*v0.3 -- 59 items, evaluated March 2026*
 
 | Model | Tier 1 (Parsing) | Tier 2 (Statistics) | Tier 3 (Structure) | Tier 4 (Methods) | **Overall** |
 |-------|:---:|:---:|:---:|:---:|:---:|
-| Claude Opus 4.6 | 100.0% | 91.7% | 100.0% | 95.8% | **96.7%** |
-| Claude Sonnet 4.6 | 100.0% | 95.8% | 97.9% | 87.5% | **96.0%** |
-| o3 | 90.0% | 87.5% | 91.7% | 79.2% | **88.0%** |
-| GPT-4o | 70.0% | 62.5% | 58.3% | 66.7% | **63.3%** |
+| Claude Opus 4.6 | 100.0% | 94.4% | 98.2% | 86.1% | **94.9%** |
+| Claude Sonnet 4.6 | 100.0% | 88.9% | 96.5% | 80.6% | **91.5%** |
+| o3 | 90.0% | 85.2% | 93.0% | 66.7% | **84.8%** |
+| GPT-4o | 70.0% | 61.1% | 61.4% | 58.3% | **62.2%** |
 | Gemini 2.5 Pro | -- | -- | -- | -- | -- |
 | Gemini 2.5 Flash | -- | -- | -- | -- | -- |
 
