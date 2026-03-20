@@ -1,0 +1,16 @@
+{
+  "id": "tier2_gp_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "Genotype probability (GP) entropy was computed for each imputed variant across 480 GBS samples. Entropy measures imputation uncertainty: H = -sum(GP * log2(GP)) for each sample, averaged across samples. Higher entropy means more uncertain imputation. The following table shows entropy stratified by variant characteristics. Interpret the patterns.",
+  "context": "Mean per-variant GP entropy (bits), stratified:\n\n  Category                        Mean_entropy   N_variants\n  MAF 0.01-0.05, DR2 < 0.5       0.92           824,102\n  MAF 0.01-0.05, DR2 > 0.8       0.34           412,804\n  MAF 0.05-0.20, DR2 < 0.5       0.78           218,408\n  MAF 0.05-0.20, DR2 > 0.8       0.18           1,284,102\n  MAF 0.20-0.50, DR2 < 0.5       0.64           82,104\n  MAF 0.20-0.50, DR2 > 0.8       0.11           891,208\n\nFor reference:\n  Maximum entropy for diploid genotype (3 states): log2(3) = 1.585 bits\n  Entropy of a confident call (GP=0.01,0.01,0.98): 0.16 bits\n  Entropy of a maximally uncertain call (GP=0.33,0.34,0.33): 1.58 bits",
+  "correct_answer": "The entropy data shows two clear patterns: (1) MAF effect: at any DR2 level, rare variants (MAF 0.01-0.05) have higher entropy than common variants (MAF 0.20-0.50). For DR2>0.8: rare=0.34 bits vs common=0.11 bits. This is because rare variant genotypes have a strong prior toward homozygous reference (most samples are 0/0), so even modest uncertainty produces relatively high entropy. (2) DR2 effect: at any MAF level, low-DR2 variants have much higher entropy. For MAF 0.01-0.05: DR2<0.5 gives 0.92 bits (approaching random) vs DR2>0.8 gives 0.34 bits. DR2 directly measures how well the imputed dosages predict true genotypes, so low DR2 naturally correlates with uncertain (high entropy) GP distributions. The interaction matters: rare variants with low DR2 (0.92 bits) approach the maximum entropy of 1.585 bits, meaning the imputation is providing almost no genotype information beyond the prior. These variants should be excluded from any analysis. Even rare variants with high DR2 (0.34 bits) have non-trivial uncertainty -- using dosages rather than hard-calls is essential for these variants to propagate the uncertainty into downstream analyses.",
+  "rubric": "Full marks (3): Must identify both MAF and DR2 effects on entropy, note the interaction (rare + low DR2 is worst), quantify relative to max entropy, and recommend dosage-based analysis for uncertain variants. Mostly correct (2): Identifies both effects but missing the dosage recommendation or max entropy context. Partial (1): Notes entropy varies but interprets only one axis (MAF or DR2). Incorrect (0): Claims entropy is not related to imputation quality.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "GP entropy is an underused but informative metric for imputation quality beyond DR2."
+}

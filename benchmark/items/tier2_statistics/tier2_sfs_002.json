@@ -1,0 +1,16 @@
+{
+  "id": "tier2_sfs_002",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 3,
+  "prompt": "Folded SFS were computed for aus rice before and after removing sites within 100 kb of known selective sweep regions. The spectra are shown below. Interpret the change and what it reveals about the impact of linked selection on the neutral SFS.",
+  "context": "Folded SFS for aus (n=241), first 10 bins:\n\nBin   All_sites     Sweep_regions_removed\n1     40,182        38,410\n2     22,841        21,960\n3     16,290        16,018\n4     12,810        13,102\n5     10,420        11,248\n6      8,918        10,104\n7      7,812         9,218\n8      6,904         8,410\n9      6,218         7,820\n10     5,620         7,304\n\nTotal segregating sites: all=421,804, filtered=398,218\nSweep regions removed: 142 regions totaling 14.2 Mb (~3.6% of genome)",
+  "correct_answer": "Removing sweep regions causes a visible shift in the SFS shape: the filtered spectrum has relatively fewer rare variants (bin 1 drops by only 4.4%) but substantially more intermediate-frequency variants (bin 10 increases by 30%). This makes the filtered spectrum flatter. The interpretation is that selective sweeps preferentially generate rare variants in flanking regions through hitchhiking -- as a sweep drags nearby variants to fixation or loss, new mutations accumulate as singletons in the recovery phase. Removing these sweep-affected regions reveals the 'background' SFS, which has relatively more intermediate-frequency variants because it is less influenced by recent positive selection. The 3.6% of the genome near sweeps contains a disproportionate share of rare variants, inflating the left tail of the all-sites SFS. This demonstrates that linked selection distorts the neutral SFS, and demographic inference methods that assume strict neutrality (like dadi or fastsimcoal2) should ideally use sweep-filtered data, or the inferred bottleneck severity will be biased.",
+  "rubric": "Full marks (3): Must quantify the shift (rare variants drop modestly, intermediate variants increase substantially), explain how sweeps generate excess rare variants through hitchhiking, and note implications for demographic inference assuming neutrality. Mostly correct (2): Identifies the shape change and connects to selection but missing demographic inference implication. Partial (1): Notes numbers changed but does not interpret the directional shift. Incorrect (0): Claims removing sweep regions should not change the SFS.",
+  "source_method": "vcftools-freq",
+  "population_groups": ["aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how linked selection distorts the neutral SFS. This is a key concern for demographic inference in domesticated species."
+}

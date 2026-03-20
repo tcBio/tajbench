@@ -1,0 +1,16 @@
+{
+  "id": "tier2_fst_004",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Pairwise FST was computed between all 5 rice subpopulations using two different variant sets: (1) all biallelic SNPs and (2) only SNPs with MAF > 0.05 in both populations being compared. The results differ. Interpret why and which estimate is more appropriate for measuring population divergence.",
+  "context": "Pairwise FST: indica vs temperate japonica\n\n  Variant set                                      N_SNPs      Weighted_FST\n  All biallelic SNPs                                 14,284,102  0.352\n  MAF > 0.05 in both populations                     4,812,308  0.298\n  MAF > 0.05 in at least one population              8,924,104  0.381\n\nPairwise FST: indica vs aus\n\n  Variant set                                      N_SNPs      Weighted_FST\n  All biallelic SNPs                                 12,108,204  0.136\n  MAF > 0.05 in both populations                     5,218,402  0.108\n  MAF > 0.05 in at least one population              7,824,306  0.162",
+  "correct_answer": "The FST values differ systematically by variant set: filtering to MAF>0.05 in BOTH populations gives the lowest FST, while filtering to MAF>0.05 in AT LEAST ONE population gives the highest. This is because: (1) Requiring MAF>0.05 in both populations removes variants that are common in one population but rare/fixed in the other. These are exactly the most differentiated variants (private or near-private alleles), so removing them deflates FST. (2) Requiring MAF>0.05 in at least one population enriches for variants that are common in one but potentially rare in the other, biasing TOWARD high-differentiation sites and inflating FST. (3) The all-SNPs estimate (0.352 for indica-japonica) is the least biased because it includes all variants regardless of frequency in either population. For measuring population divergence, the all-biallelic-SNPs estimate is most appropriate because FST should integrate over the full allele frequency spectrum. MAF filtering introduces ascertainment bias that can either inflate or deflate FST depending on the filtering scheme. If MAF filtering is necessary (e.g., for computational reasons), the 'in both populations' filter is more conservative and should be reported alongside the number of excluded variants.",
+  "rubric": "Full marks (3): Must explain why each filter produces different FST (ascertainment of differentiated variants), recommend all-SNPs as least biased, and note that 'MAF in at least one' inflates while 'MAF in both' deflates. Mostly correct (2): Identifies the pattern and recommends all-SNPs but incomplete mechanism. Partial (1): Notes values differ without explaining why. Incorrect (0): Recommends the MAF-filtered estimate as more reliable.",
+  "source_method": "Weir-Cockerham FST via PLINK2",
+  "population_groups": ["indica", "temperate-japonica", "aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "MAF filtering effects on FST are a common source of confusion. The direction of bias depends on which population's MAF threshold is applied."
+}

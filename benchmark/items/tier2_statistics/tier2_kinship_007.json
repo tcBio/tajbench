@@ -1,0 +1,16 @@
+{
+  "id": "tier2_kinship_007",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "KING-robust kinship was estimated between all pairs of 76 aromatic rice accessions. The distribution of pairwise kinship values is shown. Interpret the distribution shape and identify the likely family structure.",
+  "context": "KING-robust kinship distribution (76 aromatic accessions, 2,850 pairs):\n\n  Range              N_pairs   Fraction\n  > 0.354            12        0.4%\n  0.177 - 0.354      84        2.9%\n  0.0884 - 0.177     218       7.6%\n  0.0442 - 0.0884    482       16.9%\n  0.00 - 0.0442      1,624     57.0%\n  < 0.00             430       15.1%\n\nMean kinship: 0.031\nMedian kinship: 0.012\n\nTop 3 pairs by kinship:\n  IRIS_313-5012 vs IRIS_313-5018: 0.468\n  IRIS_313-5012 vs IRIS_313-5024: 0.421\n  IRIS_313-5018 vs IRIS_313-5024: 0.392",
+  "correct_answer": "The distribution shows a long right tail with 3.3% of pairs in the first/second-degree range (kinship > 0.177), indicating substantial family structure within aromatic rice. The top 3 pairs all involve the same 3 accessions (IRIS_313-5012, 5018, 5024) with kinship 0.39-0.47, suggesting these form a closely related trio -- likely parent-offspring or sibling relationships (or near-duplicates given the selfing biology of rice that inflates kinship estimates). The 15.1% of pairs with negative kinship indicates cross-subgroup comparisons within aromatic rice, suggesting the aromatic group contains genetically distinct sublineages (e.g., Basmati-type vs Jasmine-type). The mean kinship (0.031) is positive, reflecting shared ancestry within the aromatic group, but the median (0.012) being much lower indicates the distribution is right-skewed -- most pairs are distantly related with a few highly related pairs pulling up the mean. For GWAS or diversity analyses, the closely related trio should be flagged, and one sample per related pair should be removed to avoid inflating test statistics.",
+  "rubric": "Full marks (3): Must identify the trio of closely related accessions, note the negative-kinship fraction as evidence of substructure within aromatic, interpret the mean-median gap as right skew from family structure, and recommend QC action. Mostly correct (2): Identifies the trio and substructure but misses QC recommendation. Partial (1): Notes some pairs are closely related but does not interpret the distribution. Incorrect (0): Treats all pairs as unrelated.",
+  "source_method": "KING-robust",
+  "population_groups": ["aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Aromatic rice has the smallest sample in the 3K panel and shows interesting family structure due to its narrow genetic base."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier2_tajima_003",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "Tajima's D was computed in 100-kb windows for indica rice on chromosomes 1 and 5. The distributions are shown below. Chromosome 5 has a much wider spread. Interpret the difference.",
+  "context": "Tajima's D distribution (100-kb windows, indica n=1,306):\n\n  Chromosome   N_windows   Mean_D    SD_D    Min_D     Max_D    Frac_D<-2.0\n  chr01        432         +0.74     0.58    -1.82     +2.41    0.0%\n  chr05        298         +0.68     1.24    -2.89     +3.42    8.7%\n\nGenome-wide mean D for indica: +0.82\n\nKnown features on chr05:\n  - Wx gene (amylose content) at ~22.2 Mb: major domestication target\n  - Sd1 gene (semi-dwarf) at ~38.4 Mb: Green Revolution gene\n  - Multiple QTL for grain quality traits",
+  "correct_answer": "The wider D spread on chr05 (SD=1.24 vs 0.58 on chr01) reflects the heterogeneous selection landscape on this chromosome. The negative tail (8.7% of windows with D<-2.0, min D=-2.89) corresponds to selective sweep regions around Wx and Sd1, where strong positive selection has eliminated variation and created an excess of rare variants (negative D). The positive extreme (max D=+3.42) may correspond to regions of balancing selection or regions flanking sweeps where intermediate-frequency variants are maintained by hitchhiking dynamics. In contrast, chr01 has a more uniform D distribution (SD=0.58, no windows below -2.0), suggesting it lacks major domestication loci under recent strong selection. The similar means (0.74 vs 0.68) indicate that the genome-wide positive shift from selfing and bottleneck effects is consistent, but the variance is driven by local selection rather than demography.",
+  "rubric": "Full marks (3): Must connect chr05's wider spread to known domestication loci (Wx, Sd1), explain negative tail as selective sweeps and positive extremes as potential balancing selection, and contrast with chr01's uniformity. Mostly correct (2): Identifies selection as cause of chr05 spread but missing specific gene connections. Partial (1): Notes wider spread without interpretation. Incorrect (0): Attributes to sample size or technical artifacts.",
+  "source_method": "vcftools-windowed-tajima",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests ability to connect chromosome-level variation in summary statistics to known biological features."
+}

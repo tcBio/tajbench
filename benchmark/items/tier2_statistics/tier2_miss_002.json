@@ -1,0 +1,16 @@
+{
+  "id": "tier2_miss_002",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Per-site missingness was computed for the 3K RGP WGS panel. The missingness rate varies dramatically between genomic regions. The following table shows missingness for 5 representative 100-kb windows. Interpret the pattern.",
+  "context": "Per-site missingness (fraction of 3,010 samples with ./. genotype), selected 100-kb windows:\n\n  Region               Mean_miss   Median_miss   N_sites   Notes\n  chr01:15.0-15.1 Mb   0.008       0.004         1,842     Euchromatic, gene-rich\n  chr04:17.0-17.1 Mb   0.312       0.298         412       Pericentromeric\n  chr08:1.0-1.1 Mb     0.011       0.006         1,624     Euchromatic\n  chr05:12.0-12.1 Mb   0.184       0.152         682       Near centromere\n  chr11:28.0-28.1 Mb   0.006       0.003         2,104     Subtelomeric, gene-rich\n\nGenome-wide: mean per-site missingness = 0.029\nReference genome: IRGSP-1.0 (Nipponbare, temperate japonica)",
+  "correct_answer": "The pattern shows dramatically elevated missingness in pericentromeric regions (chr04:17 Mb at 31.2%, chr05:12 Mb at 18.4%) versus euchromatic/gene-rich regions (chr01:15 Mb at 0.8%, chr08:1 Mb at 1.1%, chr11:28 Mb at 0.6%). This is caused by: (1) Repetitive DNA: pericentromeric regions are enriched in transposable elements and tandem repeats, which cause multi-mapping of short reads and prevent confident variant calling. (2) Structural variation: these regions harbor more structural variants (inversions, large indels) that disrupt read alignment to the reference. (3) Reduced complexity: lower sequence complexity in centromeric regions makes unique mapping difficult. The N_sites column confirms this -- pericentromeric windows have far fewer callable variant sites (412 and 682) compared to euchromatic windows (1,842 and 2,104), indicating that most of the region is not callable at all. This pattern is important for downstream analyses: pericentromeric regions should be treated with caution in PCA, GWAS, and selection scans, as the high missingness creates biases and the remaining called variants may have elevated error rates.",
+  "rubric": "Full marks (3): Must identify pericentromeric regions as having highest missingness, explain the mechanism (repetitive DNA, multi-mapping), note the reduced variant count as corroboration, and discuss downstream implications. Mostly correct (2): Identifies the pattern and repetitive DNA explanation but misses downstream implications. Partial (1): Notes missingness varies by region but no mechanistic explanation. Incorrect (0): Attributes to sequencing depth variation.",
+  "source_method": "bcftools-stats",
+  "population_groups": ["indica", "temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of genomic architecture effects on variant calling quality."
+}

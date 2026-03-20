@@ -1,0 +1,16 @@
+{
+  "id": "tier2_dr2_003",
+  "tier": 2,
+  "task_type": "comparison",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "DR2 (imputation quality) was compared between two imputation runs of the same 480 GBS samples using different reference panels. Interpret the differences and recommend which panel to use.",
+  "context": "DR2 comparison by MAF bin:\n\n  MAF_bin       Panel_A (1,354 indica)   Panel_B (3,010 all subpops)   Diff (A-B)\n  0.01-0.05     0.72                     0.68                          +0.04\n  0.05-0.10     0.84                     0.82                          +0.02\n  0.10-0.20     0.91                     0.90                          +0.01\n  0.20-0.50     0.95                     0.95                           0.00\n\nAll 480 GBS samples are indica.\nPanel A: 1,354 indica WGS samples\nPanel B: 3,010 WGS samples (all 5 subpopulations)\n\nCompute time per chromosome:\n  Panel A: 18 minutes\n  Panel B: 52 minutes",
+  "correct_answer": "Panel A (indica-only) provides slightly better imputation quality for rare variants (DR2 +0.04 for MAF 0.01-0.05) while being 2.9x faster. The advantage is concentrated at low MAF because rare indica-specific variants have more informative haplotype templates in a matched panel -- the non-indica samples in Panel B contribute haplotypes that are rarely selected by the HMM for indica targets, diluting the effective reference. For common variants (MAF>0.20), the panels perform identically (DR2=0.95) because these variants are well-imputed regardless of reference composition. Recommendation: use Panel A (indica-only) for this dataset. The benefits are: (1) better rare variant accuracy, (2) 2.9x faster computation, (3) lower memory usage. The only scenario where Panel B might be preferred is if some GBS samples have indica-aus or indica-japonica admixed ancestry, where non-indica haplotypes would provide better templates for the admixed segments.",
+  "rubric": "Full marks (3): Must note Panel A is better for rare variants, explain why (haplotype matching), recommend Panel A with computational advantage, and caveat about admixed samples. Mostly correct (2): Recommends A correctly with reasoning but misses admixture caveat. Partial (1): Notes Panel A is slightly better but weak reasoning. Incorrect (0): Recommends Panel B because bigger is always better.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Directly validates the reasoning tested in tier4_method_009 but at T2 level -- interpreting empirical results rather than making a prospective decision."
+}

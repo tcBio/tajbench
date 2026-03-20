@@ -1,0 +1,16 @@
+{
+  "id": "tier2_ibs_003",
+  "tier": 2,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "IBS (identity-by-state) distance was computed between all pairs of 3,010 rice accessions. The distribution of pairwise IBS distances is bimodal. Interpret the two modes and what they represent biologically.",
+  "context": "Pairwise IBS distance distribution (3,010 accessions, 4,530,045 pairs):\n\n  IBS_distance_range   N_pairs      Fraction   Description\n  0.00 - 0.05          2,841        0.063%     Very similar\n  0.05 - 0.10          48,210       1.064%     Similar\n  0.10 - 0.15          312,408      6.896%     Mode 1 peak\n  0.15 - 0.20          824,102      18.192%    Mode 1 tail\n  0.20 - 0.25          1,284,508    28.354%    Valley\n  0.25 - 0.30          1,412,204    31.172%    Mode 2 peak\n  0.30 - 0.35          584,210      12.895%    Mode 2 tail\n  0.35 - 0.40          61,562       1.359%     Very different\n\nSubpopulation pair breakdown for Mode 1 (IBS < 0.20):\n  Within indica: 42%\n  Within temperate japonica: 28%\n  Within tropical japonica: 18%\n  Within aus: 8%\n  Other within-subpop: 4%\n\nMode 2 (IBS > 0.25):\n  Cross indica-japonica: 61%\n  Cross other subpop pairs: 39%",
+  "correct_answer": "The bimodal IBS distribution reflects the deep population structure between indica and japonica rice subpopulations: Mode 1 (IBS 0.10-0.20) represents within-subpopulation pairs -- accessions from the same subpopulation share more alleles and have lower IBS distance. The breakdown confirms this: 96% of Mode 1 pairs are within-subpopulation. Mode 2 (IBS 0.25-0.35) represents cross-subpopulation pairs, predominantly indica vs japonica (61%). These pairs share fewer alleles due to the deep evolutionary divergence from independent domestication events. The valley around IBS 0.20-0.25 separates the two modes and likely contains admixed samples or pairs from more closely related subpopulations (e.g., indica-aus pairs, which have lower FST). The 0.063% of pairs with IBS<0.05 are likely duplicates or very closely related accessions within subpopulations. This bimodal pattern is expected whenever a panel contains deeply divergent subpopulations and is a visual diagnostic of population structure -- a unimodal distribution would indicate a single panmictic population.",
+  "rubric": "Full marks (3): Must identify Mode 1 as within-subpopulation, Mode 2 as cross-subpopulation (especially indica-japonica), explain the valley as the transition region, and note the bimodality as a diagnostic of population structure. Mostly correct (2): Correctly identifies the two modes but missing the valley interpretation or quantitative support. Partial (1): Notes bimodality but does not connect to subpopulation structure. Incorrect (0): Claims bimodality is a QC artifact.",
+  "source_method": "PLINK2 --ibs-matrix",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus", "aromatic"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Bimodal IBS distributions are a hallmark of structured populations. The indica-japonica split is clearly visible."
+}
