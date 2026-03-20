@@ -1,0 +1,10 @@
+# Pairwise Weir-Cockerham FST -- 3K RGP WGS panel
+# 205,418 LD-pruned SNPs, MAF > 0.05
+# All p < 0.001 (1000 permutations)
+#
+	indica	trop_japonica	temp_japonica	aus	aromatic
+indica	0.000	0.238	0.352	0.136	0.198
+trop_japonica	0.238	0.000	0.094	0.271	0.152
+temp_japonica	0.352	0.094	0.000	0.379	0.181
+aus	0.136	0.271	0.379	0.000	0.231
+aromatic	0.198	0.152	0.181	0.231	0.000

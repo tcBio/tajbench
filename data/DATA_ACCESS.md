@@ -19,6 +19,7 @@ The following derived artifacts are freely available in `data/derived/`:
 | VCF snippets | Curated 20-record VCF excerpts for benchmark Tier 1 items | `data/derived/vcf_snippets/` |
 | Site frequency spectra | Folded SFS per subpopulation (indica, japonica, aus, aromatic) | `data/derived/sfs/` |
 | FST matrices | Pairwise Weir-Cockerham FST between the five major subpopulations | `data/derived/fst/` |
+| Imputation QC | DR2 distributions per chromosome and by MAF bin | `data/derived/imputation_qc/` |
 
 These files contain no raw reads and use anonymised sample IDs.
 

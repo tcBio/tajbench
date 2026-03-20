@@ -1,0 +1,18 @@
+##fileformat=VCFv4.2
+##source=3K_RGP_WGS_GATK_HaplotypeCaller
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total Alleles">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele Count">
+##INFO=<ID=DR2,Number=1,Type=Float,Description="Dosage R-squared">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic Depths">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Phred Likelihoods">
+##FORMAT=<ID=GP,Number=G,Type=Float,Description="Genotype Probabilities">
+##FORMAT=<ID=DS,Number=1,Type=Float,Description="Dosage">
+## Item: tier1_vcf_008
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	S001	S002
+chr01	5012841	.	A	G	342	PASS	AF=0.50;AN=4;AC=2	GT:DP	0/1:25	0/1:30
+chr01	5012903	.	C	T	28	LowQual	AF=0.25;AN=4;AC=1	GT:DP	0/0:8	0/1:5
+chr01	5012967	.	G	A	512	PASS	AF=0.75;AN=4;AC=3	GT:DP	0/1:35	1/1:40
