@@ -1,0 +1,16 @@
+{
+  "id": "tier3_family_003",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "KING-robust kinship was used to identify related pairs among 1,306 indica accessions. A network of 14 accessions connected by first- or second-degree relationships was identified. The network structure is described below. Reconstruct the likely pedigree relationships.",
+  "context": "Relatedness network (14 indica accessions, KING-robust kinship):\n\nFirst-degree pairs (kinship > 0.177):\n  A-B: 0.284  |  A-C: 0.268  |  B-C: 0.312\n  D-E: 0.242  |  D-F: 0.238\n  G-H: 0.298  |  G-I: 0.284  |  H-I: 0.268\n\nSecond-degree pairs (kinship 0.0884-0.177):\n  A-D: 0.142  |  B-D: 0.128  |  C-D: 0.134\n  A-G: 0.098  |  D-G: 0.092\n\nUnrelated to all others:\n  J, K, L, M, N (kinship < 0.044 to all network members)\n\nIBS0 rates for first-degree pairs:\n  A-B: 0.008  |  A-C: 0.012  |  B-C: 0.004\n  D-E: 0.018  |  D-F: 0.016\n  G-H: 0.006  |  G-I: 0.010  |  H-I: 0.014",
+  "correct_answer": "The network contains three family clusters connected by weaker relatedness: FAMILY 1 (A, B, C): All three are first-degree relatives with high kinship (0.268-0.312). The very low IBS0 rates (0.004-0.012) indicate they share a highly inbred background. B-C has the highest kinship (0.312) and lowest IBS0 (0.004), suggesting they may be parent-offspring or siblings from the same highly inbred cross. A is slightly more distant, possibly from a related but distinct inbred line. FAMILY 2 (D, E, F): D is first-degree to both E and F (kinship 0.238-0.242), but E-F are not listed as first-degree, suggesting D is the common link (possibly a parent) while E and F are from different crosses involving D or its close relatives. Higher IBS0 (0.016-0.018) suggests slightly more diversity in this family's background. FAMILY 3 (G, H, I): Similar structure to Family 1, with all pairs first-degree. G-H has the highest kinship (0.298) with low IBS0 (0.006). INTER-FAMILY CONNECTIONS: Families 1 and 2 are connected by second-degree relationships (A-D: 0.142, B-D: 0.128, C-D: 0.134), suggesting shared grandparental ancestry -- possibly breeding lines from the same program. Families 1 and 3 have weaker connections (A-G: 0.098), suggesting more distant shared ancestry. The 5 unrelated accessions (J-N) are independent of the network. PRACTICAL IMPLICATION: For GWAS, at most one representative per first-degree cluster should be retained (e.g., keep A, D, G, and all of J-N) to avoid inflating test statistics from cryptic relatedness.",
+  "rubric": "Full marks (3): Must identify the three family clusters, interpret within-family relationships using kinship and IBS0, note the inter-family connections as shared breeding program ancestry, and recommend GWAS filtering. Mostly correct (2): Identifies families correctly but missing IBS0 interpretation or GWAS recommendation. Partial (1): Notes some pairs are related but cannot reconstruct family structure. Incorrect (0): Cannot distinguish the three families.",
+  "source_method": "KING-robust",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests pedigree reconstruction from kinship networks -- a practical skill for sample QC in breeding panels."
+}

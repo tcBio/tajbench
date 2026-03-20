@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_014",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was computed on 396 temperate japonica accessions only. PC3 separates a cluster of 42 accessions from the rest. These 42 accessions are all from a single breeding program. Interpret the PC3 signal.",
+  "context": "PCA on temperate japonica only (396 accessions, 84,208 LD-pruned SNPs):\n\nPC1: 4.2% variance -- separates upland vs irrigated ecotypes\nPC2: 2.8% variance -- geographic gradient (East Asian vs European/American)\nPC3: 2.1% variance -- separates 42 accessions from the remaining 354\n\nThe 42 accessions:\n  - All from IRRI (International Rice Research Institute) temperate japonica breeding program\n  - Share a common founder: Koshihikari (elite Japanese variety)\n  - Mean pairwise kinship within cluster: 0.182\n  - Mean pairwise kinship between cluster and rest: 0.048\n\nRemaining 354 accessions:\n  - Diverse origins: Japan, Korea, China, Italy, USA, Australia\n  - Mean pairwise kinship within: 0.042",
+  "correct_answer": "PC3 captures the genetic signature of a specific breeding program within temperate japonica. The 42 IRRI accessions share a common founder (Koshihikari) and have elevated within-cluster kinship (0.182 vs 0.042 for the rest), creating a distinct genetic cluster detectable as a separate PC axis. This is a BREEDING PROGRAM ARTIFACT rather than a natural population structure signal. The mechanism: modern breeding programs create 'bottleneck within a bottleneck' -- temperate japonica already has low diversity from domestication, and the IRRI program further narrowed the gene pool by repeatedly crossing derivatives of Koshihikari. The 2.1% variance on PC3 is small in absolute terms but represents a real genetic clustering. Implications: (1) FOR GWAS: This breeding program structure must be corrected for, either by including PC3 as a covariate or by using a kinship matrix. If the IRRI lines have been selected for specific traits, PC3 could create false associations. (2) FOR DIVERSITY STUDIES: The 42 IRRI accessions represent a biased sample of temperate japonica diversity -- including them inflates the apparent genetic similarity within the subpopulation. (3) FOR BREEDING: The high within-cluster kinship (0.182) indicates limited genetic diversity within the IRRI program, suggesting that crosses with non-Koshihikari backgrounds would increase genetic gain.",
+  "rubric": "Full marks (3): Must identify the signal as breeding program structure (not natural population structure), connect to the shared Koshihikari founder and elevated kinship, and discuss implications for GWAS, diversity studies, or breeding. Mostly correct (2): Identifies breeding program origin but missing implications. Partial (1): Notes the 42 accessions are different without explaining why. Incorrect (0): Interprets PC3 as a natural population structure axis.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["temperate-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests ability to distinguish breeding program structure from natural population structure in PCA."
+}

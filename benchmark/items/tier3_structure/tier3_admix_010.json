@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_010",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "ADMIXTURE was run at K=5 on 507 accessions classified as 'admixed' in the 3K RGP passport data. The distribution of maximum ancestry proportions (max Q) is shown. Interpret the distribution and what it reveals about the nature of the admixed category.",
+  "context": "Distribution of max Q value among 507 admixed accessions (K=5):\n\n  Max_Q_range     N_samples   Fraction   Interpretation\n  0.90 - 1.00     82          16.2%      Near-pure, likely misclassified\n  0.70 - 0.90     148         29.2%      Weak admixture, predominantly one group\n  0.50 - 0.70     184         36.3%      Moderate admixture\n  0.30 - 0.50     68          13.4%      Strong admixture, no dominant ancestry\n  0.20 - 0.30     25          4.9%       Highly admixed, near-equal contributions\n\nDominant ancestry component for samples with max Q > 0.50:\n  indica dominant: 58%\n  tropical japonica dominant: 22%\n  temperate japonica dominant: 8%\n  aus dominant: 7%\n  aromatic dominant: 5%",
+  "correct_answer": "The admixed category in 3K RGP is heterogeneous and contains several distinct classes: (1) MISCLASSIFIED SAMPLES (16.2%, max Q > 0.90): These 82 accessions have >90% ancestry from a single component and should be reclassified into their dominant subpopulation. They were likely placed in 'admixed' based on ambiguous passport data rather than genetic evidence. (2) WEAKLY ADMIXED (29.2%, max Q 0.70-0.90): These have a clear dominant ancestry but with 10-30% from other sources. They represent landraces from contact zones or breeding lines with intentional introgression. (3) MODERATELY ADMIXED (36.3%, max Q 0.50-0.70): The largest class, representing genuine admixture with no single dominant ancestry exceeding 70%. These are the canonical admixed samples -- likely from geographic transition zones or modern breeding programs combining multiple subpopulations. (4) HIGHLY ADMIXED (18.3%, max Q < 0.50): These samples have no dominant component and draw nearly equally from 2-3+ subpopulations. They may represent advanced intercrosses or ancient hybrid populations. The indica-dominant bias (58% of samples with max Q > 0.50) reflects indica's geographic extent and its overlap with multiple other subpopulations (aus in South Asia, japonica in East/Southeast Asia). The practical implication: the 'admixed' label is a catch-all category that requires ADMIXTURE-based refinement before these samples can be used in subpopulation-specific analyses.",
+  "rubric": "Full marks (3): Must identify the heterogeneity within admixed (misclassified, weak, moderate, strong), recommend reclassification of the max Q>0.90 samples, interpret the indica dominance pattern, and note practical implications. Mostly correct (2): Identifies the heterogeneity and reclassification need but missing the indica bias interpretation. Partial (1): Notes the distribution without interpreting the classes. Incorrect (0): Treats all admixed samples as equivalent.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["admixed", "indica", "tropical-japonica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of the admixed category as a heterogeneous classification requiring genetic refinement."
+}

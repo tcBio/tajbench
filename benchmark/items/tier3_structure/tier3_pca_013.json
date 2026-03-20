@@ -1,0 +1,16 @@
+{
+  "id": "tier3_pca_013",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "PCA was run on a merged dataset of 3,010 WGS accessions and 480 GBS accessions (3,490 total). The GBS samples cluster differently compared to when they are projected onto WGS-only PCs. Interpret why running PCA jointly vs projecting gives different results.",
+  "context": "Comparison of GBS sample positions:\n\nMethod 1: Joint PCA (3,490 samples, intersect of 142,108 SNPs genotyped in both):\n  PC1 variance: 28.4% (vs 32.4% in WGS-only PCA)\n  GBS indica centroid: PC1=+0.184, PC2=-0.018\n  WGS indica centroid: PC1=+0.192, PC2=-0.020\n  GBS-WGS indica centroid offset: 0.008 on PC1\n\nMethod 2: Projection (GBS projected onto WGS-derived PCs, all 205,418 WGS SNPs imputed in GBS):\n  GBS indica centroid: PC1=+0.196, PC2=-0.022\n  WGS indica centroid: PC1=+0.198, PC2=-0.021\n  GBS-WGS indica centroid offset: 0.002 on PC1\n\nMethod 1 uses fewer SNPs (142K intersection vs 205K) but no imputation.\nMethod 2 uses all WGS SNPs but requires imputed GBS genotypes.",
+  "correct_answer": "The two methods give different results for complementary reasons: JOINT PCA (Method 1): Uses only 142K SNPs present in both platforms (no imputation needed), but this SNP set is biased -- GBS restriction enzyme sites sample a non-random subset of the genome. The reduced SNP count (142K vs 205K) and the ascertainment bias of GBS loci change the PCA loading weights. The lower PC1 variance (28.4% vs 32.4%) indicates less discriminating power. The 0.008 GBS-WGS offset in indica centroids suggests GBS samples are slightly shifted, potentially because GBS-specific SNPs have different LD patterns than the full WGS set. PROJECTION (Method 2): Preserves the WGS PC space exactly (WGS samples don't move), and GBS samples are placed into this space using imputed genotypes. The smaller offset (0.002) indicates better alignment, but this depends entirely on imputation accuracy -- imputation errors add noise to individual sample positions (as seen with the outlier analysis in tier3_pca_011). TRADEOFFS: Joint PCA avoids imputation artifacts but introduces ascertainment bias and uses fewer SNPs. Projection avoids ascertainment bias but introduces imputation artifacts. For most applications, projection is preferred when imputation quality is high (DR2>0.80), because it preserves the well-characterized WGS PC space. Joint PCA is preferred when imputation quality is poor or when the GBS panel captures regions poorly represented in the WGS panel.",
+  "rubric": "Full marks (3): Must identify the SNP ascertainment difference between methods, explain why joint PCA has larger offset (fewer/biased SNPs), why projection has smaller offset (uses full WGS space), and discuss the imputation quality tradeoff. Mostly correct (2): Identifies the key difference but missing the tradeoff discussion. Partial (1): Notes results differ without explaining the mechanism. Incorrect (0): Claims one method is always superior.",
+  "source_method": "PLINK2 --pca",
+  "population_groups": ["indica"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of joint PCA vs projection -- a practical decision when combining genotyping platforms."
+}

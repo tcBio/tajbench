@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_009",
+  "tier": 3,
+  "task_type": "comparison",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "ADMIXTURE was run on the 3K RGP panel at K=5. Two accessions from the same geographic region (both from Yunnan Province, China) show very different ancestry profiles. Interpret what this means biologically.",
+  "context": "ADMIXTURE K=5 ancestry proportions for two Yunnan accessions:\n\n  Accession              Q1(ind)  Q2(trj)  Q3(tej)  Q4(aus)  Q5(aro)\n  IRIS_313-6284 (Yunnan)  0.82     0.04     0.02     0.10     0.02\n  IRIS_313-6291 (Yunnan)  0.03     0.42     0.48     0.02     0.05\n\n  Passport data:\n    IRIS_313-6284: lowland irrigated, glutinous, local landrace\n    IRIS_313-6291: upland rainfed, non-glutinous, local landrace\n\n  Yunnan geographic context: mountainous terrain with elevations from 500m to 2500m, straddles the indica-japonica cultivation boundary in China.",
+  "correct_answer": "Despite being from the same province, these two accessions have dramatically different ancestry: IRIS_313-6284 is predominantly indica (82%) with minor aus admixture (10%), while IRIS_313-6291 is a tropical-temperate japonica hybrid (42% + 48% = 90% japonica). This is biologically expected because Yunnan spans a wide altitudinal range straddling the indica-japonica boundary. The lowland irrigated glutinous rice (6284) is indica-type adapted to warm flooded paddies, while the upland rainfed non-glutinous rice (6291) is japonica-type adapted to cooler aerobic conditions at higher elevations. Ecological adaptation, not geographic distance, determines subpopulation identity in rice. This has practical implications: sampling strategies based on geography alone will miss this ecological structure, and GWAS designs must account for indica-japonica stratification even within a single province.",
+  "rubric": "Full marks (3): Must identify the ecological (elevation/cultivation system) explanation for divergent ancestry despite geographic proximity, correctly interpret both ancestry profiles, and note implications for sampling or analysis design. Mostly correct (2): Interprets both profiles correctly but missing the ecological mechanism. Partial (1): Notes they differ without explaining why. Incorrect (0): Claims geographic proximity should mean similar ancestry.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "tropical-japonica", "temperate-japonica", "aus"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Yunnan is a classic example of indica-japonica sympatry driven by altitudinal/ecological zonation."
+}
