@@ -40,7 +40,7 @@ Each item is a JSON file in `benchmark/items/tier{N}_{topic}/`.
 | `id` | `tier{N}_{topic}_{NNN}` -- e.g. `tier2_fst_002`. Number sequentially within a topic. |
 | `tier` | 1=parsing, 2=stats, 3=structure, 4=methods |
 | `task_type` | `interpretation` (what does this mean?), `comparison` (which is higher/lower?), `decision` (which method should I use?), `parsing` (extract a field value) |
-| `data_layer` | `wgs`, `gbs`, `imputed`, or `derived` |
+| `data_layer` | `wgs`, `rad_gbs`, `imputed`, `derived`, or `methodology` |
 | `difficulty` | 1=textbook definition, 2=contextual reasoning with data, 3=expert judgment call |
 | `prompt` | The question shown to the model. Be specific about what you want. |
 | `context` | The data excerpt the model sees. Tables, VCF records, statistics. |
@@ -167,7 +167,7 @@ benchmark/items/tier3_structure/tier3_pca_003.json
 benchmark/items/tier4_methods/tier4_method_004.json
 ```
 
-Use the topic abbreviations: `fst`, `pi`, `tajima`, `dr2`, `ld`, `admix`, `pca`, `method`, `vcf`.
+Use the topic abbreviations: `vcf`, `fst`, `pi`, `tajima`, `dr2`, `ld`, `het`, `gp`, `sfs`, `ibs`, `miss`, `af`, `roh`, `fcoeff`, `tstv`, `kinship`, `qa`, `pca`, `admix`, `tree`, `treemix`, `ibd`, `demo`, `assign`, `clone`, `family`, `introg`, `method`.
 
 ---
 
@@ -182,21 +182,51 @@ This validates every item in the corpus. Fix any errors it reports before openin
 
 ---
 
-## Item Targets for v1.0
+## v1.0 Corpus Summary (202 items)
 
-| Tier | Topic | Target count | Status |
-|------|-------|-------------|--------|
-| 2 | FST interpretation | 12 | 1 done |
-| 2 | Nucleotide diversity / pi | 8 | 0 done |
-| 2 | Tajima's D | 8 | 1 done |
-| 2 | DR2 / imputation quality | 10 | 1 done |
-| 2 | LD decay | 7 | 0 done |
-| 2 | Site frequency spectrum | 9 | 0 done |
-| 3 | PCA interpretation | 15 | 2 done |
-| 3 | ADMIXTURE Q-matrix | 10 | 1 done |
-| 3 | Batch effects vs structure | 10 | 0 done |
-| 3 | Subpopulation assignment | 8 | 0 done |
-| 3 | Kinship / relatedness | 7 | 0 done |
-| 4 | Methodological decisions | 35 | 3 done |
+### Tier 1 -- Parsing (55 items)
+| Topic | Count |
+|-------|-------|
+| VCF parsing (GT, DP, GQ, AD, PL, DS, GP, INFO, FILTER, multi-allelic, MNP, half-calls) | 55 |
 
-**Total remaining: ~188 items.** Start with FST and PCA -- those have the clearest defensible answers from the 3K RGP data and will define the quality bar for everything else.
+### Tier 2 -- Statistics (57 items)
+| Topic | Count |
+|-------|-------|
+| Kinship (KING-robust) | 9 |
+| FST interpretation | 6 |
+| Nucleotide diversity (pi, piN/piS) | 4 |
+| Tajima's D | 4 |
+| DR2 / imputation quality | 4 |
+| LD decay | 4 |
+| Heterozygosity | 4 |
+| Genotype probability / concordance | 4 |
+| Site frequency spectrum (1D, 2D-SFS) | 3 |
+| IBS | 3 |
+| Missingness | 3 |
+| Allele frequency distributions | 2 |
+| Runs of homozygosity (ROH) | 2 |
+| Inbreeding coefficients | 2 |
+| Ts/Tv ratios | 2 |
+| Quality awareness | 1 |
+
+### Tier 3 -- Structure (55 items)
+| Topic | Count |
+|-------|-------|
+| PCA (scree, loadings, projection, outliers, filtering) | 17 |
+| ADMIXTURE (Q-matrix, CV error, stability, hierarchy, chromosome-specific) | 15 |
+| Family / pedigree reconstruction | 4 |
+| Phylogenetic trees (NJ, RAxML) | 3 |
+| IBD segment analysis | 3 |
+| Population assignment | 3 |
+| Demographic modeling (PSMC, fastsimcoal2) | 3 |
+| Duplicate / clone detection | 2 |
+| TreeMix admixture graphs | 2 |
+| Introgression (D-statistic, local ancestry) | 2 |
+| Kinship network | 1 |
+
+### Tier 4 -- Methods (35 items)
+| Topic | Count |
+|-------|-------|
+| Pipeline design, GWAS, variant calling, imputation, GRM, QC, genomic prediction, phasing, selection scans, FST methods, ROH params, LD analysis, demographic inference, batch effects, SNP filtering, heritability, genotyping platform selection, ADMIXTURE preprocessing, introgression study design, duplicate retention | 35 |
+
+**v1.0 complete.** All 202 items pass `python -m benchmark.schema`.

@@ -4,7 +4,7 @@
 
 An open benchmark for evaluating frontier LLMs on plant population genomics reasoning -- built on the 3,000 Rice Genomes Project (3,010 accessions, ~18M SNPs across 12 chromosomes) and grounded in peer-reviewed methodology.
 
-> **Why TajBench?** Frontier models plateau on standard bioinformatics Q&A but struggle with interpretive reasoning over real population genetics data -- FST matrices, PCA projections, Tajima's D distributions, imputation quality stratification. TajBench exposes these failure modes with 200 items across four difficulty tiers, scored by deterministic matching and calibrated LLM-as-judge rubrics. If your model can't read a VCF or reason about domestication signals in an SFS, this benchmark will show it.
+> **Why TajBench?** Frontier models plateau on standard bioinformatics Q&A but struggle with interpretive reasoning over real population genetics data -- FST matrices, PCA projections, Tajima's D distributions, imputation quality stratification. TajBench exposes these failure modes with 202 items across four difficulty tiers, scored by deterministic matching and calibrated LLM-as-judge rubrics. If your model can't read a VCF or reason about domestication signals in an SFS, this benchmark will show it.
 
 ---
 
@@ -30,24 +30,24 @@ An open benchmark for evaluating frontier LLMs on plant population genomics reas
 TajBench evaluates LLMs across four tiers of genomic reasoning, ordered by interpretive difficulty:
 
 ### Tier 1 -- Parsing & Structural Understanding
-**Scoring**: Exact/regex match | **Target items**: 55
+**Scoring**: Exact/regex match | **Items**: 55
 
-VCF/BCF format comprehension: multi-allelic records, FORMAT field extraction, INFO field parsing, filter flag interpretation, missing genotype handling, imputation quality scores (DR2/INFO).
+VCF/BCF format comprehension: multi-allelic records, FORMAT field extraction (GT/DP/GQ/AD/PL/DS/GP), INFO field parsing, filter flag interpretation, missing genotype handling, half-calls, MNP records, imputation quality scores (DR2/INFO).
 
 ### Tier 2 -- Diversity & Differentiation Statistics
-**Scoring**: LLM-as-judge | **Target items**: 55
+**Scoring**: LLM-as-judge | **Items**: 57
 
-FST matrix interpretation, nucleotide diversity (pi), Tajima's D inference in domestication context, LD decay reasoning, imputation quality (DR2) stratification by MAF, site frequency spectrum interpretation.
+FST matrix interpretation, nucleotide diversity (pi/piN/piS), Tajima's D in domestication context, LD decay reasoning, imputation quality (DR2) stratification by MAF and chromosome, site frequency spectrum (1D/2D-SFS), kinship (KING-robust), IBS, heterozygosity, inbreeding coefficients, runs of homozygosity (ROH), Ts/Tv ratios, allele frequency distributions, missingness patterns, genotype probability concordance.
 
 ### Tier 3 -- Population Structure
-**Scoring**: LLM-as-judge | **Target items**: 55
+**Scoring**: LLM-as-judge | **Items**: 55
 
-PCA output interpretation, batch effect vs. real structure discrimination, ADMIXTURE Q-matrix reading, indica-japonica differentiation, subpopulation assignment logic.
+PCA interpretation (scree plots, loadings, projection, outlier diagnosis), ADMIXTURE (Q-matrix, CV error, stability, hierarchical analysis), TreeMix admixture graphs, phylogenetic trees (NJ, RAxML), IBD segment analysis, Patterson's D-statistic and local ancestry (RFMix), demographic modeling (PSMC, fastsimcoal2), population assignment, duplicate/clone detection, pedigree reconstruction, diversity panel selection.
 
 ### Tier 4 -- Methodological Decision-Making
-**Scoring**: LLM-as-judge | **Target items**: 35
+**Scoring**: LLM-as-judge | **Items**: 35
 
-When to use PCAngsd vs. PLINK PCA, GBS vs. WGS tradeoffs for population inference, Beagle imputation strategy, LD pruning for structure analyses, MAF filtering decisions.
+End-to-end pipeline design (GBS-to-GWAS), variant calling strategy (GATK vs bcftools), GWAS design with population stratification, imputation troubleshooting, genotyping platform selection (GBS vs array), selection scan design, GRM construction, heritability estimation, ADMIXTURE preprocessing, sample QC pipelines, genomic prediction model selection, phasing in selfing species, ROH parameter adaptation, LD analysis design, FST estimation methodology, demographic inference (neutral site selection), batch effect diagnosis, SNP filtering for different analyses.
 
 ---
 
@@ -107,7 +107,7 @@ tajbench/
 │   ├── schema.py              # BenchmarkItem dataclass + corpus validator
 │   └── items/
 │       ├── tier1_parsing/     # 55 VCF parsing tasks
-│       ├── tier2_statistics/  # 55 diversity/differentiation tasks
+│       ├── tier2_statistics/  # 57 diversity/differentiation tasks
 │       ├── tier3_structure/   # 55 population structure tasks
 │       └── tier4_methods/     # 35 methodological decision tasks
 ├── harness/
