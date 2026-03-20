@@ -1,0 +1,16 @@
+{
+  "id": "tier3_admix_014",
+  "tier": 3,
+  "task_type": "interpretation",
+  "data_layer": "derived",
+  "difficulty": 2,
+  "prompt": "ADMIXTURE was run at K=5 on 3,010 rice accessions using WGS data. The same analysis was repeated using only chromosome 5 SNPs. The ancestry proportions differ for some accessions between genome-wide and chr05-only analyses. Interpret why.",
+  "context": "ADMIXTURE comparison for 3 accessions:\n\nGenome-wide (205,418 LD-pruned SNPs):\n  IRIS_313-8695 (indica):  Q=(0.96, 0.01, 0.01, 0.01, 0.01)\n  IRIS_313-6291 (admixed): Q=(0.42, 0.28, 0.14, 0.08, 0.08)\n  IRIS_313-10421 (tej):    Q=(0.01, 0.02, 0.94, 0.01, 0.02)\n\nChr05-only (18,204 LD-pruned SNPs):\n  IRIS_313-8695 (indica):  Q=(0.82, 0.04, 0.08, 0.02, 0.04)\n  IRIS_313-6291 (admixed): Q=(0.58, 0.12, 0.08, 0.14, 0.08)\n  IRIS_313-10421 (tej):    Q=(0.02, 0.04, 0.88, 0.02, 0.04)\n\nChr05 features: Contains Wx gene (amylose), Sd1 (semi-dwarf), multiple domestication QTL.\nChr05 FST (indica vs tej): 0.388 (genome-wide: 0.352)",
+  "correct_answer": "The chr05-only ADMIXTURE results differ from genome-wide because chromosome 5 has a non-representative pattern of population differentiation due to strong selection at domestication loci: (1) IRIS_313-8695 (indica): Drops from 96% to 82% indica on chr05. This indicates chr05 carries introgressed japonica segments in this otherwise pure indica accession -- likely the Sd1 semi-dwarf allele from japonica was introgressed during Green Revolution breeding, creating a local ancestry mismatch. (2) IRIS_313-6291 (admixed): Shifts from 42% to 58% indica on chr05. This sample's chr05 is more indica-like than its genome average, suggesting its indica ancestry is concentrated on (or includes) chr05 haplotypes. (3) IRIS_313-10421 (tej): Relatively stable (94% to 88% temperate japonica), indicating chr05 is mostly consistent with its genome-wide ancestry, though the slight decrease may reflect shared ancestral haplotypes at domestication loci. The general pattern: chr05 has elevated FST (0.388 vs 0.352 genome-wide) from divergent selection at domestication genes, which distorts single-chromosome ADMIXTURE. Selective sweeps create local ancestry patterns that differ from the neutral genome-wide background. This is why ADMIXTURE should always be run genome-wide -- single-chromosome results reflect local selection history rather than population ancestry.",
+  "rubric": "Full marks (3): Must explain chr05's non-representative differentiation from domestication loci, interpret the indica sample's drop as introgression (possibly Sd1), and recommend genome-wide over single-chromosome ADMIXTURE. Mostly correct (2): Identifies selection as the cause but missing the introgression interpretation or practical recommendation. Partial (1): Notes results differ without explaining why. Incorrect (0): Claims chr05-only results are more accurate.",
+  "source_method": "ADMIXTURE",
+  "population_groups": ["indica", "temperate-japonica", "admixed"],
+  "scoring_method": "llm_judge",
+  "answer_pattern": "",
+  "notes": "Tests understanding of how selection distorts local ancestry inference on individual chromosomes."
+}
