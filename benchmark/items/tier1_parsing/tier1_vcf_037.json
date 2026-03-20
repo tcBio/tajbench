@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_037",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "The following imputed VCF has three samples. Rank the samples from most confident to least confident imputation based on their GP fields. Use the maximum GP value for each sample as the confidence metric.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_710\tIRIS_711\tIRIS_712\nchr06\t9281034\t.\tT\tC\t.\t.\tDR2=0.74;AF=0.27\tGT:DS:GP\t0/0:0.08:0.93,0.06,0.01\t0/1:1.15:0.11,0.63,0.26\t1/1:1.96:0.00,0.04,0.96",
+  "correct_answer": "Ranked most to least confident: 1) IRIS_712 (max GP=0.96 for 1/1), 2) IRIS_710 (max GP=0.93 for 0/0), 3) IRIS_711 (max GP=0.63 for 0/1).",
+  "rubric": "Must rank IRIS_712 > IRIS_710 > IRIS_711 and cite the correct max GP values (0.96, 0.93, 0.63).",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)IRIS_712.*IRIS_710.*IRIS_711",
+  "notes": "Tests ranking imputation confidence across multiple samples using GP fields."
+}

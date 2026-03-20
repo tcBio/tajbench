@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_032",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "Sample IRIS_422 has a half-call genotype in the following VCF record. What is the genotype, and what does a half-call indicate?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_422\tIRIS_423\nchr08\t29481023\t.\tC\tA\t1240\tPASS\tAF=0.06;AN=5980\tGT:DP:GQ\t./0:3:5\t0/0:28:88",
+  "correct_answer": "IRIS_422 has genotype ./0 -- a half-call where one allele is missing (.) and the other is the reference allele (0). This indicates insufficient evidence to call one of the two alleles, typically due to very low read depth (DP=3 in this case). The GQ=5 confirms very low confidence.",
+  "rubric": "Must identify ./0 as a half-call, explain that one allele could not be determined, and connect to low depth (DP=3) or low confidence (GQ=5).",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:\\./0|half.?call).*(?:missing|insufficient|low.*(?:depth|coverage|confidence))",
+  "notes": "Tests recognition of half-call genotypes, which are distinct from fully missing (./.) genotypes."
+}

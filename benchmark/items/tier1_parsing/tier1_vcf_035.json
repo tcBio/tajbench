@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_035",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF record contains a site where the QUAL is missing (.). What does a missing QUAL value signify, and can you still use this variant for analysis?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_770\nchr11\t4829301\t.\tA\tG\t.\tPASS\tAF=0.18;AN=6020;AC=1084\tGT:DP:GQ\t0/0:26:82",
+  "correct_answer": "A missing QUAL (.) means the variant quality score was not computed or is unavailable. This does not necessarily mean the variant is low quality -- it may occur when the caller does not produce a site-level quality score (e.g., some joint-calling pipelines or imputation outputs). Since FILTER=PASS, the variant passed whatever QC filters were applied and can be used for analysis.",
+  "rubric": "Must explain that . means missing/not computed, not that it is low quality. Must note FILTER=PASS indicates the variant is usable.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)(?:missing|not.*comput|unavailable).*(?:PASS|usable|can.*use)",
+  "notes": "Tests understanding of missing VCF fields. Common misconception: . means bad quality."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_036",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "wgs",
+  "difficulty": 2,
+  "prompt": "The following VCF record shows two samples at a biallelic site. Which sample has higher read depth, and what is the ratio of their depths?",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_480\tIRIS_481\nchr02\t24918302\t.\tG\tC\t4920\tPASS\tAF=0.21;AN=6020\tGT:GQ:DP:AD\t0/1:85:48:26,22\t0/0:99:12:12,0",
+  "correct_answer": "IRIS_480 has higher depth (DP=48 vs DP=12). Ratio: 48/12 = 4.0 (IRIS_480 has 4x the depth of IRIS_481).",
+  "rubric": "Must identify IRIS_480 as higher depth, state both DP values, and calculate ratio as 4 or 4.0.",
+  "source_method": "GATK",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)IRIS_480.*(?:48.*12|4[.0x]|four)",
+  "notes": "Tests DP comparison across samples."
+}

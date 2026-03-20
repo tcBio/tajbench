@@ -1,0 +1,16 @@
+{
+  "id": "tier1_vcf_040",
+  "tier": 1,
+  "task_type": "parsing",
+  "data_layer": "imputed",
+  "difficulty": 2,
+  "prompt": "For the following imputed VCF record, verify whether the DS (dosage) value is consistent with the GP (genotype probability) values for sample IRIS_590. DS should equal 0*P(0/0) + 1*P(0/1) + 2*P(1/1). Show your calculation.",
+  "context": "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tIRIS_590\nchr12\t8291048\t.\tA\tT\t.\t.\tDR2=0.85;AF=0.41\tGT:DS:GP\t0/1:1.18:0.06,0.70,0.24",
+  "correct_answer": "Expected DS = 0*0.06 + 1*0.70 + 2*0.24 = 0 + 0.70 + 0.48 = 1.18. The reported DS=1.18 matches exactly, so the values are consistent.",
+  "rubric": "Must show the calculation 0*0.06 + 1*0.70 + 2*0.24 = 1.18 and confirm consistency.",
+  "source_method": "Beagle5.4",
+  "population_groups": ["indica"],
+  "scoring_method": "regex_match",
+  "answer_pattern": "(?i)1\\.18.*consistent",
+  "notes": "Tests the mathematical relationship between DS and GP fields."
+}
